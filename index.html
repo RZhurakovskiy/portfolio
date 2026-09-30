@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Роман Жураковский — веб и мобильная разработка</title>
+  <meta name="description" content="Роман Жураковский — веб-разработчик и разработчик мобильных приложений. Проектирую, собираю и запускаю понятные сервисы без лишней сложности.">
+  <meta name="theme-color" content="#090A0D">
+  <script>document.documentElement.classList.add('js')</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+      <symbol id="i-layout" viewBox="0 0 24 24"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></symbol>
+      <symbol id="i-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-workflow" viewBox="0 0 24 24"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></symbol>
+      <symbol id="i-panels" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></symbol>
+      <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+      <symbol id="i-git-branch" viewBox="0 0 24 24"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+      <symbol id="i-messages" viewBox="0 0 24 24"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></symbol>
+      <symbol id="i-badge-check" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-blocks" viewBox="0 0 24 24"><rect width="7" height="7" x="14" y="3" rx="1"/><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6h4"/></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="scroll-progress" data-progress aria-hidden="true"></div>
+
+  <header class="header" data-header>
+    <div class="container header__inner">
+      <a class="logo" href="#top" aria-label="Роман Жураковский — на главную">
+        <span class="logo__mark">RZ</span>
+        <span class="logo__name">Роман Жураковский</span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация" data-nav>
+        <span class="nav__pill" aria-hidden="true"></span>
+        <a href="#expertise">Экспертиза</a>
+        <a href="#projects">Проекты</a>
+        <a href="#process">Процесс</a>
+        <a href="#about">Обо мне</a>
+      </nav>
+
+      <div class="status status--header">
+        <span class="status__dot"></span>
+        <span>Свободен для проекта</span>
+      </div>
+
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu" data-burger>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu tabindex="-1" inert aria-hidden="true">
+    <span class="blob blob--menu" aria-hidden="true"></span>
+    <nav class="mobile-menu__nav" aria-label="Мобильная навигация">
+      <a href="#expertise">Экспертиза</a>
+      <a href="#projects">Проекты</a>
+      <a href="#process">Процесс</a>
+      <a href="#about">Обо мне</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="mobile-menu__footer">
+      <div class="status">
+        <span class="status__dot"></span>
+        <span>Свободен для проекта</span>
+      </div>
+      <a class="mobile-menu__mail" href="mailto:roman@zhurakovsky.dev">roman@zhurakovsky.dev</a>
+      <a class="btn btn--primary btn--block" href="#contacts">
+        Обсудить проект
+        <svg class="icon"><use href="#i-arrow-up-right"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- Первый экран -->
+    <section class="hero" data-hero>
+      <span class="blob blob--hero-purple" data-parallax="0.25" data-mouse="40" aria-hidden="true"></span>
+      <span class="blob blob--hero-warm" data-parallax="0.4" data-mouse="-60" aria-hidden="true"></span>
+
+      <div class="container hero__message">
+        <div class="hero__role reveal">
+          <span class="eyebrow eyebrow--accent">Веб, мобайл, продукт</span>
+          <span class="eyebrow eyebrow--muted">Удалённо, UTC+3</span>
+        </div>
+
+        <h1 class="hero__title reveal">Разрабатываю цифровые продукты, которые решают задачи бизнеса.</h1>
+
+        <div class="hero__bottom reveal">
+          <div class="hero__intro">
+            <a class="person" href="#about">
+              <span class="person__photo">
+                <span class="person__crop"><img src="images/portrait.png" alt="" width="1212" height="1212"></span>
+                <span class="status__dot person__dot"></span>
+              </span>
+              <span class="person__text">
+                <strong>Роман Жураковский</strong>
+                <span>Свободен для проекта</span>
+              </span>
+            </a>
+            <p class="hero__lead">Веб-разработчик и разработчик мобильных приложений. Проектирую, собираю и запускаю понятные сервисы без лишней сложности.</p>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn--primary" href="#contacts">
+              Обсудить проект
+              <svg class="icon"><use href="#i-arrow-up-right"/></svg>
+            </a>
+            <a class="btn btn--secondary" href="#projects">
+              Смотреть работы
+              <svg class="icon"><use href="#i-arrow-down"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container hero__visual">
+        <div class="manifest reveal">
+          <ul class="tags">
+            <li class="tag tag--light">REACT / NEXT.JS</li>
+            <li class="tag tag--light">REACT NATIVE</li>
+            <li class="tag tag--light">NODE.JS</li>
+          </ul>
+          <p class="manifest__text">От первой схемы до релиза — один ответственный разработчик и прозрачный процесс.</p>
+          <a class="manifest__hint" href="#projects">
+            <svg class="icon"><use href="#i-arrow-down"/></svg>
+            Листайте к проектам
+          </a>
+        </div>
+
+        <div class="phone phone--hero reveal" data-tilt>
+          <div class="phone__screen">
+            <img src="images/hero-screen.png" alt="Экран тренировки в приложении LIVEBEAT: пульс 148 BPM" width="824" height="1834">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Экспертиза -->
+    <section class="section" id="expertise">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-head__title">
+            <span class="eyebrow eyebrow--accent eyebrow--lg">Экспертиза</span>
+            <h2 class="h2">Создаю продукт целиком, а не отдельный экран.</h2>
+          </div>
+          <p class="section-head__text">Подключаюсь там, где нужно собрать идею в понятный интерфейс, надёжный код и готовый к запуску результат.</p>
+        </div>
+
+        <div class="cards-3">
+          <article class="card expertise reveal">
+            <div class="expertise__top">
+              <span class="icon-box"><svg class="icon"><use href="#i-layout"/></svg></span>            </div>
+            <hr class="divider">
+            <h3 class="expertise__title">Веб-разработка</h3>
+            <p class="expertise__text">Лендинги, корпоративные сайты и веб-сервисы. Быстрая загрузка, адаптивность и аккуратная интеграция с вашей инфраструктурой.</p>
+            <span class="expertise__stack">Next.js, React, API</span>
+          </article>
+
+          <article class="card expertise reveal">
+            <div class="expertise__top">
+              <span class="icon-box"><svg class="icon"><use href="#i-smartphone"/></svg></span>            </div>
+            <hr class="divider">
+            <h3 class="expertise__title">Мобильные приложения</h3>
+            <p class="expertise__text">Кроссплатформенные приложения для iOS и Android — от сценариев и прототипа до публикации и поддержки после релиза.</p>
+            <span class="expertise__stack">React Native, Expo</span>
+          </article>
+
+          <article class="card expertise reveal">
+            <div class="expertise__top">
+              <span class="icon-box"><svg class="icon"><use href="#i-workflow"/></svg></span>            </div>
+            <hr class="divider">
+            <h3 class="expertise__title">Продуктовая разработка</h3>
+            <p class="expertise__text">Помогаю уточнить задачу, выбрать разумный объём первой версии и превратить идею в работающий цифровой продукт.</p>
+            <span class="expertise__stack">MVP, UX, аналитика</span>
+          </article>
+        </div>
+
+        <ul class="principles reveal">
+          <li>Прямой контакт без посредников</li>
+          <li>Прозрачные этапы и приоритеты</li>
+          <li>Код, который можно развивать</li>
+          <li>Поддержка после запуска</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Избранные работы -->
+    <section class="section section--surface projects" id="projects">
+      <span class="blob blob--projects" data-parallax="-0.2" aria-hidden="true"></span>
+
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-head__title">
+            <span class="eyebrow eyebrow--accent eyebrow--lg">Избранные работы</span>
+            <h2 class="h2">Решения для реального дела</h2>
+          </div>
+          <p class="section-head__text">Разные по масштабу продукты, в которых интерфейс, логика и техническая реализация работают как единая система.</p>
+        </div>
+
+        <div class="cases">
+
+          <!-- 01 · Pulse -->
+          <article class="case reveal">
+            <div class="case__preview" style="--preview-bg: var(--accent)">
+              <div class="window">
+                <div class="window__bar">
+                  <span class="window__dots"><i></i><i></i></span>
+                  <span class="window__label">pulse.app</span>
+                </div>
+                <img class="window__img" src="images/case-pulse.png" alt="Интерфейс Pulse: канбан-доска проекта" width="1264" height="848" loading="lazy">
+              </div>
+            </div>
+            <div class="case__info">
+              <span class="case__meta">Web app · B2B</span>
+              <h3 class="case__title">Pulse — рабочее пространство команды</h3>
+              <p class="case__text">Интерфейс для планирования задач и фиксации решений. В фокусе — спокойная визуальная иерархия, быстрые сценарии и удобная работа с большими объёмами данных.</p>
+              <ul class="tags">
+                <li class="tag">NEXT.JS</li>
+                <li class="tag">TYPESCRIPT</li>
+                <li class="tag">POSTGRESQL</li>
+              </ul>
+              <a class="link-arrow" href="#">Подробнее о решении <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+          </article>
+
+          <!-- 02 · Balance (мобильное) -->
+          <article class="case case--reverse reveal">
+            <div class="case__preview case__preview--phones" style="--preview-bg: #7B6CFF">
+              <!--
+                Чтобы вставить скриншот, добавьте внутрь .phone__screen тег:
+                <img src="images/balance-1.png" alt="Описание экрана">
+                Картинка перекроет заглушку. Пропорции экрана — 9 : 19.5 (например, 1170×2532).
+              -->
+              <div class="phone phone--case">
+                <div class="phone__screen">
+                  <div class="phone__placeholder">
+                    <svg class="icon"><use href="#i-image"/></svg>
+                    <strong>Balance</strong>
+                    <span>Скриншот экрана</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="case__info">
+              <span class="case__meta">Mobile · Wellness</span>
+              <h3 class="case__title">Balance — приложение привычек</h3>
+              <p class="case__text">Мобильный дневник для мягкого планирования дня и отслеживания регулярных действий. Простая навигация, понятные состояния и визуальная обратная связь без давления.</p>
+              <ul class="tags">
+                <li class="tag">REACT NATIVE</li>
+                <li class="tag">EXPO</li>
+                <li class="tag">FIREBASE</li>
+              </ul>
+              <a class="link-arrow" href="#">Подробнее о решении <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+          </article>
+
+          <!-- 03 · Northline -->
+          <article class="case reveal">
+            <div class="case__preview" style="--preview-bg: #E7E1D7">
+              <div class="window">
+                <div class="window__bar">
+                  <span class="window__dots"><i></i><i></i></span>
+                  <span class="window__label">northline.studio</span>
+                </div>
+                <img class="window__img" src="images/case-northline.png" alt="Сайт архитектурной студии Northline" width="1264" height="848" loading="lazy">
+              </div>
+            </div>
+            <div class="case__info">
+              <span class="case__meta">Website · Editorial</span>
+              <h3 class="case__title">Northline — сайт архитектурной студии</h3>
+              <p class="case__text">Сайт-портфолио с выразительной типографикой и акцентом на визуальный материал. Модульная система помогает редактору собирать истории проектов без участия разработчика.</p>
+              <ul class="tags">
+                <li class="tag">NEXT.JS</li>
+                <li class="tag">SANITY</li>
+                <li class="tag">GSAP</li>
+              </ul>
+              <a class="link-arrow" href="#">Подробнее о решении <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+          </article>
+
+          <!-- 04 · LIVEBEAT (мобильное) -->
+          <article class="case case--reverse reveal">
+            <div class="case__preview case__preview--phones case__preview--dark" style="--preview-bg: #0B0A0D">
+              <a class="phone phone--case" href="livebeat.html" aria-label="Открыть кейс LIVEBEAT">
+                <div class="phone__screen">
+                  <div class="phone__placeholder">
+                    <svg class="icon"><use href="#i-image"/></svg>
+                    <strong>LIVEBEAT</strong>
+                    <span>Скриншот экрана</span>
+                  </div>
+                  <img src="images/livebeat/active-outdoor.jpg" alt="LIVEBEAT: тренировка на улице, пульс 148 BPM" width="412" height="917" loading="lazy">
+                </div>
+              </a>
+            </div>
+            <div class="case__info">
+              <span class="case__meta">Mobile · Fitness</span>
+              <h3 class="case__title">LIVEBEAT — тренировки с пульсом</h3>
+              <p class="case__text">Мобильное приложение для тренировок с мониторингом ЧСС в реальном времени. Подключение к Bluetooth-пульсометрам, GPS-трекинг, зоны пульса и детальная аналитика после каждой тренировки.</p>
+              <ul class="tags">
+                <li class="tag">REACT NATIVE</li>
+                <li class="tag">EXPO</li>
+                <li class="tag">FIREBASE</li>
+              </ul>
+              <a class="link-arrow" href="livebeat.html">Подробнее о решении <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="projects__more reveal">
+          <p>В кейсах показываю не только финальный экран, но и логику решений: задачу, ограничения, архитектуру и результат.</p>
+          <a class="btn btn--secondary" href="#contacts">
+            Запросить полное портфолио
+            <svg class="icon"><use href="#i-arrow-up-right"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Стек -->
+    <section class="section section--stack">
+      <span class="blob blob--process" data-parallax="-0.2" aria-hidden="true"></span>
+
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-head__title">
+            <span class="eyebrow eyebrow--accent eyebrow--lg">Стек</span>
+            <h2 class="h2">Современный стек без погони за модой.</h2>
+          </div>
+          <p class="section-head__text">Выбираю технологии под задачу, команду и дальнейшее развитие продукта — не усложняю там, где достаточно простого решения.</p>
+        </div>
+
+        <div class="stack">
+          <div class="card stack__group reveal">
+            <div class="stack__name"><svg class="icon"><use href="#i-panels"/></svg>Frontend</div>
+            <hr class="divider">
+            <ul class="stack__list">
+              <li>TypeScript</li><li>React</li><li>Next.js</li><li>Vue</li><li>Tailwind CSS</li>
+            </ul>
+          </div>
+          <div class="card stack__group reveal">
+            <div class="stack__name"><svg class="icon"><use href="#i-smartphone"/></svg>Mobile</div>
+            <hr class="divider">
+            <ul class="stack__list">
+              <li>React Native</li><li>Expo</li><li>App Store</li><li>Google Play</li>
+            </ul>
+          </div>
+          <div class="card stack__group reveal">
+            <div class="stack__name"><svg class="icon"><use href="#i-database"/></svg>Backend &amp; Data</div>
+            <hr class="divider">
+            <ul class="stack__list">
+              <li>Node.js</li><li>PostgreSQL</li><li>REST API</li><li>Firebase</li><li>Supabase</li>
+            </ul>
+          </div>
+          <div class="card stack__group reveal">
+            <div class="stack__name"><svg class="icon"><use href="#i-git-branch"/></svg>Workflow</div>
+            <hr class="divider">
+            <ul class="stack__list">
+              <li>Figma</li><li>Git</li><li>Docker</li><li>Vercel</li><li>Analytics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Процесс -->
+    <section class="section section--accent" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-head__title">
+            <span class="eyebrow eyebrow--lg">Процесс</span>
+            <h2 class="h2">Понятно, что происходит на каждом этапе.</h2>
+          </div>
+          <p class="section-head__text">Работаю самостоятельно, но не в вакууме: регулярно показываю результат, объясняю решения и заранее подсвечиваю риски.</p>
+        </div>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <h3 class="step__title">Погружение</h3>
+            <p class="step__text">Созваниваемся, фиксируем цель, аудиторию и ограничения. На выходе — ясная постановка задачи и следующий шаг.</p>
+          </li>
+          <li class="step reveal">
+            <h3 class="step__title">Структура</h3>
+            <p class="step__text">Собираю сценарии, карту экранов и технический план. Согласуем приоритеты до начала основной разработки.</p>
+          </li>
+          <li class="step reveal">
+            <h3 class="step__title">Разработка</h3>
+            <p class="step__text">Двигаюсь короткими итерациями, показываю прогресс и подключаю обратную связь без затяжных пауз.</p>
+          </li>
+          <li class="step reveal">
+            <h3 class="step__title">Запуск</h3>
+            <p class="step__text">Тестирую ключевые сценарии, готовлю инфраструктуру и сопровождаю публикацию. После релиза остаюсь на связи.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Сотрудничество -->
+    <section class="section section--surface">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="section-head__title">
+            <span class="eyebrow eyebrow--accent eyebrow--lg">Сотрудничество</span>
+            <h2 class="h2">Спокойное сотрудничество без сюрпризов.</h2>
+          </div>
+          <p class="section-head__text">Ценю ясные договорённости, регулярную коммуникацию и результат, который можно передать команде и поддерживать.</p>
+        </div>
+
+        <div class="cards-3">
+          <article class="benefit reveal">
+            <svg class="icon benefit__icon"><use href="#i-messages"/></svg>
+            <h3 class="benefit__title">Говорю на языке задачи</h3>
+            <p class="benefit__text">Не прячу решения за техническими терминами: объясняю варианты, компромиссы и влияние на сроки.</p>
+          </article>
+          <article class="benefit reveal">
+            <svg class="icon benefit__icon"><use href="#i-badge-check"/></svg>
+            <h3 class="benefit__title">Соблюдаю качество на практике</h3>
+            <p class="benefit__text">Типизация, код-ревью самого себя, проверка адаптива и ключевых сценариев входят в обычный процесс.</p>
+          </article>
+          <article class="benefit reveal">
+            <svg class="icon benefit__icon"><use href="#i-blocks"/></svg>
+            <h3 class="benefit__title">Думаю о развитии продукта</h3>
+            <p class="benefit__text">Структурирую код и интерфейс так, чтобы следующая функция не требовала переписывать всё с нуля.</p>
+          </article>
+        </div>
+
+        <figure class="review reveal">
+          <span class="review__mark" aria-hidden="true">“</span>
+          <div class="review__body">
+            <blockquote class="review__quote">Роман быстро разобрался в контексте, предложил несколько реалистичных вариантов и держал нас в курсе на каждом этапе. В итоге мы получили именно тот продукт, который могли дальше развивать своей командой.</blockquote>
+            <figcaption class="review__author">
+              <span class="review__avatar" aria-hidden="true"></span>
+              <span>
+                <strong>Отзыв из проектной переписки</strong>
+                <small>ВЛАДЕЛЕЦ ЦИФРОВОГО ПРОДУКТА</small>
+              </span>
+            </figcaption>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section class="section section--surface about" id="about">
+      <div class="container about__inner">
+        <div class="about__photo reveal">
+          <img src="images/portrait.png" alt="Роман Жураковский" width="1212" height="1212" loading="lazy">
+        </div>
+
+        <div class="about__story reveal">
+          <span class="eyebrow-dot">Обо мне</span>
+          <h2 class="about__title">Разработка для меня — способ сделать сложное ясным.</h2>
+          <p>Я Роман Жураковский, веб- и мобильный разработчик. Работаю с небольшими командами, предпринимателями и продуктами, которым нужен самостоятельный технический партнёр. Люблю задачи на стыке интерфейса, бизнес-логики и пользовательского опыта.</p>
+          <p>Моя цель — не просто закрыть техническое задание, а помочь принять сильные продуктовые решения и собрать основу, которая не станет ограничением через полгода.</p>
+          <ul class="facts">
+            <li><svg class="icon"><use href="#i-check"/></svg>Работаю удалённо</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>Документирую решения</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>На связи после релиза</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contacts" id="contacts">
+      <span class="blob blob--cta" data-parallax="-0.2" aria-hidden="true"></span>
+
+      <div class="container contacts__inner">
+        <div class="contacts__invite reveal">
+          <span class="eyebrow-dot">Новый проект</span>
+          <h2 class="contacts__title">Есть задача? Давайте превратим её в работающий продукт.</h2>
+          <p class="contacts__text">Напишите пару слов о проекте, текущем этапе и желаемых сроках. Я отвечу, задам уточняющие вопросы и предложу понятный следующий шаг.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener">
+              Написать Роману
+              <svg class="icon"><use href="#i-send"/></svg>
+            </a>
+            <a class="btn btn--secondary" href="resume.pdf" download>
+              Скачать резюме
+              <svg class="icon"><use href="#i-download"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-card reveal">
+          <div class="contact-card__status">
+            <span class="status__dot"></span>
+            Открыт для новых задач
+          </div>
+          <hr class="divider">
+          <div class="contact-card__item">
+            <span>EMAIL</span>
+            <a href="mailto:roman@zhurakovsky.dev">roman@zhurakovsky.dev</a>
+          </div>
+          <div class="contact-card__item">
+            <span>TELEGRAM</span>
+            <a href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener">@r_zhurakovsky</a>
+          </div>
+          <div class="contact-card__note">
+            <svg class="icon"><use href="#i-clock"/></svg>
+            Обычно отвечаю в течение одного рабочего дня
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <strong>Роман Жураковский</strong>
+          <span>WEB &amp; MOBILE DEVELOPER</span>
+        </div>
+        <nav class="footer__nav" aria-label="Навигация в подвале">
+          <a href="#expertise">Экспертиза</a>
+          <a href="#projects">Проекты</a>
+          <a href="#process">Процесс</a>
+          <a href="#about">Обо мне</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+        <div class="footer__socials">
+          <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+          <a href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icon"><use href="#i-send"/></svg></a>
+        </div>
+      </div>
+      <hr class="footer__line">
+      <a class="footer__big" href="#contacts">СДЕЛАЕМ →</a>
+      <div class="footer__bottom">
+        <span>© <span data-year>2026</span> РОМАН ЖУРАКОВСКИЙ</span>
+        <span>СДЕЛАНО С ВНИМАНИЕМ К ДЕТАЛЯМ</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

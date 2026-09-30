@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>LIVEBEAT — кейс · Роман Жураковский</title>
+  <meta name="description" content="LIVEBEAT — мобильное приложение для тренировок с пульсом в реальном времени: Bluetooth-датчики, зоны ЧСС, GPS-трек, суточный мониторинг и ночной пульс.">
+  <meta name="theme-color" content="#090A0D">
+  <script>document.documentElement.classList.add('js')</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/livebeat.css">
+</head>
+<body class="lb">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+      <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+      <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+      <symbol id="i-heart-pulse" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+      <symbol id="i-navigation" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></symbol>
+      <symbol id="i-bluetooth" viewBox="0 0 24 24"><path d="m7 7 10 10-5 5V2l5 5L7 17"/></symbol>
+      <symbol id="i-trending-up" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+      <symbol id="i-drag" viewBox="0 0 24 24"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></symbol>
+      <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+      <linearGradient id="lb-grad" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#FF9A3D"/>
+        <stop offset="1" stop-color="#FF3D6E"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Док с разделами кейса -->
+  <nav class="lb-dock" aria-label="Разделы кейса" data-dock>
+    <a class="lb-dock__round lb-dock__back" href="index.html#projects" aria-label="Все проекты">
+      <svg class="icon"><use href="#i-arrow-left"/></svg>
+    </a>
+
+    <button class="lb-dock__current" type="button" aria-expanded="false" aria-controls="lb-dock-links" data-dock-toggle>
+      <span data-dock-label>Разделы</span>
+      <svg class="icon"><use href="#i-chevron-up"/></svg>
+    </button>
+
+    <div class="lb-dock__links" id="lb-dock-links" data-dock-links>
+      <span class="lb-dock__pill" aria-hidden="true"></span>
+      <a href="#overview">О проекте</a>
+      <a href="#flow">Сценарий</a>
+      <a href="#workout">Тренировка</a>
+      <a href="#monitoring">Мониторинг</a>
+      <a href="#screens">Экраны</a>
+    </div>
+
+    <a class="lb-dock__round lb-dock__pulse" href="#top" aria-label="Наверх">
+      <svg class="lb-dock__ring" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="21"/>
+        <circle cx="24" cy="24" r="21" pathLength="100" data-dock-ring/>
+      </svg>
+      <svg class="icon lb-dock__heart"><use href="#i-heart"/></svg>
+    </a>
+  </nav>
+
+  <main id="top">
+
+    <!-- Первый экран -->
+    <section class="lb-hero" data-hero>
+      <span class="blob lb-glow lb-glow--warm" data-parallax="0.12" data-mouse="50" aria-hidden="true"></span>
+      <span class="blob lb-glow lb-glow--pink" data-parallax="-0.08" data-mouse="-40" aria-hidden="true"></span>
+
+      <div class="container lb-hero__head">
+        <div class="lb-topbar reveal">
+          <a class="lb-brand" href="index.html" aria-label="Роман Жураковский — на главную">
+            <span class="lb-brand__mark">RZ</span>
+            <span class="lb-brand__name">Роман Жураковский</span>
+          </a>
+          <span class="eyebrow eyebrow--muted lb-topbar__tag">Кейс · Mobile / Wellness / Fitness</span>
+          <a class="lb-back" href="index.html#projects">
+            <svg class="icon"><use href="#i-arrow-left"/></svg>
+            Все проекты
+          </a>
+        </div>
+
+        <h1 class="lb-title reveal" aria-label="LIVEBEAT" data-split>LIVEBEAT</h1>
+
+        <div class="lb-hero__row">
+          <p class="lb-hero__lead reveal">Тренируйся с пульсом в реальном времени. Кроссплатформенное приложение, которое подключается к Bluetooth-пульсометрам, рисует GPS-трек и&nbsp;подсвечивает зону нагрузки цветом.</p>
+          <dl class="lb-meta reveal">
+            <div><dt>Роль</dt><dd>Дизайн и разработка</dd></div>
+            <div><dt>Сроки</dt><dd>3 месяца</dd></div>
+            <div><dt>Платформы</dt><dd>iOS · Android</dd></div>
+            <div><dt>Стек</dt><dd>React Native · Expo</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="lb-stage" data-stage>
+        <svg class="lb-ecg" viewBox="0 0 1600 220" preserveAspectRatio="none" aria-hidden="true">
+          <path class="lb-ecg__base" data-ecg d=""/>
+          <path class="lb-ecg__pulse" data-ecg d=""/>
+        </svg>
+
+        <div class="lb-stage__phone lb-stage__phone--o1" data-parallax="0.1">
+          <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/welcome.jpg" alt="Приветственный экран LIVEBEAT" width="412" height="917"></div></div>
+        </div>
+        <div class="lb-stage__phone lb-stage__phone--i1" data-parallax="0.05">
+          <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/sensor-found.jpg" alt="Выбор найденного пульсометра" width="412" height="917"></div></div>
+        </div>
+        <div class="lb-stage__phone lb-stage__phone--c" data-parallax="-0.04">
+          <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/active-outdoor.jpg" alt="Тренировка на улице: пульс 148 BPM" width="412" height="917"></div></div>
+        </div>
+        <div class="lb-stage__phone lb-stage__phone--i2" data-parallax="0.05">
+          <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/post-run-summary.jpg" alt="Итоги пробежки" width="412" height="936"></div></div>
+        </div>
+        <div class="lb-stage__phone lb-stage__phone--o2" data-parallax="0.1">
+          <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/history-weekly.jpg" alt="История тренировок с недельной сводкой" width="412" height="917"></div></div>
+        </div>
+
+        <div class="lb-chip lb-chip--bpm" data-parallax="-0.12" aria-hidden="true">
+          <span class="lb-chip__heart"><svg class="icon"><use href="#i-heart"/></svg></span>
+          <span class="lb-chip__value"><strong data-bpm>148</strong><small>BPM</small></span>
+          <span class="lb-zones"><i></i><i></i><i></i><i class="is-on"></i><i></i></span>
+        </div>
+        <div class="lb-chip lb-chip--sensor" data-parallax="-0.18" aria-hidden="true">
+          <span class="lb-chip__dot"></span>
+          <span><strong>Magene H64</strong><small>подключён · BLE</small></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Бегущая строка -->
+    <div class="lb-marquee" aria-hidden="true">
+      <div class="lb-marquee__track">
+        <span>Пульс в реальном времени</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Зоны ЧСС</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>GPS-трек</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Bluetooth LE</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Ночной пульс и HRV</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Без регистрации</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Пульс в реальном времени</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Зоны ЧСС</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>GPS-трек</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Bluetooth LE</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Ночной пульс и HRV</span><svg class="icon"><use href="#i-heart"/></svg>
+        <span>Без регистрации</span><svg class="icon"><use href="#i-heart"/></svg>
+      </div>
+    </div>
+
+    <!-- О проекте -->
+    <section class="lb-section lb-overview" id="overview">
+      <div class="container">
+        <div class="lb-overview__grid">
+          <div class="lb-overview__main">
+            <span class="eyebrow eyebrow--accent eyebrow--lg reveal">О проекте</span>
+            <h2 class="h2 reveal">Умное отслеживание активности</h2>
+            <p class="lb-text reveal">LIVEBEAT — мобильное приложение для тренировок с мониторингом пульса в реальном времени. Оно подключается к Bluetooth-пульсометрам, отслеживает зоны ЧСС, записывает GPS-трек, считает калории и темп. Все персональные данные обрабатываются локально на устройстве — без отправки на сторонние серверы.</p>
+          </div>
+          <ul class="lb-facts">
+            <li class="reveal"><span>Роль в проекте</span><strong>Полный цикл — от проектирования интерфейса до публикации</strong></li>
+            <li class="reveal"><span>Сроки разработки</span><strong>3 месяца интенсивной работы</strong></li>
+            <li class="reveal"><span>Датчики</span><strong>Magene, Polar, Garmin, Wahoo</strong></li>
+          </ul>
+        </div>
+
+        <ul class="lb-stats">
+          <li class="reveal"><strong><span data-count="50">50</span></strong><span>экранов и состояний</span></li>
+          <li class="reveal"><strong><span data-count="5">5</span></strong><span>зон пульса с цветовой кодировкой</span></li>
+          <li class="reveal"><strong><span data-count="24">24</span><small>ч</small></strong><span>непрерывного мониторинга</span></li>
+          <li class="reveal"><strong><span data-count="0">0</span></strong><span>облачных серверов — всё локально</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Задача -->
+    <section class="lb-section lb-challenge">
+      <div class="container">
+        <div class="lb-challenge__head">
+          <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Задача</span>
+          <h2 class="lb-display reveal">Читаемость <em>на бегу</em></h2>
+          <div class="lb-challenge__text">
+            <p class="lb-text lb-text--lg reveal">Спортсмен во время интенсивного бега не может концентрироваться на мелких элементах экрана. Главный вызов — показать критичные параметры в агрессивной физической среде.</p>
+            <p class="lb-text reveal">Интерфейс должен быть максимально контрастным: огромные цифры пульса, яркие цвета аэробной зоны, которые считываются периферийным зрением, и запуск тренировки в один тап.</p>
+          </div>
+        </div>
+
+        <div class="lb-anno reveal" data-anno>
+          <div class="phone phone--lb lb-anno__phone">
+            <div class="phone__screen">
+              <img src="images/livebeat/active-outdoor.jpg" alt="Экран тренировки с пояснениями" width="412" height="917" loading="lazy">
+              <span class="lb-anno__dot" style="--x:.3;--y:19.5%"></span>
+              <span class="lb-anno__dot" style="--x:.2;--y:30%"></span>
+              <span class="lb-anno__dot" style="--x:.14;--y:66%"></span>
+              <span class="lb-anno__dot" style="--x:.84;--y:7%"></span>
+              <span class="lb-anno__dot" style="--x:.8;--y:45%"></span>
+              <span class="lb-anno__dot" style="--x:.6;--y:92%"></span>
+            </div>
+          </div>
+          <div class="lb-anno__note lb-anno__note--l" style="--x:.3;--y:19.5%">
+            <strong>Пульс — главный герой</strong>
+            <span>Цифры в треть ширины экрана читаются с вытянутой руки</span>
+          </div>
+          <div class="lb-anno__note lb-anno__note--l" style="--x:.2;--y:30%">
+            <strong>Зона в цвете</strong>
+            <span>Оранжевая плашка ловится периферийным зрением</span>
+          </div>
+          <div class="lb-anno__note lb-anno__note--l" style="--x:.14;--y:66%">
+            <strong>Метрики в сетке</strong>
+            <span>Время, дистанция, средний пульс и темп — без прокрутки</span>
+          </div>
+          <div class="lb-anno__note lb-anno__note--r" style="--x:.84;--y:7%">
+            <strong>Статус GPS</strong>
+            <span>Качество сигнала всегда на виду</span>
+          </div>
+          <div class="lb-anno__note lb-anno__note--r" style="--x:.8;--y:45%">
+            <strong>Живой трек</strong>
+            <span>Маршрут рисуется поверх карты во время бега</span>
+          </div>
+          <div class="lb-anno__note lb-anno__note--r" style="--x:.6;--y:92%">
+            <strong>Пауза удержанием</strong>
+            <span>Защита от случайного касания мокрыми пальцами</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Сценарий: закреплённый телефон -->
+    <section class="lb-section lb-flow" id="flow">
+      <div class="container">
+        <div class="lb-section-head">
+          <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Сценарий</span>
+          <h2 class="h2 reveal">От первого запуска до&nbsp;истории тренировок</h2>
+        </div>
+
+        <div class="lb-flow__grid">
+          <div class="lb-flow__stage" aria-hidden="true">
+            <div class="lb-flow__sticky">
+              <span class="lb-flow__halo"></span>
+              <div class="phone phone--lb lb-flow__phone">
+                <div class="phone__screen" data-flow-screens>
+                  <img src="images/livebeat/preloader.jpg" alt="" width="412" height="917" class="is-active">
+                  <img src="images/livebeat/welcome.jpg" alt="" width="412" height="917" loading="lazy">
+                  <img src="images/livebeat/setup-filled.jpg" alt="" width="412" height="917" loading="lazy">
+                  <img src="images/livebeat/sensor-scanning.jpg" alt="" width="412" height="917" loading="lazy">
+                  <img src="images/livebeat/sensor-found.jpg" alt="" width="412" height="917" loading="lazy">
+                  <img src="images/livebeat/mode-outdoor-active.jpg" alt="" width="412" height="917" loading="lazy">
+                  <img src="images/livebeat/active-outdoor.jpg" alt="" width="412" height="917" loading="lazy">
+                  <img src="images/livebeat/post-run-summary.jpg" alt="" width="412" height="936" loading="lazy">
+                  <img src="images/livebeat/history-weekly.jpg" alt="" width="412" height="917" loading="lazy">
+                </div>
+              </div>
+              <div class="lb-flow__rail"><span data-flow-bar></span></div>
+            </div>
+          </div>
+
+          <ol class="lb-flow__steps">
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/preloader.jpg" alt="Прелоадер LIVEBEAT" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Запуск</span>
+              <h3 class="lb-step__title">Бренд с первой секунды</h3>
+              <p class="lb-step__text">Градиентное кольцо пульса на прелоадере задаёт визуальный язык. Тот же градиент дальше отмечает главное действие на каждом экране.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/welcome.jpg" alt="Приветственный экран" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Приветствие</span>
+              <h3 class="lb-step__title">Одна кнопка вместо регистрации</h3>
+              <p class="lb-step__text">Никаких аккаунтов и паролей: пользователь сразу переходит к настройке, а данные остаются на устройстве.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/setup-filled.jpg" alt="Заполненный экран настройки" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Настройка</span>
+              <h3 class="lb-step__title">Профиль и разрешения на одном экране</h3>
+              <p class="lb-step__text">Вес, возраст и пол нужны для расчёта калорий и зон. Bluetooth, GPS и уведомления включаются тумблерами, готовые блоки загораются зелёным.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/sensor-scanning.jpg" alt="Поиск датчика" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Поиск датчика</span>
+              <h3 class="lb-step__title">Радар вместо спиннера</h3>
+              <p class="lb-step__text">Пульсирующее кольцо показывает, что приложение слушает эфир и ищет пульсометры рядом по Bluetooth Low Energy.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/sensor-found.jpg" alt="Список найденных датчиков" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Сопряжение</span>
+              <h3 class="lb-step__title">Magene, Polar, Garmin — в один тап</h3>
+              <p class="lb-step__text">Найденные устройства идут списком с уровнем сигнала. Выбранный датчик подсвечивается, подключение — одной кнопкой.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/mode-outdoor-active.jpg" alt="Выбор режима тренировки" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Режим</span>
+              <h3 class="lb-step__title">Улица или беговая дорожка</h3>
+              <p class="lb-step__text">Две крупные карточки. На улице включается запись GPS-трека, на дорожке — подсчёт каденса и мониторинг ЧСС.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/active-outdoor.jpg" alt="Экран тренировки" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">Тренировка</span>
+              <h3 class="lb-step__title">Пульс, который видно на бегу</h3>
+              <p class="lb-step__text">148 BPM читаются с расстояния вытянутой руки, зона подсвечена цветом, трек рисуется в реальном времени.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/post-run-summary.jpg" alt="Итоги тренировки" width="412" height="936" loading="lazy"></div></div>
+              <span class="lb-step__tag">Итоги</span>
+              <h3 class="lb-step__title">Разбор после финиша</h3>
+              <p class="lb-step__text">Дистанция, время, средний пульс, калории и маршрут. Распределение по зонам показывает, как на самом деле прошла нагрузка.</p>
+            </li>
+            <li class="lb-step" data-flow-step>
+              <div class="phone phone--lb lb-step__phone"><div class="phone__screen"><img src="images/livebeat/history-weekly.jpg" alt="История тренировок" width="412" height="917" loading="lazy"></div></div>
+              <span class="lb-step__tag">История</span>
+              <h3 class="lb-step__title">Прогресс за неделю</h3>
+              <p class="lb-step__text">Недельная сводка в градиенте бренда, фильтры по типу тренировки и лента всех сессий.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Сравнение состояний -->
+    <section class="lb-section lb-compare-section">
+      <div class="container">
+        <div class="lb-section-head lb-section-head--row">
+          <div>
+            <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Состояния</span>
+            <h2 class="h2 reveal">Потяните, чтобы сравнить</h2>
+          </div>
+          <p class="lb-text reveal">Каждый экран живёт в нескольких состояниях. Настройка постепенно зеленеет по мере заполнения, а экран тренировки я проработал в двух визуальных подходах.</p>
+        </div>
+
+        <div class="lb-compares">
+          <figure class="lb-compare-card reveal">
+            <div class="lb-compare" data-compare style="--pos:50%">
+              <div class="phone phone--lb">
+                <div class="phone__screen">
+                  <img src="images/livebeat/setup-empty.jpg" alt="Настройка: пустое состояние" width="412" height="917" loading="lazy">
+                  <img class="lb-compare__top" src="images/livebeat/setup-filled.jpg" alt="Настройка: всё заполнено" width="412" height="917" loading="lazy">
+                </div>
+              </div>
+              <span class="lb-compare__handle" aria-hidden="true"><svg class="icon"><use href="#i-drag"/></svg></span>
+              <input class="lb-compare__range" type="range" min="0" max="100" value="50" aria-label="Сравнение: пустая и заполненная настройка">
+            </div>
+            <figcaption>
+              <span class="lb-compare__label">Пусто</span>
+              <strong>Настройка</strong>
+              <span class="lb-compare__label lb-compare__label--on">Готово</span>
+            </figcaption>
+          </figure>
+
+          <figure class="lb-compare-card reveal">
+            <div class="lb-compare" data-compare style="--pos:50%">
+              <div class="phone phone--lb">
+                <div class="phone__screen">
+                  <img src="images/livebeat/screen-3.jpg" alt="Тренировка: вариант с градиентом" width="412" height="917" loading="lazy">
+                  <img class="lb-compare__top" src="images/livebeat/active-outdoor.jpg" alt="Тренировка: контрастный вариант" width="412" height="917" loading="lazy">
+                </div>
+              </div>
+              <span class="lb-compare__handle" aria-hidden="true"><svg class="icon"><use href="#i-drag"/></svg></span>
+              <input class="lb-compare__range" type="range" min="0" max="100" value="50" aria-label="Сравнение двух вариантов экрана тренировки">
+            </div>
+            <figcaption>
+              <span class="lb-compare__label">Градиент</span>
+              <strong>Тренировка</strong>
+              <span class="lb-compare__label lb-compare__label--on">Контраст</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Режимы тренировки -->
+    <section class="lb-section lb-modes" id="workout" data-modes>
+      <span class="blob lb-glow lb-glow--modes" data-parallax="0.08" aria-hidden="true"></span>
+      <div class="container">
+        <div class="lb-section-head lb-section-head--center">
+          <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Тренировка</span>
+          <h2 class="h2 reveal">Два режима — один понятный цикл</h2>
+          <div class="lb-seg reveal" role="tablist" aria-label="Режим тренировки">
+            <span class="lb-seg__pill" aria-hidden="true"></span>
+            <button type="button" role="tab" aria-selected="true" data-mode-btn="outdoor">
+              <svg class="icon"><use href="#i-navigation"/></svg>На улице
+            </button>
+            <button type="button" role="tab" aria-selected="false" data-mode-btn="treadmill">
+              <svg class="icon"><use href="#i-activity"/></svg>Беговая дорожка
+            </button>
+          </div>
+        </div>
+
+        <div class="lb-modes__row">
+          <figure class="lb-mode reveal">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img data-mode="outdoor" class="is-active" src="images/livebeat/mode-outdoor-active.jpg" alt="Выбор режима: на улице" width="412" height="917" loading="lazy">
+                <img data-mode="treadmill" src="images/livebeat/mode-treadmill-active.jpg" alt="Выбор режима: беговая дорожка" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <figcaption><strong>Выбор режима</strong><span data-mode-text="outdoor">Запись трека по GPS</span><span data-mode-text="treadmill">Каденс вместо карты</span></figcaption>
+          </figure>
+          <figure class="lb-mode lb-mode--main reveal">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img data-mode="outdoor" class="is-active" src="images/livebeat/active-outdoor.jpg" alt="Тренировка на улице" width="412" height="917" loading="lazy">
+                <img data-mode="treadmill" src="images/livebeat/active-treadmill.jpg" alt="Тренировка на беговой дорожке" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <figcaption><strong>Во время тренировки</strong><span data-mode-text="outdoor">Пульс, зона и живой маршрут</span><span data-mode-text="treadmill">Пульс, график ЧСС и калории</span></figcaption>
+          </figure>
+          <figure class="lb-mode reveal">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img data-mode="outdoor" class="is-active" src="images/livebeat/summary-outdoor.jpg" alt="Итоги тренировки на улице" width="412" height="936" loading="lazy">
+                <img data-mode="treadmill" src="images/livebeat/treadmill-summary.jpg" alt="Итоги бега на дорожке" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <figcaption><strong>Итоги</strong><span data-mode-text="outdoor">Маршрут и пять зон пульса</span><span data-mode-text="treadmill">Темп, наклон и график нагрузки</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Нештатные ситуации -->
+    <section class="lb-section lb-edge">
+      <div class="container">
+        <div class="lb-section-head lb-section-head--row">
+          <div>
+            <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Нештатные ситуации</span>
+            <h2 class="h2 reveal">Когда что-то идёт не&nbsp;так</h2>
+          </div>
+          <p class="lb-text reveal">Сигнал теряется, ремень сползает, датчик садится. Тренировка при этом не должна обрываться, а пользователь — гадать, что случилось. Для тревожных баннеров сделал два уровня подачи — переключайте.</p>
+        </div>
+
+        <div class="lb-edge__grid">
+          <article class="lb-edge-card reveal" data-edge style="--tone:#3B82F6">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img class="is-active" src="images/livebeat/active-outdoor-gps-waiting.jpg" alt="Ожидание GPS-сигнала, приглушённый баннер" width="412" height="917" loading="lazy">
+                <img src="images/livebeat/banner-gps-waiting.jpg" alt="Ожидание GPS-сигнала, яркий баннер" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <div class="lb-edge-card__body">
+              <span class="lb-edge-card__tone"></span>
+              <h3>Ожидание GPS</h3>
+              <p>Пока спутники не найдены, карта честно говорит, что трек недоступен, а пульс продолжает записываться.</p>
+              <div class="lb-toggle" role="group" aria-label="Вариант баннера">
+                <button type="button" aria-pressed="true">Спокойный</button>
+                <button type="button" aria-pressed="false">Яркий</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="lb-edge-card reveal" data-edge style="--tone:#FF3D5E">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img class="is-active" src="images/livebeat/active-outdoor-no-contact.jpg" alt="Нет контакта с кожей, приглушённый баннер" width="412" height="917" loading="lazy">
+                <img src="images/livebeat/banner-no-skin-contact.jpg" alt="Нет контакта с кожей, яркий баннер" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <div class="lb-edge-card__body">
+              <span class="lb-edge-card__tone"></span>
+              <h3>Нет контакта с кожей</h3>
+              <p>Датчик на месте, но не касается кожи. Баннер просит поправить ремень, а шумные данные не попадают в статистику.</p>
+              <div class="lb-toggle" role="group" aria-label="Вариант баннера">
+                <button type="button" aria-pressed="true">Спокойный</button>
+                <button type="button" aria-pressed="false">Яркий</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="lb-edge-card reveal" data-edge style="--tone:#F5A524">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img class="is-active" src="images/livebeat/active-outdoor-sensor-lost.jpg" alt="Датчик потерян, приглушённый баннер" width="412" height="917" loading="lazy">
+                <img src="images/livebeat/banner-sensor-lost.jpg" alt="Датчик потерян, яркий баннер" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <div class="lb-edge-card__body">
+              <span class="lb-edge-card__tone"></span>
+              <h3>Датчик потерян</h3>
+              <p>Связь пропала — приложение само переподключается в фоне, тренировка не прерывается ни на секунду.</p>
+              <div class="lb-toggle" role="group" aria-label="Вариант баннера">
+                <button type="button" aria-pressed="true">Спокойный</button>
+                <button type="button" aria-pressed="false">Яркий</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="lb-edge-card reveal" data-edge style="--tone:#EF4444">
+            <div class="phone phone--lb">
+              <div class="phone__screen">
+                <img class="is-active" src="images/livebeat/sensor-error.jpg" alt="Не удалось подключиться к датчику" width="412" height="917" loading="lazy">
+                <img src="images/livebeat/sensor-search-error.jpg" alt="Ошибка подключения, вариант экрана поиска" width="412" height="917" loading="lazy">
+              </div>
+            </div>
+            <div class="lb-edge-card__body">
+              <span class="lb-edge-card__tone"></span>
+              <h3>Не удалось подключиться</h3>
+              <p>Понятный выход из тупика: повторить попытку или выбрать другой датчик из списка.</p>
+              <div class="lb-toggle" role="group" aria-label="Вариант экрана">
+                <button type="button" aria-pressed="true">Сопряжение</button>
+                <button type="button" aria-pressed="false">Поиск</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Мониторинг -->
+    <section class="lb-section lb-monitor" id="monitoring">
+      <span class="blob lb-glow lb-glow--blue" data-parallax="0.1" aria-hidden="true"></span>
+      <span class="blob lb-glow lb-glow--violet" data-parallax="-0.06" aria-hidden="true"></span>
+      <div class="container">
+        <div class="lb-section-head lb-section-head--row">
+          <div>
+            <span class="eyebrow lb-eyebrow-blue eyebrow--lg reveal">За пределами тренировки</span>
+            <h2 class="h2 reveal">Суточный мониторинг и&nbsp;ночной пульс</h2>
+          </div>
+          <p class="lb-text reveal">Режим для тех, кто следит за восстановлением. Пульс в покое, вариабельность ритма (HRV) и сон — в спокойной сине-фиолетовой палитре, чтобы экран не бил по глазам ночью.</p>
+        </div>
+      </div>
+
+      <div class="lb-rail" data-rail>
+        <ul class="lb-rail__track" data-rail-track>
+          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-idle.jpg" alt="Мониторинг: старт" width="412" height="917" loading="lazy"></div></div><strong>Старт</strong><span>Одна кнопка — и запись пошла</span></li>
+          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/daily-monitoring-active.jpg" alt="Суточный мониторинг активен" width="412" height="917" loading="lazy"></div></div><strong>Суточная запись</strong><span>Пульс в фоне весь день</span></li>
+          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-active.jpg" alt="Пульс в покое и HRV" width="412" height="917" loading="lazy"></div></div><strong>Пульс и HRV</strong><span>72 BPM и 48 мс вариабельности</span></li>
+          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/daily-monitoring-paused.jpg" alt="Суточный мониторинг на паузе" width="412" height="917" loading="lazy"></div></div><strong>Пауза</strong><span>Данные дня сохраняются</span></li>
+          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-paused.jpg" alt="Мониторинг на паузе" width="412" height="917" loading="lazy"></div></div><strong>Пауза в покое</strong><span>Продолжить с того же места</span></li>
+          <li class="lb-rail__item lb-rail__item--night"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/night-pulse.jpg" alt="Ночной пульс" width="412" height="975" loading="lazy"></div></div><strong>Ночной пульс</strong><span>52 BPM и RMSSD во сне</span></li>
+          <li class="lb-rail__item lb-rail__item--night"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/night-pulse-hrv.jpg" alt="Ночной пульс и HRV" width="412" height="917" loading="lazy"></div></div><strong>HRV ночью</strong><span>Индикатор восстановления</span></li>
+          <li class="lb-rail__item lb-rail__item--night"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/sleep-monitoring.jpg" alt="Мониторинг сна" width="412" height="917" loading="lazy"></div></div><strong>Спокойный отдых</strong><span>Минимум, среднее и максимум за ночь</span></li>
+          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-history.jpg" alt="История мониторинга" width="412" height="917" loading="lazy"></div></div><strong>История сессий</strong><span>Сон и день, экспорт в CSV</span></li>
+        </ul>
+      </div>
+
+      <div class="container lb-rail__controls">
+        <div class="lb-rail__progress"><span data-rail-bar></span></div>
+        <div class="lb-rail__btns">
+          <button type="button" class="lb-round" data-rail-prev aria-label="Назад"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
+          <button type="button" class="lb-round" data-rail-next aria-label="Вперёд"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Возможности -->
+    <section class="lb-section lb-features">
+      <div class="container">
+        <div class="lb-section-head">
+          <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Что умеет приложение</span>
+          <h2 class="h2 reveal">Функциональные возможности</h2>
+        </div>
+        <ul class="lb-features__grid" data-spotlight>
+          <li class="lb-feature reveal">
+            <span class="lb-feature__icon"><svg class="icon"><use href="#i-heart-pulse"/></svg></span>
+            <h3>Пульс в реальном времени</h3>
+            <p>Зоны ЧСС рассчитываются индивидуально и помогают держаться в правильном коридоре нагрузки.</p>
+          </li>
+          <li class="lb-feature reveal">
+            <span class="lb-feature__icon"><svg class="icon"><use href="#i-navigation"/></svg></span>
+            <h3>Точный GPS-трекинг</h3>
+            <p>Оптимизированная запись трека с минимальным фоновым расходом батареи.</p>
+          </li>
+          <li class="lb-feature reveal">
+            <span class="lb-feature__icon"><svg class="icon"><use href="#i-bluetooth"/></svg></span>
+            <h3>BLE-датчики</h3>
+            <p>Мгновенное сопряжение с пульсометрами Magene, Polar, Garmin и Wahoo по Bluetooth Low Energy.</p>
+          </li>
+          <li class="lb-feature reveal">
+            <span class="lb-feature__icon"><svg class="icon"><use href="#i-trending-up"/></svg></span>
+            <h3>Глубокая аналитика</h3>
+            <p>Графики распределения по зонам, калории и темп на каждом километре.</p>
+          </li>
+          <li class="lb-feature reveal">
+            <span class="lb-feature__icon"><svg class="icon"><use href="#i-lock"/></svg></span>
+            <h3>Локальная приватность</h3>
+            <p>Тренировки и биометрия хранятся только на смартфоне, без передачи в облако.</p>
+          </li>
+          <li class="lb-feature reveal">
+            <span class="lb-feature__icon"><svg class="icon"><use href="#i-moon"/></svg></span>
+            <h3>Сон и восстановление</h3>
+            <p>Ночной пульс и HRV показывают, насколько организм отдохнул перед следующей тренировкой.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Пустые состояния -->
+    <section class="lb-section lb-empty">
+      <div class="container">
+        <div class="lb-empty__inner">
+          <div class="lb-empty__text">
+            <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Детали</span>
+            <h2 class="h2 reveal">Пустой экран — тоже интерфейс</h2>
+            <p class="lb-text reveal">Первое открытие истории не должно выглядеть как ошибка. Каждое пустое состояние объясняет, что здесь появится, и ведёт к действию, которое это исправит.</p>
+          </div>
+          <div class="lb-empty__phones">
+            <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/history-empty.jpg" alt="Пустая история тренировок" width="412" height="917" loading="lazy"></div></div>
+            <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/empty-state-workouts.jpg" alt="Пока нет тренировок" width="412" height="917" loading="lazy"></div></div>
+            <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/monitoring-history-empty.jpg" alt="Пустая история мониторинга" width="412" height="917" loading="lazy"></div></div>
+            <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/empty-state-monitoring.jpg" alt="Нет сессий мониторинга" width="412" height="917" loading="lazy"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Технические решения -->
+    <section class="lb-section lb-tech">
+      <div class="container">
+        <div class="lb-section-head">
+          <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Технические решения</span>
+          <h2 class="h2 reveal">Надёжная архитектура</h2>
+        </div>
+        <div class="lb-tech__grid">
+          <ul class="lb-tech__cards">
+            <li class="reveal"><strong>React Native &amp; Expo</strong><p>Кроссплатформенность, быстрые итерации и стабильная производительность интерфейса.</p></li>
+            <li class="reveal"><strong>Native BLE Modules</strong><p>Нативный мост для высокочастотного и надёжного получения пакетов сердечного ритма.</p></li>
+            <li class="reveal"><strong>Background GPS API</strong><p>Фоновое отслеживание с фильтрацией шумов координат для точного трека.</p></li>
+            <li class="reveal"><strong>SQLite Local Storage</strong><p>Быстрая локальная база для истории и посекундных записей пульса.</p></li>
+          </ul>
+          <figure class="lb-tech__device reveal">
+            <div class="lb-tech__phones">
+              <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/xiaomi-settings.jpg" alt="Настройка работы в фоне для Xiaomi" width="412" height="917" loading="lazy"></div></div>
+              <div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/xiaomi-background-settings.jpg" alt="Разрешения автозапуска и батареи" width="412" height="917" loading="lazy"></div></div>
+            </div>
+            <figcaption>
+              <strong>Отдельный сценарий для MIUI и HyperOS</strong>
+              <span>Прошивки Xiaomi агрессивно убивают фоновые процессы. Приложение само ведёт пользователя к нужным пунктам автозапуска и батареи, чтобы запись не обрывалась.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Все экраны -->
+    <section class="lb-section lb-gallery" id="screens">
+      <div class="container">
+        <div class="lb-section-head lb-section-head--row">
+          <div>
+            <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Все экраны</span>
+            <h2 class="h2 reveal">Полная карта интерфейса</h2>
+          </div>
+          <p class="lb-text reveal">Все экраны и состояния, которые вошли в приложение. Нажмите на любой, чтобы рассмотреть поближе.</p>
+        </div>
+
+        <div class="lb-filters reveal" role="tablist" aria-label="Фильтр экранов" data-filters></div>
+        <ul class="lb-gallery__grid" data-gallery></ul>
+      </div>
+    </section>
+
+    <!-- Результат -->
+    <section class="lb-section lb-result">
+      <div class="container">
+        <div class="lb-result__inner">
+          <div>
+            <span class="eyebrow eyebrow--accent eyebrow--lg reveal">Результат</span>
+            <h2 class="lb-display reveal">Готово к&nbsp;<em>использованию</em></h2>
+          </div>
+          <div class="lb-result__text">
+            <p class="lb-text lb-text--lg reveal">LIVEBEAT доступен на iOS и Android. Первые пользователи отметили отсутствие обязательной регистрации и моментальное подключение к нагрудным пульсометрам.</p>
+            <p class="lb-text reveal">Достигнуто стабильное получение биометрии в фоне на протяжении всей тренировки — без зависаний интерфейса и вылетов записи геолокации.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="lb-cta">
+      <span class="blob lb-glow lb-glow--cta" data-parallax="0.1" aria-hidden="true"></span>
+      <div class="container lb-cta__inner">
+        <h2 class="lb-cta__title reveal">Хотите запустить технологичный цифровой продукт?</h2>
+        <p class="lb-cta__text reveal">Напишите мне — обсудим идею, составим технический план, выберем стек и запустим понятный сервис.</p>
+        <div class="actions reveal">
+          <a class="btn lb-btn-light" href="index.html#contacts">Обсудить задачу <svg class="icon"><use href="#i-send"/></svg></a>
+          <a class="btn lb-btn-ghost" href="index.html#projects">Другие проекты <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lb-foot">
+    <div class="container">
+      <div class="lb-foot__bar">
+        <a class="lb-brand" href="index.html" aria-label="Роман Жураковский — на главную">
+          <span class="lb-brand__mark">RZ</span>
+          <span class="lb-brand__text">
+            <strong>Роман Жураковский</strong>
+            <small>Web &amp; mobile</small>
+          </span>
+        </a>
+        <div class="lb-foot__links">
+          <a href="mailto:roman@zhurakovsky.dev">roman@zhurakovsky.dev</a>
+          <a href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener">Telegram</a>
+          <a href="index.html#projects">Другие проекты</a>
+        </div>
+      </div>
+      <p class="lb-foot__wordmark" aria-hidden="true">LIVE<span>BEAT</span></p>
+      <div class="lb-foot__meta">
+        <span>© <span data-year>2026</span> Роман Жураковский</span>
+        <span>Кейс · Mobile / Fitness</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Просмотр экрана -->
+  <div class="lb-lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Просмотр экрана">
+    <button type="button" class="lb-lightbox__backdrop" data-lb-close aria-label="Закрыть"></button>
+    <div class="lb-lightbox__body">
+      <button type="button" class="lb-round lb-lightbox__nav lb-lightbox__nav--prev" data-lb-prev aria-label="Предыдущий экран"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
+      <figure class="lb-lightbox__figure">
+        <div class="phone phone--lb lb-lightbox__phone"><div class="phone__screen"><img data-lb-img src="" alt=""></div></div>
+        <figcaption><span data-lb-group></span><strong data-lb-title></strong></figcaption>
+      </figure>
+      <button type="button" class="lb-round lb-lightbox__nav lb-lightbox__nav--next" data-lb-next aria-label="Следующий экран"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
+      <button type="button" class="lb-round lb-lightbox__close" data-lb-close aria-label="Закрыть"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/livebeat.js" defer></script>
+</body>
+</html>
