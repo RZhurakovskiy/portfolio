@@ -77,22 +77,6 @@ html:has(body.lb) { scroll-padding-bottom: 96px; }
   background: rgba(255, 106, 85, 0.16);
   animation: blob-b 30s var(--ease-in-out) infinite alternate;
 }
-.lb-glow--blue {
-  top: -80px;
-  left: -120px;
-  width: 620px;
-  height: 620px;
-  background: rgba(59, 130, 246, 0.24);
-  animation: blob-a 26s var(--ease-in-out) infinite alternate;
-}
-.lb-glow--violet {
-  bottom: -140px;
-  right: -80px;
-  width: 620px;
-  height: 620px;
-  background: rgba(139, 92, 246, 0.24);
-  animation: blob-b 24s var(--ease-in-out) infinite alternate;
-}
 .lb-glow--cta {
   top: 10%;
   left: 50%;
@@ -273,8 +257,8 @@ body.is-locked .lb-dock { opacity: 0; pointer-events: none; }
 .lb-dock__ring circle:first-child { stroke: rgba(255, 255, 255, 0.1); }
 .lb-dock__ring circle:last-child {
   stroke: url(#lb-grad);
-  stroke-dasharray: 132;
-  stroke-dashoffset: calc(132 - var(--p, 0) * 132);
+  stroke-dasharray: 100; /* совпадает с pathLength="100" у circle */
+  stroke-dashoffset: calc(100 - var(--p, 0) * 100);
   stroke-linecap: round;
   transition: stroke-dashoffset 0.2s linear;
 }
@@ -579,13 +563,20 @@ body.is-locked .lb-dock { opacity: 0; pointer-events: none; }
 .lb-challenge__head > .eyebrow { grid-column: 1 / -1; }
 .lb-challenge__text { display: flex; flex-direction: column; gap: 20px; }
 
-.lb-anno { --pw: 340px; position: relative; margin-top: 24px; }
+.lb-anno {
+  --pw: 340px;
+  --bez: 8px;
+  /* высота экрана без рамки — общая система координат для точек и подписей */
+  --sh: calc(var(--pw) * 917 / 412 - var(--bez) * 2);
+  position: relative;
+  margin-top: 24px;
+}
 .lb-anno__phone { --phone-w: var(--pw); margin: 0 auto; }
 .js .lb-anno.reveal { opacity: 1; transform: none; }
 
 .lb-anno__dot {
   position: absolute;
-  top: var(--y);
+  top: calc(var(--y) * 100%);
   left: calc(var(--x) * 100%);
   z-index: 4;
   width: 12px;
@@ -607,7 +598,7 @@ body.is-locked .lb-dock { opacity: 0; pointer-events: none; }
 .lb-anno__note {
   --gap: 56px;
   position: absolute;
-  top: var(--y);
+  top: calc(var(--bez) + var(--y) * var(--sh));
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -937,68 +928,6 @@ body.is-locked .lb-dock { opacity: 0; pointer-events: none; }
 .lb-toggle button[aria-pressed="true"] { background: var(--surface-3); color: var(--text); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 50%, transparent); }
 
 /* ==========================================================================
-   Мониторинг
-   ========================================================================== */
-.lb-monitor {
-  background: linear-gradient(180deg, var(--bg) 0%, #0A0E1C 30%, #0D0A1C 75%, var(--bg) 100%);
-  overflow: hidden;
-}
-.lb-eyebrow-blue { color: var(--lb-blue); }
-
-.lb-rail {
-  position: relative;
-  z-index: 1;
-  margin-top: 56px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--rail-pad);
-  scrollbar-width: none;
-  --rail-pad: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
-}
-.lb-rail::-webkit-scrollbar { display: none; }
-.lb-rail.is-dragging { scroll-snap-type: none; cursor: grabbing; }
-@media (hover: hover) and (pointer: fine) { .lb-rail { cursor: grab; } }
-
-.lb-rail__track {
-  display: flex;
-  gap: 28px;
-  width: max-content;
-  padding: 12px var(--rail-pad) 24px;
-}
-
-.lb-rail__item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 260px;
-  scroll-snap-align: start;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.lb-rail__item img { pointer-events: none; }
-.lb-rail__item .phone {
-  --phone-w: 100%;
-  margin-bottom: 16px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -20px rgba(59, 130, 246, 0.35);
-  transition: transform 0.6s var(--ease-out);
-}
-.lb-rail__item--night .phone { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -20px rgba(139, 92, 246, 0.5); }
-.lb-rail__item:hover .phone { transform: translateY(-8px); }
-.lb-rail__item strong { font-size: 17px; font-weight: 500; }
-.lb-rail__item span { color: var(--text-2); font-size: 14px; }
-
-.lb-rail__controls { position: relative; z-index: 1; display: flex; align-items: center; gap: 32px; margin-top: 24px; }
-.lb-rail__progress { position: relative; flex: 1; height: 2px; overflow: hidden; border-radius: 2px; background: var(--line); }
-.lb-rail__progress span {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--lb-blue), var(--lb-violet));
-  transform-origin: left;
-  transform: scaleX(var(--progress, 0));
-}
-.lb-rail__btns { display: flex; gap: 10px; }
-
-/* ==========================================================================
    Возможности
    ========================================================================== */
 .lb-features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -1046,7 +975,7 @@ body.is-locked .lb-dock { opacity: 0; pointer-events: none; }
 .lb-empty { border-top: 1px solid var(--line); }
 .lb-empty__inner { display: grid; grid-template-columns: 1fr 1.7fr; align-items: center; gap: 72px; }
 .lb-empty__text { display: flex; flex-direction: column; gap: 22px; }
-.lb-empty__phones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; align-items: start; }
+.lb-empty__phones { display: grid; grid-template-columns: repeat(2, minmax(0, 190px)); justify-content: center; gap: 18px; align-items: start; }
 .lb-empty__phones .phone { --phone-w: 100%; --phone-border: 6px; --phone-radius: 30px; }
 .lb-empty__phones .phone:nth-child(even) { margin-top: 64px; }
 
@@ -1512,20 +1441,6 @@ body.is-locked .lb-dock { opacity: 0; pointer-events: none; }
   .lb-seg button { flex: 1; justify-content: center; height: 44px; padding: 0 8px; font-size: 13px; gap: 6px; }
   .lb-seg .icon { width: 14px; height: 14px; }
 
-  .lb-rail {
-    margin-top: 28px;
-    overflow: visible;
-    scroll-snap-type: none;
-  }
-  .lb-rail__track {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    gap: 20px 12px;
-    padding: 0;
-  }
-  .lb-rail__item { width: auto; }
-  .lb-rail__controls { display: none; }
   .lb-round { width: 42px; height: 42px; }
 
   .lb-features__grid { grid-template-columns: 1fr; gap: 10px; }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LIVEBEAT — кейс · Роман Жураковский</title>
-  <meta name="description" content="LIVEBEAT — мобильное приложение для тренировок с пульсом в реальном времени: Bluetooth-датчики, зоны ЧСС, GPS-трек, суточный мониторинг и ночной пульс.">
+  <meta name="description" content="LIVEBEAT — мобильное приложение для тренировок с пульсом в реальном времени: Bluetooth-датчики, зоны ЧСС, GPS-трек и детальные итоги пробежки на улице и на беговой дорожке.">
   <meta name="theme-color" content="#090A0D">
   <script>document.documentElement.classList.add('js')</script>
 
@@ -33,7 +33,6 @@
       <symbol id="i-trending-up" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
       <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
       <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></symbol>
-      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
       <symbol id="i-drag" viewBox="0 0 24 24"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></symbol>
       <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></symbol>
       <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
@@ -61,7 +60,6 @@
       <a href="#overview">О проекте</a>
       <a href="#flow">Сценарий</a>
       <a href="#workout">Тренировка</a>
-      <a href="#monitoring">Мониторинг</a>
       <a href="#screens">Экраны</a>
     </div>
 
@@ -148,13 +146,11 @@
         <span>Зоны ЧСС</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>GPS-трек</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>Bluetooth LE</span><svg class="icon"><use href="#i-heart"/></svg>
-        <span>Ночной пульс и HRV</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>Без регистрации</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>Пульс в реальном времени</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>Зоны ЧСС</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>GPS-трек</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>Bluetooth LE</span><svg class="icon"><use href="#i-heart"/></svg>
-        <span>Ночной пульс и HRV</span><svg class="icon"><use href="#i-heart"/></svg>
         <span>Без регистрации</span><svg class="icon"><use href="#i-heart"/></svg>
       </div>
     </div>
@@ -176,9 +172,9 @@
         </div>
 
         <ul class="lb-stats">
-          <li class="reveal"><strong><span data-count="50">50</span></strong><span>экранов и состояний</span></li>
+          <li class="reveal"><strong><span data-count="39">39</span></strong><span>экранов и состояний</span></li>
           <li class="reveal"><strong><span data-count="5">5</span></strong><span>зон пульса с цветовой кодировкой</span></li>
-          <li class="reveal"><strong><span data-count="24">24</span><small>ч</small></strong><span>непрерывного мониторинга</span></li>
+          <li class="reveal"><strong><span data-count="2">2</span></strong><span>режима тренировки — улица и дорожка</span></li>
           <li class="reveal"><strong><span data-count="0">0</span></strong><span>облачных серверов — всё локально</span></li>
         </ul>
       </div>
@@ -200,35 +196,35 @@
           <div class="phone phone--lb lb-anno__phone">
             <div class="phone__screen">
               <img src="images/livebeat/active-outdoor.jpg" alt="Экран тренировки с пояснениями" width="412" height="917" loading="lazy">
-              <span class="lb-anno__dot" style="--x:.3;--y:19.5%"></span>
-              <span class="lb-anno__dot" style="--x:.2;--y:30%"></span>
-              <span class="lb-anno__dot" style="--x:.14;--y:66%"></span>
-              <span class="lb-anno__dot" style="--x:.84;--y:7%"></span>
-              <span class="lb-anno__dot" style="--x:.8;--y:45%"></span>
-              <span class="lb-anno__dot" style="--x:.6;--y:92%"></span>
+              <span class="lb-anno__dot" style="--x:.3;--y:.195"></span>
+              <span class="lb-anno__dot" style="--x:.2;--y:.3"></span>
+              <span class="lb-anno__dot" style="--x:.14;--y:.66"></span>
+              <span class="lb-anno__dot" style="--x:.84;--y:.07"></span>
+              <span class="lb-anno__dot" style="--x:.8;--y:.45"></span>
+              <span class="lb-anno__dot" style="--x:.6;--y:.92"></span>
             </div>
           </div>
-          <div class="lb-anno__note lb-anno__note--l" style="--x:.3;--y:19.5%">
+          <div class="lb-anno__note lb-anno__note--l" style="--x:.3;--y:.195">
             <strong>Пульс — главный герой</strong>
             <span>Цифры в треть ширины экрана читаются с вытянутой руки</span>
           </div>
-          <div class="lb-anno__note lb-anno__note--l" style="--x:.2;--y:30%">
+          <div class="lb-anno__note lb-anno__note--l" style="--x:.2;--y:.3">
             <strong>Зона в цвете</strong>
             <span>Оранжевая плашка ловится периферийным зрением</span>
           </div>
-          <div class="lb-anno__note lb-anno__note--l" style="--x:.14;--y:66%">
+          <div class="lb-anno__note lb-anno__note--l" style="--x:.14;--y:.66">
             <strong>Метрики в сетке</strong>
             <span>Время, дистанция, средний пульс и темп — без прокрутки</span>
           </div>
-          <div class="lb-anno__note lb-anno__note--r" style="--x:.84;--y:7%">
+          <div class="lb-anno__note lb-anno__note--r" style="--x:.84;--y:.07">
             <strong>Статус GPS</strong>
             <span>Качество сигнала всегда на виду</span>
           </div>
-          <div class="lb-anno__note lb-anno__note--r" style="--x:.8;--y:45%">
+          <div class="lb-anno__note lb-anno__note--r" style="--x:.8;--y:.45">
             <strong>Живой трек</strong>
             <span>Маршрут рисуется поверх карты во время бега</span>
           </div>
-          <div class="lb-anno__note lb-anno__note--r" style="--x:.6;--y:92%">
+          <div class="lb-anno__note lb-anno__note--r" style="--x:.6;--y:.92">
             <strong>Пауза удержанием</strong>
             <span>Защита от случайного касания мокрыми пальцами</span>
           </div>
@@ -513,43 +509,6 @@
       </div>
     </section>
 
-    <!-- Мониторинг -->
-    <section class="lb-section lb-monitor" id="monitoring">
-      <span class="blob lb-glow lb-glow--blue" data-parallax="0.1" aria-hidden="true"></span>
-      <span class="blob lb-glow lb-glow--violet" data-parallax="-0.06" aria-hidden="true"></span>
-      <div class="container">
-        <div class="lb-section-head lb-section-head--row">
-          <div>
-            <span class="eyebrow lb-eyebrow-blue eyebrow--lg reveal">За пределами тренировки</span>
-            <h2 class="h2 reveal">Суточный мониторинг и&nbsp;ночной пульс</h2>
-          </div>
-          <p class="lb-text reveal">Режим для тех, кто следит за восстановлением. Пульс в покое, вариабельность ритма (HRV) и сон — в спокойной сине-фиолетовой палитре, чтобы экран не бил по глазам ночью.</p>
-        </div>
-      </div>
-
-      <div class="lb-rail" data-rail>
-        <ul class="lb-rail__track" data-rail-track>
-          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-idle.jpg" alt="Мониторинг: старт" width="412" height="917" loading="lazy"></div></div><strong>Старт</strong><span>Одна кнопка — и запись пошла</span></li>
-          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/daily-monitoring-active.jpg" alt="Суточный мониторинг активен" width="412" height="917" loading="lazy"></div></div><strong>Суточная запись</strong><span>Пульс в фоне весь день</span></li>
-          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-active.jpg" alt="Пульс в покое и HRV" width="412" height="917" loading="lazy"></div></div><strong>Пульс и HRV</strong><span>72 BPM и 48 мс вариабельности</span></li>
-          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/daily-monitoring-paused.jpg" alt="Суточный мониторинг на паузе" width="412" height="917" loading="lazy"></div></div><strong>Пауза</strong><span>Данные дня сохраняются</span></li>
-          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-paused.jpg" alt="Мониторинг на паузе" width="412" height="917" loading="lazy"></div></div><strong>Пауза в покое</strong><span>Продолжить с того же места</span></li>
-          <li class="lb-rail__item lb-rail__item--night"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/night-pulse.jpg" alt="Ночной пульс" width="412" height="975" loading="lazy"></div></div><strong>Ночной пульс</strong><span>52 BPM и RMSSD во сне</span></li>
-          <li class="lb-rail__item lb-rail__item--night"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/night-pulse-hrv.jpg" alt="Ночной пульс и HRV" width="412" height="917" loading="lazy"></div></div><strong>HRV ночью</strong><span>Индикатор восстановления</span></li>
-          <li class="lb-rail__item lb-rail__item--night"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/sleep-monitoring.jpg" alt="Мониторинг сна" width="412" height="917" loading="lazy"></div></div><strong>Спокойный отдых</strong><span>Минимум, среднее и максимум за ночь</span></li>
-          <li class="lb-rail__item"><div class="phone phone--lb"><div class="phone__screen"><img src="images/livebeat/monitoring-history.jpg" alt="История мониторинга" width="412" height="917" loading="lazy"></div></div><strong>История сессий</strong><span>Сон и день, экспорт в CSV</span></li>
-        </ul>
-      </div>
-
-      <div class="container lb-rail__controls">
-        <div class="lb-rail__progress"><span data-rail-bar></span></div>
-        <div class="lb-rail__btns">
-          <button type="button" class="lb-round" data-rail-prev aria-label="Назад"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
-          <button type="button" class="lb-round" data-rail-next aria-label="Вперёд"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
-        </div>
-      </div>
-    </section>
-
     <!-- Возможности -->
     <section class="lb-section lb-features">
       <div class="container">
@@ -583,11 +542,6 @@
             <h3>Локальная приватность</h3>
             <p>Тренировки и биометрия хранятся только на смартфоне, без передачи в облако.</p>
           </li>
-          <li class="lb-feature reveal">
-            <span class="lb-feature__icon"><svg class="icon"><use href="#i-moon"/></svg></span>
-            <h3>Сон и восстановление</h3>
-            <p>Ночной пульс и HRV показывают, насколько организм отдохнул перед следующей тренировкой.</p>
-          </li>
         </ul>
       </div>
     </section>
@@ -604,8 +558,6 @@
           <div class="lb-empty__phones">
             <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/history-empty.jpg" alt="Пустая история тренировок" width="412" height="917" loading="lazy"></div></div>
             <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/empty-state-workouts.jpg" alt="Пока нет тренировок" width="412" height="917" loading="lazy"></div></div>
-            <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/monitoring-history-empty.jpg" alt="Пустая история мониторинга" width="412" height="917" loading="lazy"></div></div>
-            <div class="phone phone--lb reveal"><div class="phone__screen"><img src="images/livebeat/empty-state-monitoring.jpg" alt="Нет сессий мониторинга" width="412" height="917" loading="lazy"></div></div>
           </div>
         </div>
       </div>

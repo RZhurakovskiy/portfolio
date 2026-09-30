@@ -281,68 +281,6 @@
     });
   });
 
-  /* ---------- Лента мониторинга ---------- */
-  const rail = document.querySelector('[data-rail]');
-  if (rail) {
-    const bar = document.querySelector('[data-rail-bar]');
-    const prev = document.querySelector('[data-rail-prev]');
-    const next = document.querySelector('[data-rail-next]');
-
-    const update = () => {
-      const max = rail.scrollWidth - rail.clientWidth;
-      const p = max > 0 ? rail.scrollLeft / max : 0;
-      bar.style.setProperty('--progress', p);
-      prev.disabled = rail.scrollLeft < 4;
-      next.disabled = rail.scrollLeft > max - 4;
-    };
-
-    const step = () => {
-      const item = rail.querySelector('.lb-rail__item');
-      return item.offsetWidth + parseFloat(getComputedStyle(item.parentElement).columnGap || 28);
-    };
-    prev.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
-    next.addEventListener('click', () => rail.scrollBy({ left: step(), behavior: 'smooth' }));
-    rail.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-
-    // Перетаскивание мышью
-    if (finePointer) {
-      let down = false;
-      let startX = 0;
-      let startLeft = 0;
-      let moved = false;
-
-      rail.addEventListener('pointerdown', (e) => {
-        if (e.pointerType !== 'mouse') return;
-        down = true;
-        moved = false;
-        startX = e.clientX;
-        startLeft = rail.scrollLeft;
-      });
-      window.addEventListener('pointermove', (e) => {
-        if (!down) return;
-        const dx = e.clientX - startX;
-        if (!moved && Math.abs(dx) > 4) {
-          moved = true;
-          rail.classList.add('is-dragging');
-        }
-        if (moved) rail.scrollLeft = startLeft - dx;
-      });
-      window.addEventListener('pointerup', () => {
-        if (!down) return;
-        down = false;
-        if (!moved) return;
-        // Возвращаем привязку к карточкам, сохраняя позицию
-        const left = rail.scrollLeft;
-        rail.classList.remove('is-dragging');
-        rail.scrollLeft = left;
-        const s = step();
-        rail.scrollTo({ left: Math.round(left / s) * s, behavior: 'smooth' });
-      });
-    }
-  }
-
   /* ---------- Подсветка карточек ---------- */
   if (finePointer) {
     document.querySelectorAll('.lb-feature').forEach((card) => {
@@ -364,8 +302,6 @@
     alerts: 'Нештатные',
     summary: 'Итоги',
     history: 'История',
-    monitor: 'Мониторинг',
-    night: 'Сон',
   };
 
   const shots = [
@@ -415,19 +351,6 @@
     ['history-workouts', 'История тренировок', 'history'],
     ['history-empty', 'История: пусто', 'history'],
     ['empty-state-workouts', 'Пока нет тренировок', 'history'],
-
-    ['monitoring-idle', 'Старт мониторинга', 'monitor'],
-    ['daily-monitoring-active', 'Суточный мониторинг', 'monitor'],
-    ['monitoring-active', 'Пульс и HRV', 'monitor'],
-    ['daily-monitoring-paused', 'Суточный, пауза', 'monitor'],
-    ['monitoring-paused', 'Мониторинг, пауза', 'monitor'],
-    ['monitoring-history', 'История сессий', 'monitor'],
-    ['monitoring-history-empty', 'История сессий: пусто', 'monitor'],
-    ['empty-state-monitoring', 'Нет сессий', 'monitor'],
-
-    ['night-pulse', 'Ночной пульс', 'night'],
-    ['night-pulse-hrv', 'Ночной HRV', 'night'],
-    ['sleep-monitoring', 'Спокойный отдых', 'night'],
   ].map(([file, name, group]) => ({ src: `${IMG}${file}.jpg`, name, group }));
 
   const grid = document.querySelector('[data-gallery]');
