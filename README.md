@@ -8,6 +8,7 @@
 ```
 index.html        — главная страница
 livebeat.html     — кейс LIVEBEAT
+nexora.html       — кейс Nexora
 css/              — стили
 js/               — скрипты
 images/           — изображения и скриншоты кейсов

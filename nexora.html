@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nexora — кейс · Роман Жураковский</title>
+  <meta name="description" content="Nexora — мониторинг системы в реальном времени и управление процессами: агент на Go и веб-панель на Vue 3. CPU и память по WebSocket, процессы, сетевые порты, история метрик.">
+  <meta name="theme-color" content="#07080C">
+  <script>document.documentElement.classList.add('js')</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/nexora.css">
+</head>
+<body class="nx">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+      <symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol>
+      <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01M3 18h.01M3 6h.01M8 12h13M8 18h13M8 6h13"/></symbol>
+      <symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></symbol>
+      <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></symbol>
+      <symbol id="i-disk" viewBox="0 0 24 24"><path d="M22 12H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/><path d="M6 16h.01M10 16h.01"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+      <symbol id="i-zoom" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Верхняя строка: как статус-бар панели -->
+  <header class="nx-bar">
+    <div class="container nx-bar__inner">
+      <a class="nx-brand" href="index.html" aria-label="Роман Жураковский — на главную">
+        <span class="nx-brand__mark">RZ</span>
+        <span class="nx-brand__name">Роман Жураковский</span>
+      </a>
+      <nav class="nx-nav" aria-label="Разделы кейса">
+        <a href="#how">Как устроено</a>
+        <a href="#ui">Интерфейс</a>
+        <a href="#details">Детали</a>
+        <a href="#stack">Стек</a>
+      </nav>
+      <a class="nx-back" href="index.html#projects"><svg class="icon"><use href="#i-arrow-left"/></svg><span>Все проекты</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Первый экран: терминал запускает агента, из него поднимается панель -->
+    <section class="nx-hero">
+      <!-- Фон: живой график CPU во всю ширину, как в самой Nexora. Точка в секунду. -->
+      <div class="nx-chart" aria-hidden="true">
+        <div class="nx-chart__axis"><span>100%</span><span>50%</span><span>0%</span></div>
+        <svg class="nx-chart__svg" viewBox="0 0 1000 300" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="nx-area" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#5B5FEF" stop-opacity="0.28"/>
+              <stop offset="1" stop-color="#5B5FEF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="nx-stroke" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#7C83FF" stop-opacity="0.15"/>
+              <stop offset="0.7" stop-color="#7C83FF"/>
+              <stop offset="1" stop-color="#38BDF8"/>
+            </linearGradient>
+          </defs>
+          <path class="nx-chart__area" data-area d=""/>
+          <path class="nx-chart__line" data-line d="" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="nx-chart__head" data-head><i></i><span>CPU</span><strong data-cpu>32%</strong></div>
+      </div>
+      <div class="container nx-hero__inner">
+        <div class="nx-hero__copy">
+          <span class="nx-status reveal"><i></i>Кейс · Web / DevTools / Linux</span>
+          <h1 class="nx-title reveal">Nexora</h1>
+          <p class="nx-lead reveal">Что происходит с машиной прямо сейчас: CPU, память, процессы и сетевые порты в&nbsp;одной живой панели. Агент на Go собирает метрики и отдаёт их по WebSocket, веб-интерфейс на Vue&nbsp;3 показывает и управляет.</p>
+          <dl class="nx-spec reveal">
+            <div><dt>роль</dt><dd>дизайн и разработка</dd></div>
+            <div><dt>клиент</dt><dd>Vue 3 · TypeScript</dd></div>
+            <div><dt>агент</dt><dd>Go · gopsutil · SQLite</dd></div>
+            <div><dt>годы</dt><dd>2024–2025</dd></div>
+            <div><dt>платформа</dt><dd>Linux, базово любая ОС</dd></div>
+            <div><dt>версия</dt><dd>1.1.0</dd></div>
+          </dl>
+          <div class="nx-actions reveal">
+            <a class="btn nx-btn" href="https://github.com/RZhurakovskiy/nexora-nexus-oracle-insight" target="_blank" rel="noopener">Код на GitHub <svg class="icon"><use href="#i-github"/></svg></a>
+            <a class="btn nx-btn nx-btn--ghost" href="https://nexora-insight.ru" target="_blank" rel="noopener">nexora-insight.ru <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </div>
+
+        <div class="nx-launch" data-launch>
+          <div class="nx-term" aria-label="Запуск агента в терминале">
+            <div class="nx-term__bar"><span></span><span></span><span></span><em>agent — zsh</em></div>
+            <pre class="nx-term__body" data-term aria-hidden="true"></pre>
+            <noscript><pre class="nx-term__body">$ go run main.go
+Главное меню:
+ [3] Запуск сервера и GUI
+Сервер запущен: http://localhost:8080</pre></noscript>
+          </div>
+          <figure class="nx-window nx-launch__app" data-open-shot="chart">
+            <div class="nx-window__bar"><span class="nx-window__dots"><i></i><i></i><i></i></span><span class="nx-window__url">localhost:5173/metrics</span></div>
+            <div class="nx-launch__screen">
+              <img src="images/nexora/chart.jpg" alt="Nexora: графики загрузки CPU и памяти в реальном времени" width="1600" height="830">
+              <!-- Пока агент не запущен, панель честно ждёт его, а не пустует: видно, что здесь появится интерфейс. -->
+              <div class="nx-launch__wait" aria-hidden="true"><i></i>Ожидание агента на :8080…</div>
+            </div>
+          </figure>
+
+        </div>
+      </div>
+
+      <!-- Лента событий: то, что агент реально шлёт клиенту -->
+      <div class="nx-feed" aria-hidden="true">
+        <div class="nx-feed__track" data-feed></div>
+      </div>
+    </section>
+
+    <!-- Задача -->
+    <section class="nx-section nx-problem">
+      <div class="container nx-problem__inner">
+        <div class="nx-problem__head">
+          <span class="nx-kicker reveal">01 · задача</span>
+          <h2 class="nx-h2 reveal">Пять утилит в&nbsp;одном окне</h2>
+        </div>
+        <div class="nx-problem__body">
+          <p class="nx-text nx-text--lg reveal">Чтобы понять, что грузит Linux-машину, обычно открывают <code>top</code>, потом <code>ss</code> или <code>lsof</code> ради портов, потом <code>smartctl</code> ради дисков, и каждый раз по-своему читают вывод. Историю при этом никто не хранит: что было пять минут назад, уже не видно.</p>
+          <p class="nx-text reveal">Nexora собирает это в одну панель: живые графики, таблицу процессов с фильтрами, сетевые порты с владельцами, историю метрик в базе и запись сессии по порогам. Процесс можно завершить или запустить новый, не открывая терминал.</p>
+        </div>
+        <ul class="nx-tools reveal" aria-label="Что панель берёт на себя">
+          <li><span class="nx-tools__was">вместо <code>top / htop</code></span><span>графики CPU и памяти, процессы</span></li>
+          <li><span class="nx-tools__was">вместо <code>ss / lsof -i</code></span><span>порты, соединения, владельцы</span></li>
+          <li><span class="nx-tools__was">вместо <code>kill PID</code></span><span>завершение в один клик</span></li>
+          <li><span class="nx-tools__was">вместо <code>smartctl</code> вручную</span><span>здоровье дисков в панели</span></li>
+          <li><span class="nx-tools__was">вместо <code>sar</code></span><span>история метрик в SQLite</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Как устроено -->
+    <section class="nx-section nx-how" id="how">
+      <div class="container">
+        <div class="nx-head">
+          <span class="nx-kicker reveal">02 · как устроено</span>
+          <h2 class="nx-h2 reveal">Агент считает, панель показывает</h2>
+          <p class="nx-text reveal">Метрики не опрашиваются по запросу на каждый кадр. Агент держит кэш и обновляет его по своему расписанию, а клиенты подписаны на три потока. Мониторинг можно выключить из интерфейса, и сбор остановится вовсе.</p>
+        </div>
+
+        <div class="nx-pipe reveal" data-pipe>
+          <div class="nx-node">
+            <span class="nx-node__tag">Linux</span>
+            <strong>Система</strong>
+            <small>/proc, gopsutil, smartctl</small>
+          </div>
+          <div class="nx-node nx-node--agent">
+            <span class="nx-node__tag">Go</span>
+            <strong>Агент :8080</strong>
+            <small>кэш метрик · REST · SQLite</small>
+          </div>
+          <div class="nx-lanes" aria-label="Потоки WebSocket">
+            <div class="nx-lane" style="--speed:1s"><code>/ws/cpu</code><span class="nx-lane__track"><i></i><i></i><i></i></span><em>раз в 1 с</em></div>
+            <div class="nx-lane" style="--speed:3s"><code>/ws/memory</code><span class="nx-lane__track"><i></i><i></i><i></i></span><em>раз в 3 с</em></div>
+            <div class="nx-lane" style="--speed:5s"><code>/ws/processes</code><span class="nx-lane__track"><i></i><i></i><i></i></span><em>раз в 5 с</em></div>
+          </div>
+          <div class="nx-node nx-node--client">
+            <span class="nx-node__tag">Vue 3</span>
+            <strong>Панель</strong>
+            <small>Pinia · Chart.js · сервисы через DI</small>
+          </div>
+        </div>
+
+        <ul class="nx-numbers">
+          <li class="reveal"><strong data-count="3">3</strong><span>потока WebSocket: CPU, память, процессы</span></li>
+          <li class="reveal"><strong data-count="5">5</strong><span>разделов панели в одной навигации</span></li>
+          <li class="reveal"><strong data-count="25">25</strong><span>маршрутов REST для всего остального</span></li>
+          <li class="reveal"><strong data-count="0">0</strong><span>внешних сервисов: данные остаются на машине</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Интерфейс: копия навигации приложения -->
+    <section class="nx-section nx-ui" id="ui">
+      <div class="container">
+        <div class="nx-head nx-head--row">
+          <div>
+            <span class="nx-kicker reveal">03 · интерфейс</span>
+            <h2 class="nx-h2 reveal">Пощёлкайте вкладки</h2>
+          </div>
+          <p class="nx-text reveal">Та же навигация, что в приложении. Каждый раздел решает одну задачу, и у каждого свой способ показать данные: график, таблица, карточки.</p>
+        </div>
+
+        <div class="nx-app reveal" data-app>
+          <div class="nx-app__tabs" role="tablist" aria-label="Разделы Nexora">
+            <button type="button" role="tab" aria-selected="false" data-tab="system-info"><svg class="icon"><use href="#i-cpu"/></svg>Общая информация</button>
+            <button type="button" role="tab" aria-selected="true" data-tab="chart"><svg class="icon"><use href="#i-play"/></svg>Метрики</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="table"><svg class="icon"><use href="#i-list"/></svg>Процессы</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="network-ports"><svg class="icon"><use href="#i-plug"/></svg>Сетевые порты</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="record-history"><svg class="icon"><use href="#i-rec"/></svg>История метрик</button>
+            <span class="nx-app__progress" data-progress></span>
+          </div>
+          <div class="nx-app__view">
+            <figure class="nx-window nx-app__window">
+              <div class="nx-window__bar"><span class="nx-window__dots"><i></i><i></i><i></i></span><span class="nx-window__url" data-url>localhost:5173/metrics</span></div>
+              <div class="nx-app__screens" data-screens>
+                <img data-screen="system-info" src="images/nexora/system-info.jpg" alt="Общая информация: ОС, ядро, память, диски" width="1600" height="825" loading="lazy">
+                <img data-screen="chart" class="is-active" src="images/nexora/chart.jpg" alt="Метрики: графики CPU и памяти" width="1600" height="830" loading="lazy">
+                <img data-screen="table" src="images/nexora/table.jpg" alt="Процессы: таблица с фильтрами и завершением" width="1600" height="823" loading="lazy">
+                <img data-screen="network-ports" src="images/nexora/network-ports.jpg" alt="Сетевые порты: интерфейсы и соединения" width="1600" height="828" loading="lazy">
+                <img data-screen="record-history" src="images/nexora/record-history.jpg" alt="История метрик из базы с фильтром по времени" width="1600" height="825" loading="lazy">
+              </div>
+            </figure>
+            <aside class="nx-app__note" aria-live="polite">
+              <span class="nx-app__num" data-note-num>02</span>
+              <h3 data-note-title>Метрики</h3>
+              <p data-note-text>Графики CPU и памяти обновляются потоком, без перезагрузки. Справа текущая нагрузка крупно и словом: низкая, средняя, высокая.</p>
+              <ul data-note-list>
+                <li>плавная анимация новых точек</li>
+                <li>статус соединения у каждого графика</li>
+                <li>выгрузка накопленного из базы</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Детали: бенто -->
+    <section class="nx-section nx-details" id="details">
+      <div class="container">
+        <div class="nx-head">
+          <span class="nx-kicker reveal">04 · детали</span>
+          <h2 class="nx-h2 reveal">Не только смотреть, но и&nbsp;делать</h2>
+        </div>
+
+        <div class="nx-bento">
+          <article class="nx-tile nx-tile--wide reveal">
+            <button class="nx-tile__shot" type="button" data-open-shot="create-network-process" aria-label="Открыть: запуск процесса">
+              <img src="images/nexora/create-network-process.jpg" alt="Окно запуска нового процесса с пресетами" width="1600" height="825" loading="lazy">
+            </button>
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon"><svg class="icon"><use href="#i-play"/></svg></span>
+              <h3>Запуск процесса из панели</h3>
+              <p>Команда, аргументы, рабочая папка и пресеты для частых случаев: Vite, npm, node, Python HTTP. Если порт уже занят сервером, окно подсказывает выбрать другой.</p>
+            </div>
+          </article>
+
+          <article class="nx-tile reveal">
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon nx-tile__icon--red"><svg class="icon"><use href="#i-rec"/></svg></span>
+              <h3>Запись по порогам</h3>
+              <p>Сессия записи на заданное время: процессы, превысившие порог CPU или памяти, попадают в базу. Сколько осталось, видно в углу экрана, остановить можно раньше.</p>
+            </div>
+            <div class="nx-rec" aria-hidden="true"><i></i>Запись · осталось <span data-rec>01:41</span></div>
+          </article>
+
+          <article class="nx-tile reveal">
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon"><svg class="icon"><use href="#i-plug"/></svg></span>
+              <h3>Порты с владельцами</h3>
+              <p>Кто слушает порт, кто держит соединение, фильтр LISTEN и остальных. Завершить владельца порта можно прямо из строки.</p>
+            </div>
+            <ul class="nx-ports" aria-hidden="true">
+              <li><code>::1:5173</code><em>LISTEN</em><span>node</span></li>
+              <li><code>0.0.0.0:5501</code><em>LISTEN</em><span>electron</span></li>
+              <li><code>:::8080</code><em>LISTEN</em><span>main</span></li>
+            </ul>
+          </article>
+
+          <article class="nx-tile reveal">
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon"><svg class="icon"><use href="#i-disk"/></svg></span>
+              <h3>Здоровье дисков</h3>
+              <p>SMART и температура через <code>smartctl</code>. Где утилиты нет или прав не хватает, панель прямо пишет «недоступно», а не показывает пустоту.</p>
+            </div>
+          </article>
+
+          <article class="nx-tile reveal">
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon"><svg class="icon"><use href="#i-download"/></svg></span>
+              <h3>Экспорт</h3>
+              <p>Процессы и историю метрик можно выгрузить в JSON или CSV и разобрать в любимом инструменте.</p>
+            </div>
+            <div class="nx-chips" aria-hidden="true"><span>JSON</span><span>CSV</span></div>
+          </article>
+
+          <article class="nx-tile reveal">
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon"><svg class="icon"><use href="#i-list"/></svg></span>
+              <h3>Работает и без браузера</h3>
+              <p>Тот же агент открывает текстовое меню: процессы по загрузке CPU, фоновый мониторинг по порогу, завершение по PID или имени. Удобно на сервере по SSH.</p>
+            </div>
+            <div class="nx-chips" aria-hidden="true"><span>[1] CPU</span><span>[4] мониторинг</span></div>
+          </article>
+
+          <article class="nx-tile nx-tile--wide nx-tile--flip reveal">
+            <button class="nx-tile__shot" type="button" data-open-shot="auth" aria-label="Открыть: экран входа">
+              <img src="images/nexora/auth.jpg" alt="Экран входа в панель" width="1600" height="827" loading="lazy">
+            </button>
+            <div class="nx-tile__text">
+              <span class="nx-tile__icon"><svg class="icon"><use href="#i-lock"/></svg></span>
+              <h3>Вход по логину и паролю</h3>
+              <p>Панель умеет завершать и запускать процессы, поэтому открывается только после входа. Экран входа без лишнего: логин, пароль, одна кнопка.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Стек как манифесты -->
+    <section class="nx-section nx-stack" id="stack">
+      <div class="container">
+        <div class="nx-head nx-head--row">
+          <div>
+            <span class="nx-kicker reveal">05 · стек</span>
+            <h2 class="nx-h2 reveal">Две части, один протокол</h2>
+          </div>
+          <p class="nx-text reveal">Агент и клиент развиваются отдельно и сверяют версии: агент отдаёт свою на <code>/api/version</code>, панель показывает обе в углу экрана.</p>
+        </div>
+
+        <div class="nx-manifests">
+          <figure class="nx-manifest reveal">
+            <figcaption><span>agent/go.mod</span><em>сервер</em></figcaption>
+<pre><span class="k">module</span> github.com/RZhurakovskiy/agent
+
+<span class="k">require</span> (
+  github.com/shirou/gopsutil   <span class="c">// CPU, память, процессы, сеть</span>
+  github.com/gorilla/websocket <span class="c">// три потока метрик</span>
+  github.com/mattn/go-sqlite3  <span class="c">// история и сессии записи</span>
+)
+
+<span class="c">// graceful shutdown, CORS, кэш метрик под мьютексом</span>
+<span class="c">// CLI-меню: тот же агент работает и без браузера</span></pre>
+          </figure>
+          <figure class="nx-manifest reveal">
+            <figcaption><span>client/package.json</span><em>панель</em></figcaption>
+<pre>{
+  <span class="s">"vue"</span>:        <span class="s">"^3.5"</span>,   <span class="c">// Composition API</span>
+  <span class="s">"pinia"</span>:      <span class="s">"^3.0"</span>,   <span class="c">// состояние разделов</span>
+  <span class="s">"vue-router"</span>: <span class="s">"^4.6"</span>,
+  <span class="s">"chart.js"</span>:   <span class="s">"^4.5"</span>,   <span class="c">// живые графики</span>
+  <span class="s">"axios"</span>:      <span class="s">"^1.13"</span>
+}
+<span class="c">// Vite 7 + TypeScript, сервисы API и WS через DI-контейнер</span></pre>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Итог и призыв -->
+    <section class="nx-section nx-outro">
+      <div class="container nx-outro__inner">
+        <div>
+          <span class="nx-kicker reveal">итог</span>
+          <h2 class="nx-display reveal">Своя панель вместо набора утилит</h2>
+        </div>
+        <div class="nx-outro__text">
+          <p class="nx-text nx-text--lg reveal">Nexora закрывает ежедневный вопрос «что сейчас грузит машину и кто занял порт» одним окном. Лучше всего работает на Linux; на других системах основное доступно, а то, чего нет, честно помечено.</p>
+          <div class="nx-actions reveal">
+            <a class="btn nx-btn" href="index.html#contacts">Обсудить задачу <svg class="icon"><use href="#i-send"/></svg></a>
+            <a class="btn nx-btn nx-btn--ghost" href="index.html#projects">Другие проекты <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="nx-foot">
+    <div class="container nx-foot__inner">
+      <a class="nx-brand" href="index.html" aria-label="Роман Жураковский — на главную">
+        <span class="nx-brand__mark">RZ</span>
+        <span class="nx-brand__name">Роман Жураковский · Web &amp; mobile</span>
+      </a>
+      <div class="nx-foot__links">
+        <a href="mailto:roman@zhurakovsky.dev">roman@zhurakovsky.dev</a>
+        <a href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://github.com/RZhurakovskiy/nexora-nexus-oracle-insight" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <span class="nx-foot__meta">2024–2025 · Кейс · Web / DevTools</span>
+    </div>
+  </footer>
+
+  <!-- Просмотр скриншота -->
+  <div class="nx-lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Просмотр скриншота">
+    <button type="button" class="nx-lightbox__backdrop" data-lb-close aria-label="Закрыть"></button>
+    <figure class="nx-lightbox__figure">
+      <img data-lb-img src="" alt="">
+      <figcaption data-lb-cap></figcaption>
+    </figure>
+    <button type="button" class="nx-lightbox__close" data-lb-close aria-label="Закрыть"><svg class="icon"><use href="#i-x"/></svg></button>
+  </div>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/nexora.js" defer></script>
+</body>
+</html>

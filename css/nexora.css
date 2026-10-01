@@ -1,0 +1,797 @@
+/* ==========================================================================
+   NEXORA — страница кейса
+   Своя подача, не как у LIVEBEAT: консоль мониторинга. Терминал, окна браузера,
+   потоки данных, ровный фон без декоративных сеток и свечений. Палитра — из
+   интерфейса самой Nexora.
+   ========================================================================== */
+.nx {
+  --nx-bg: #07080C;
+  --nx-panel: #0E1017;
+  --nx-panel-2: #141722;
+  --nx-line: #222636;
+  --nx-indigo: #7C83FF;
+  --nx-indigo-2: #5B5FEF;
+  --nx-cyan: #38BDF8;
+  --nx-green: #22C55E;
+  --nx-amber: #F59E0B;
+  --nx-red: #F43F5E;
+  --nx-glow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
+  background: var(--nx-bg);
+}
+.nx ::selection { background: var(--nx-indigo-2); }
+.nx :focus-visible { outline-color: var(--nx-indigo); }
+.nx code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--nx-cyan);
+}
+
+/* ---------- Верхняя строка ---------- */
+.nx-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--nx-bg);
+  border-bottom: 1px solid var(--nx-line);
+}
+.nx-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 64px;
+}
+.nx-brand { display: inline-flex; align-items: center; gap: 12px; }
+.nx-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--nx-panel-2);
+  border: 1px solid var(--nx-line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.nx-brand__name { font-size: 14px; color: var(--text-2); }
+.nx-nav { display: flex; gap: 4px; font-family: var(--font-mono); font-size: 13px; }
+.nx-nav a {
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text-2);
+  transition: color 0.25s, background-color 0.25s;
+}
+.nx-nav a:hover { color: var(--text); background: var(--nx-panel-2); }
+.nx-back { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-2); }
+.nx-back:hover { color: var(--text); }
+
+/* ---------- Первый экран ---------- */
+.nx-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 0;
+  isolation: isolate;
+}
+/* Живой график CPU за первым экраном */
+.nx-chart {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  height: 46%;
+  pointer-events: none;
+  /* Под текстом слева график почти не виден, справа он в полную силу. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.25) 30%, #000 70%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.25) 30%, #000 70%);
+}
+.nx-chart__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nx-chart__area { fill: url(#nx-area); }
+.nx-chart__line { fill: none; stroke: url(#nx-stroke); stroke-width: 2; stroke-linejoin: round; }
+.nx-chart__axis {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+.nx-chart__axis span {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 12px;
+  padding-right: 8px;
+  opacity: 0.7;
+}
+.nx-chart__axis span::after { content: ""; flex: 1; border-top: 1px dashed rgba(124, 131, 255, 0.14); }
+.nx-chart__head {
+  position: absolute;
+  right: 64px;
+  top: var(--y, 50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(-50%);
+  transition: top 0.6s var(--ease-out);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+}
+.nx-chart__head i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--nx-cyan);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+}
+.nx-chart__head strong { font-size: 16px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.nx-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: center;
+  padding-bottom: 72px;
+}
+.nx-hero__copy { display: flex; flex-direction: column; gap: 28px; }
+
+.nx-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: 1px solid var(--nx-line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-2);
+  background: var(--nx-panel);
+}
+.nx-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--nx-green);
+  box-shadow: 0 0 10px var(--nx-green);
+  animation: nx-blink 2s infinite;
+}
+@keyframes nx-blink { 50% { opacity: 0.35; } }
+
+.nx-title {
+  font-size: clamp(64px, 11vw, 168px);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  background: linear-gradient(180deg, #FFFFFF 30%, #A5AAFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.nx-lead { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--text-2); }
+
+.nx-spec {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  border: 1px solid var(--nx-line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--nx-line);
+  font-family: var(--font-mono);
+}
+.nx-spec div { padding: 12px 16px; background: var(--nx-panel); }
+.nx-spec dt { font-size: 11px; color: var(--text-3); }
+.nx-spec dd { margin: 2px 0 0; font-size: 13px; color: var(--text); }
+
+.nx-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.nx-btn {
+  height: 50px;
+  border-radius: 12px;
+  background: var(--nx-indigo-2);
+  color: #fff;
+  box-shadow: 0 12px 30px -12px rgba(91, 95, 239, 0.9);
+}
+.nx-btn:hover { background: #6C70F5; }
+.nx-btn--ghost { background: transparent; border-color: var(--nx-line); box-shadow: none; color: var(--text); }
+.nx-btn--ghost:hover { background: var(--nx-panel-2); border-color: var(--line-2); }
+
+/* Терминал и окно, которое из него поднимается */
+.nx-launch { position: relative; min-height: 520px; }
+.nx-term {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  width: 58%;
+  border: 1px solid var(--nx-line);
+  border-radius: 14px;
+  background: rgba(10, 12, 18, 0.94);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+.nx-term__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--nx-line);
+}
+.nx-term__bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--nx-line); }
+.nx-term__bar em { margin-left: 8px; font-style: normal; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+.nx-term__body {
+  min-height: 230px;
+  margin: 0;
+  padding: 14px 16px 18px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #C9CCE0;
+  white-space: pre-wrap;
+}
+.nx-term__body .p { color: var(--nx-green); }
+.nx-term__body .m { color: var(--text-3); }
+.nx-term__body .h { color: var(--nx-indigo); font-weight: 700; }
+.nx-term__body .ok { color: var(--nx-green); }
+.nx-term__body .u { color: var(--nx-cyan); }
+.nx-term__cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background: var(--nx-indigo);
+  animation: nx-blink 1s steps(1) infinite;
+}
+
+.nx-window {
+  margin: 0;
+  border: 1px solid var(--nx-line);
+  border-radius: 14px;
+  background: var(--nx-panel);
+  overflow: hidden;
+  box-shadow: var(--nx-glow);
+}
+.nx-window__bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 34px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--nx-line);
+  background: var(--nx-panel-2);
+}
+.nx-window__dots { display: flex; gap: 6px; }
+.nx-window__dots i { width: 10px; height: 10px; border-radius: 50%; background: #2A2E3F; }
+.nx-window__url {
+  flex: 1;
+  max-width: 320px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--nx-bg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nx-window img { width: 100%; height: auto; }
+
+.nx-launch__app {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 86%;
+  cursor: zoom-in;
+  transform-origin: 20% 100%;
+  transition: transform 1.1s var(--ease-out), opacity 0.8s var(--ease-out);
+}
+/* Окно видно сразу, но до запуска агента вместо интерфейса заглушка ожидания. */
+.nx-launch__screen { position: relative; }
+.nx-launch__screen img { transition: opacity 0.8s var(--ease-out), filter 0.8s var(--ease-out); }
+.nx-launch__wait {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--nx-panel);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-3);
+  transition: opacity 0.6s var(--ease-out);
+}
+.nx-launch__wait i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--nx-amber);
+  animation: nx-blink 1s infinite;
+}
+.js .nx-launch:not(.is-up) .nx-launch__screen img { opacity: 0; }
+.nx-launch.is-up .nx-launch__wait,
+html:not(.js) .nx-launch__wait { opacity: 0; pointer-events: none; }
+
+/* Лента событий */
+.nx-feed {
+  border-top: 1px solid var(--nx-line);
+  border-bottom: 1px solid var(--nx-line);
+  background: var(--nx-panel);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.nx-feed__track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  padding: 14px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+  animation: nx-scroll 60s linear infinite;
+}
+.nx-feed__track b { color: var(--nx-cyan); font-weight: 500; }
+.nx-feed__track em { font-style: normal; color: var(--text-2); }
+@keyframes nx-scroll { to { transform: translateX(-50%); } }
+
+/* ---------- Секции ---------- */
+.nx-section { position: relative; padding: var(--section-y) 0; }
+.nx-section + .nx-section { border-top: 1px solid var(--nx-line); }
+.nx-kicker {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--nx-indigo);
+}
+.nx-h2 {
+  font-size: clamp(32px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.nx-display {
+  font-size: clamp(40px, 6vw, 92px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+.nx-text { max-width: 620px; font-size: 16px; line-height: 1.65; color: var(--text-2); }
+.nx-text--lg { font-size: 20px; line-height: 1.55; color: var(--text); }
+.nx-head { display: flex; flex-direction: column; gap: 18px; margin-bottom: 56px; }
+.nx-head--row { flex-direction: row; justify-content: space-between; align-items: flex-end; gap: 40px; }
+.nx-head--row .nx-text { max-width: 440px; }
+
+/* Задача */
+.nx-problem__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 32px 80px;
+}
+.nx-problem__head { display: flex; flex-direction: column; gap: 18px; }
+.nx-problem__body { display: flex; flex-direction: column; gap: 20px; }
+.nx-tools {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+.nx-tools li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--nx-line);
+  border-radius: 14px;
+  background: var(--nx-panel);
+}
+.nx-tools__was { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+.nx-tools__was code { font-size: 13px; }
+.nx-tools span { font-size: 14px; color: var(--text); }
+
+/* Как устроено: конвейер */
+.nx-pipe {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1.8fr 1.1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 28px;
+  border: 1px solid var(--nx-line);
+  border-radius: 20px;
+  background:
+    linear-gradient(var(--nx-panel), var(--nx-panel)) padding-box,
+    linear-gradient(120deg, rgba(124, 131, 255, 0.5), transparent 40%, rgba(56, 189, 248, 0.4)) border-box;
+  border-color: transparent;
+}
+.nx-node {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  border: 1px solid var(--nx-line);
+  border-radius: 14px;
+  background: var(--nx-panel-2);
+}
+.nx-node__tag {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  background: var(--nx-bg);
+}
+.nx-node strong { font-size: 18px; font-weight: 500; }
+.nx-node small { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+.nx-node--agent { box-shadow: 0 0 0 1px rgba(124, 131, 255, 0.4); }
+.nx-node--agent .nx-node__tag { color: var(--nx-indigo); }
+.nx-node--client .nx-node__tag { color: var(--nx-green); }
+
+.nx-lanes { display: flex; flex-direction: column; gap: 12px; }
+.nx-lane {
+  display: grid;
+  grid-template-columns: 116px 1fr 76px;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.nx-lane em { font-style: normal; color: var(--text-3); text-align: right; }
+.nx-lane__track {
+  position: relative;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--nx-line) 0 6px, transparent 6px 10px);
+}
+.nx-lane__track i {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 3px;
+  background: var(--nx-cyan);
+  box-shadow: 0 0 12px var(--nx-cyan);
+  opacity: 0;
+  animation: nx-packet calc(var(--speed) * 1.6) linear infinite;
+}
+.nx-lane__track i:nth-child(2) { animation-delay: calc(var(--speed) * -0.53); }
+.nx-lane__track i:nth-child(3) { animation-delay: calc(var(--speed) * -1.06); }
+@keyframes nx-packet {
+  0% { left: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: calc(100% - 10px); opacity: 0; }
+}
+
+.nx-numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+.nx-numbers li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid var(--nx-line);
+  border-radius: 16px;
+}
+.nx-numbers strong {
+  font-family: var(--font-mono);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--nx-indigo);
+}
+.nx-numbers span { font-size: 14px; color: var(--text-2); }
+
+/* Интерфейс: вкладки */
+.nx-app__tabs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 24px;
+}
+.nx-app__tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--nx-line);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text-2);
+  background: var(--nx-panel);
+  transition: color 0.25s, background-color 0.25s, border-color 0.25s;
+}
+.nx-app__tabs button:hover { color: var(--text); }
+.nx-app__tabs button[aria-selected="true"] {
+  color: #fff;
+  border-color: rgba(124, 131, 255, 0.6);
+  background: rgba(91, 95, 239, 0.22);
+}
+.nx-app__progress {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  height: 2px;
+  width: calc(var(--p, 0) * 100%);
+  background: linear-gradient(90deg, var(--nx-indigo), var(--nx-cyan));
+  border-radius: 2px;
+}
+.nx-app__view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 24px;
+  align-items: start;
+}
+.nx-app__screens { position: relative; aspect-ratio: 1600 / 830; cursor: zoom-in; }
+.nx-app__screens img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transform: scale(1.015);
+  transition: opacity 0.5s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.nx-app__screens img.is-active { opacity: 1; transform: none; }
+.nx-app__note {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  border: 1px solid var(--nx-line);
+  border-radius: 16px;
+  background: var(--nx-panel);
+}
+.nx-app__num { font-family: var(--font-mono); font-size: 13px; color: var(--nx-indigo); }
+.nx-app__note h3 { font-size: 24px; font-weight: 500; }
+.nx-app__note p { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+.nx-app__note ul { display: flex; flex-direction: column; gap: 8px; }
+.nx-app__note li {
+  position: relative;
+  padding-left: 18px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-2);
+}
+.nx-app__note li::before { content: "›"; position: absolute; left: 0; color: var(--nx-cyan); }
+
+/* Детали: бенто */
+.nx-bento {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.nx-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--nx-line);
+  border-radius: 20px;
+  background: var(--nx-panel);
+  transition: border-color 0.3s, transform 0.4s var(--ease-out);
+}
+.nx-tile:hover { border-color: rgba(124, 131, 255, 0.45); }
+.nx-tile--wide {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+}
+.nx-tile--flip { grid-template-columns: 1fr 1.3fr; }
+.nx-tile--flip .nx-tile__shot { order: 2; }
+.nx-tile__shot {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--nx-line);
+  border-radius: 12px;
+  cursor: zoom-in;
+}
+.nx-tile__shot img { width: 100%; transition: transform 0.8s var(--ease-out); }
+.nx-tile__shot:hover img { transform: scale(1.03); }
+.nx-tile__text { display: flex; flex-direction: column; gap: 12px; }
+.nx-tile__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(91, 95, 239, 0.16);
+  color: var(--nx-indigo);
+}
+.nx-tile__icon--red { background: rgba(244, 63, 94, 0.14); color: var(--nx-red); }
+.nx-tile h3 { font-size: 20px; font-weight: 500; }
+.nx-tile p { font-size: 14px; line-height: 1.6; color: var(--text-2); }
+
+.nx-rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 10px 14px;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  border-radius: 12px;
+  background: rgba(244, 63, 94, 0.08);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.nx-rec i { width: 9px; height: 9px; border-radius: 50%; background: var(--nx-red); animation: nx-blink 1.2s infinite; }
+.nx-rec span { font-variant-numeric: tabular-nums; }
+
+.nx-ports { display: flex; flex-direction: column; gap: 6px; font-family: var(--font-mono); font-size: 12px; }
+.nx-ports li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--nx-bg);
+}
+.nx-ports em { font-style: normal; color: var(--nx-indigo); }
+.nx-ports span { color: var(--text-2); min-width: 60px; text-align: right; }
+
+.nx-chips { display: flex; gap: 8px; }
+.nx-chips span {
+  padding: 6px 12px;
+  border: 1px solid var(--nx-line);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--nx-cyan);
+}
+
+/* Стек: манифесты */
+.nx-manifests { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.nx-manifest {
+  margin: 0;
+  border: 1px solid var(--nx-line);
+  border-radius: 16px;
+  background: var(--nx-panel);
+  overflow: hidden;
+}
+.nx-manifest figcaption {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--nx-line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-2);
+}
+.nx-manifest figcaption em { font-style: normal; color: var(--text-3); }
+.nx-manifest pre {
+  margin: 0;
+  padding: 20px 18px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #D5D8EA;
+  overflow-x: auto;
+}
+.nx-manifest .k { color: var(--nx-indigo); }
+.nx-manifest .s { color: var(--nx-green); }
+.nx-manifest .c { color: var(--text-3); }
+
+/* Итог */
+.nx-outro__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px 80px;
+  align-items: end;
+}
+.nx-outro__inner > div:first-child { display: flex; flex-direction: column; gap: 18px; }
+.nx-outro__text { display: flex; flex-direction: column; gap: 28px; }
+
+/* Подвал */
+.nx-foot { border-top: 1px solid var(--nx-line); padding: 32px 0; }
+.nx-foot__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+.nx-foot__links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 14px; color: var(--text-2); }
+.nx-foot__links a:hover { color: var(--text); }
+.nx-foot__meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+
+/* Просмотр скриншота */
+.nx-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+.nx-lightbox[hidden] { display: none; }
+.nx-lightbox__backdrop { position: absolute; inset: 0; background: rgba(4, 5, 8, 0.92); cursor: zoom-out; }
+.nx-lightbox__figure { position: relative; margin: 0; max-width: min(1400px, 100%); display: flex; flex-direction: column; gap: 12px; }
+.nx-lightbox__figure img {
+  max-height: calc(100vh - 120px);
+  width: auto;
+  border: 1px solid var(--nx-line);
+  border-radius: 12px;
+  box-shadow: var(--nx-glow);
+}
+.nx-lightbox__figure figcaption { font-family: var(--font-mono); font-size: 13px; color: var(--text-2); text-align: center; }
+.nx-lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--nx-line);
+  border-radius: 12px;
+  background: var(--nx-panel);
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 1100px) {
+  .nx-nav { display: none; }
+  .nx-hero__inner { grid-template-columns: 1fr; }
+  .nx-launch { min-height: 0; aspect-ratio: 1.25; }
+  .nx-problem__inner { grid-template-columns: 1fr; }
+  .nx-tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nx-pipe { grid-template-columns: 1fr 1fr; }
+  .nx-lanes { grid-column: 1 / -1; order: 3; }
+  .nx-node--client { order: 4; grid-column: 1 / -1; }
+  .nx-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nx-app__view { grid-template-columns: 1fr; }
+  .nx-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nx-outro__inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+  .nx-brand__name { display: none; }
+  .nx-hero { padding-top: 40px; }
+  .nx-hero__inner { gap: 40px; padding-bottom: 48px; }
+  .nx-lead { font-size: 16px; }
+  .nx-chart { height: 34%; bottom: 44px; opacity: 0.7; }
+  .nx-chart__head { display: none; }
+  .nx-launch { aspect-ratio: auto; display: flex; flex-direction: column; gap: 12px; }
+  .nx-term, .nx-launch__app { position: relative; width: 100%; }
+  .nx-launch__app { order: -1; }
+  .nx-term__body { min-height: 0; font-size: 11.5px; }
+  .nx-head { margin-bottom: 32px; }
+  .nx-head--row { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .nx-text--lg { font-size: 17px; }
+  .nx-tools { grid-template-columns: 1fr 1fr; }
+  .nx-pipe { grid-template-columns: 1fr; padding: 16px; }
+  .nx-lane { grid-template-columns: 1fr 64px; }
+  .nx-lane__track { grid-column: 1 / -1; order: 3; }
+  .nx-numbers strong { font-size: 34px; }
+  .nx-numbers li { padding: 18px; }
+  .nx-app__tabs { flex-wrap: nowrap; justify-content: flex-start; width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .nx-app__tabs::-webkit-scrollbar { display: none; }
+  .nx-app__tabs button { flex-shrink: 0; }
+  .nx-bento { grid-template-columns: 1fr; }
+  .nx-tile--wide, .nx-tile--flip { grid-column: auto; grid-template-columns: 1fr; }
+  .nx-tile--flip .nx-tile__shot { order: 0; }
+  .nx-manifests { grid-template-columns: 1fr; }
+  .nx-manifest pre { font-size: 11.5px; }
+  .nx-lightbox { padding: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-feed__track, .nx-lane__track i, .nx-status i, .nx-rec i { animation: none; }
+  .nx-lane__track i:first-child { opacity: 1; left: 50%; }
+}
