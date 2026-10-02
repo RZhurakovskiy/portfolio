@@ -314,8 +314,6 @@
     ['setup-filled', 'Настройка: заполнено', 'setup'],
     ['screen-setup-initial', 'Полная настройка', 'setup'],
     ['screen-setup-completed', 'Настройка завершена', 'setup'],
-    ['xiaomi-settings', 'Работа в фоне на Xiaomi', 'setup'],
-    ['xiaomi-background-settings', 'Автозапуск и батарея', 'setup'],
 
     ['sensor-scanning', 'Поиск датчика', 'sensor'],
     ['sensor-search-scanning', 'Поиск, вариант', 'sensor'],
