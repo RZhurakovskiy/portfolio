@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HR Automotive — кейс · Роман Жураковский</title>
+  <meta name="description" content="HR Automotive — сайт вакансий Борского стекольного завода и закрытая админка на Go (Fiber): вакансии с корзиной, контакты с картой, роли и доступы, метрики просмотров.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="canonical" href="https://romanzhurakovskiy.ru/hr-automotive.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="HR Automotive — кейс · Роман Жураковский">
+  <meta property="og:description" content="Сайт вакансий Борского стекольного завода и закрытая админка на Go (Fiber): вакансии, контакты, роли и метрики.">
+  <meta property="og:url" content="https://romanzhurakovskiy.ru/hr-automotive.html">
+  <meta property="og:image" content="https://romanzhurakovskiy.ru/images/hr-automotive/site-desktop-first.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add('js')</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/hr.css">
+</head>
+<body class="hr">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+      <symbol id="i-tablet" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect width="12" height="20" x="6" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20 7 4"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><rect width="4" height="16" x="6" y="4"/><rect width="4" height="16" x="14" y="4"/></symbol>
+      <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+      <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+      <symbol id="i-drag" viewBox="0 0 24 24"><path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Верхняя строка: логотип и возврат к проектам. Навигация по разделам в доке внизу. -->
+  <header class="hr-bar">
+    <div class="container hr-bar__inner">
+      <a class="hr-brand" href="index.html" aria-label="Роман Жураковский, на главную">
+        <span class="hr-brand__mark">RZ</span>
+        <span class="hr-brand__name">Роман Жураковский</span>
+      </a>
+      <span class="hr-bar__tag">Кейс · Web</span>
+      <a class="hr-back" href="index.html#projects"><svg class="icon"><use href="#i-arrow-left"/></svg>Все проекты</a>
+    </div>
+  </header>
+
+  <!-- Нижний док с разделами кейса -->
+  <nav class="hr-dock" aria-label="Разделы кейса" data-dock>
+    <a class="hr-dock__round hr-dock__back" href="index.html#projects" aria-label="Все проекты">
+      <svg class="icon"><use href="#i-arrow-left"/></svg>
+    </a>
+
+    <button class="hr-dock__current" type="button" aria-expanded="false" aria-controls="hr-dock-links" data-dock-toggle>
+      <span data-dock-label>Разделы</span>
+      <svg class="icon"><use href="#i-chevron-up"/></svg>
+    </button>
+
+    <div class="hr-dock__links" id="hr-dock-links" data-dock-links>
+      <span class="hr-dock__pill" aria-hidden="true"></span>
+      <a href="#about">Проект</a>
+      <a href="#done">Сделано</a>
+      <a href="#site">Сайт</a>
+      <a href="#devices">Экраны</a>
+      <a href="#admin">Админка</a>
+      <a href="#stack">Стек</a>
+    </div>
+
+    <a class="hr-dock__round hr-dock__up" href="#top" aria-label="Наверх">
+      <svg class="hr-dock__ring" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="21"/>
+        <circle cx="24" cy="24" r="21" pathLength="100" data-dock-ring/>
+      </svg>
+      <svg class="icon hr-dock__arrow"><use href="#i-arrow-up"/></svg>
+    </a>
+  </nav>
+
+  <main id="top">
+
+    <!-- Первый экран: шов между сайтом и админкой -->
+    <section class="hr-hero">
+      <div class="container">
+        <div class="hr-hero__head">
+          <div>
+            <span class="hr-tag reveal">Коммерческий проект · 2024</span>
+            <h1 class="hr-title reveal" aria-label="HR Automotive">HR <span class="hr-nowrap">Automotive<i class="hr-mark" aria-hidden="true"></i></span></h1>
+          </div>
+          <div class="hr-hero__side">
+            <p class="hr-lead reveal">Сайт вакансий Борского стекольного завода и закрытая админка, через которую отдел кадров сам ведёт вакансии, контакты и доступы. Сервер на Go.</p>
+            <div class="hr-actions reveal">
+              <a class="hr-btn hr-btn--red" href="https://hr-automotive.aigrus.ru/" target="_blank" rel="noopener">Открыть живой сайт <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+              <a class="hr-btn" href="#admin">Смотреть админку</a>
+            </div>
+          </div>
+        </div>
+
+        <figure class="hr-seam reveal" data-seam style="--pos:50%">
+          <div class="hr-browser__bar">
+            <span class="hr-browser__dots"><i></i><i></i><i></i></span>
+            <span class="hr-seam__url"><b>hr-automotive.aigrus.ru</b><b>…/admin/vacancies</b></span>
+          </div>
+          <div class="hr-seam__view">
+            <picture>
+              <source media="(max-width: 767px)" srcset="images/hr-automotive/site-mobile-first.webp">
+              <img src="images/hr-automotive/site-desktop-first.webp" alt="Сайт: первый экран с названием завода и кнопками «Вакансии» и «О компании»" width="1425" height="900">
+            </picture>
+            <picture class="hr-seam__top">
+              <source media="(max-width: 767px)" srcset="images/hr-automotive/admin-vacancies-mobile-first.webp">
+              <img src="images/hr-automotive/admin-vacancies-desktop-first.webp" alt="Админка: список вакансий с переключателями публикации и редактор" width="1440" height="900">
+            </picture>
+            <span class="hr-seam__line" aria-hidden="true"></span>
+            <span class="hr-seam__handle" aria-hidden="true"><svg class="icon"><use href="#i-drag"/></svg></span>
+            <input class="hr-seam__range" type="range" min="0" max="100" step="0.1" value="50" aria-label="Шов: слева сайт, справа админка">
+            <span class="hr-seam__label hr-seam__label--l">Кандидат видит сайт</span>
+            <span class="hr-seam__label hr-seam__label--r">HR видит админку</span>
+          </div>
+        </figure>
+
+        <dl class="hr-meta reveal">
+          <div><dt>Роль</dt><dd>Разработка: вёрстка, сервер, админка</dd></div>
+          <div><dt>Первая версия</dt><dd>2024, Gulp · HTML · CSS · JS</dd></div>
+          <div><dt>Сейчас</dt><dd>Go · Fiber, в работе у заказчика</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Факты в строку -->
+    <section class="hr-facts" aria-label="Коротко о проекте">
+      <div class="container hr-facts__row">
+        <div class="reveal"><strong data-count="6">6</strong><span>блоков на одной странице: о компании, ценности, соцпакет, вакансии, контакты</span></div>
+        <div class="reveal"><strong data-count="4">4</strong><span>раздела админки: вакансии, контакты, пользователи, метрики</span></div>
+        <div class="reveal"><strong data-count="3">3</strong><span>размера экрана: ПК, планшет, телефон</span></div>
+        <div class="reveal"><strong data-count="30">30</strong><span>секунд на странице до того, как посетитель попадёт в метрики</span></div>
+      </div>
+    </section>
+
+    <!-- 01 О проекте -->
+    <section class="hr-sec" id="about">
+      <div class="container hr-split">
+        <div class="hr-sec__head">
+          <span class="hr-num reveal">01</span>
+          <h2 class="hr-h2 reveal">Сайт вакансий, которым заказчик управляет сам</h2>
+        </div>
+        <div class="hr-prose">
+          <p class="reveal">Борский стекольный завод ведёт набор через сайт. Отдел кадров попросил сделать страницу вакансий, а позже и возможность править её самостоятельно: добавлять и скрывать вакансии, менять телефоны и карту, смотреть, какими вакансиями интересуются.</p>
+          <p class="reveal">Первая версия 2024 года собрана на Gulp, HTML, CSS и JavaScript. Потом сайт переписан на Go (Fiber) вместе с админкой, которая живёт в том же приложении.</p>
+          <p class="hr-note reveal">Проект коммерческий. Сайт открыт по ссылке, админка закрыта, поэтому её я показываю скриншотами.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Задача -->
+    <section class="hr-sec hr-sec--tint" id="task">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">02</span>
+          <h2 class="hr-h2 reveal">Что нужно было сделать</h2>
+        </div>
+        <ol class="hr-tasks">
+          <li class="reveal"><span>1</span><div><h3>Показать завод и условия</h3><p>О компании в цифрах, шесть ценностей и социальный пакет: зарплата, спецодежда, обеды, ДМС, страхование, санаторий, спорт и лагеря для детей.</p></div></li>
+          <li class="reveal"><span>2</span><div><h3>Дать выбрать вакансию</h3><p>Одним нажатием выбрать профессию и сразу увидеть зарплату, график, обязанности, требования и условия. Без перехода на другую страницу.</p></div></li>
+          <li class="reveal"><span>3</span><div><h3>Отдать управление заказчику</h3><p>Вакансии, контакты и карту отдел кадров правит сам, без разработчика. Для этого понадобились вход, роли и корзина с возможностью восстановить удалённое.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 03 Что реализовано -->
+    <section class="hr-sec hr-sec--tint" id="done">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">03</span>
+          <h2 class="hr-h2 reveal">Что реализовано</h2>
+        </div>
+        <p class="hr-sub reveal">Две стороны одного приложения: сайт для тех, кто ищет работу, и админка для тех, кто ведёт набор.</p>
+
+        <div class="hr-done">
+          <article class="hr-done__col reveal">
+            <span class="hr-done__for">Для кандидата</span>
+            <h3>Публичный сайт</h3>
+            <ul>
+              <li><b>01</b><div><strong>Одна страница из шести блоков</strong><span>Первый экран, о компании в цифрах, ценности, социальный пакет, вакансии, контакты.</span></div></li>
+              <li><b>02</b><div><strong>Вакансия без перехода на другую страницу</strong><span>Профессия выбирается кнопкой, ниже появляются зарплата, график, обязанности, требования и условия.</span></div></li>
+              <li><b>03</b><div><strong>Карта и контакты</strong><span>Яндекс.Карта с меткой завода, телефон и почта отдела кадров.</span></div></li>
+              <li><b>04</b><div><strong>ПК, планшет, телефон</strong><span>Своя вёрстка под каждый размер: на телефоне бургер-меню и выбор вакансии списком.</span></div></li>
+              <li><b>05</b><div><strong>Мелочи, которые делают сайт живым</strong><span>Прелоадер, счётчики в цифрах, плавное появление блоков, полоса прокрутки, кнопка «наверх», баннер cookie.</span></div></li>
+            </ul>
+          </article>
+
+          <article class="hr-done__col reveal">
+            <span class="hr-done__for">Для HR</span>
+            <h3>Закрытая админка</h3>
+            <ul>
+              <li><b>01</b><div><strong>Вход и роли</strong><span>Логин и пароль, роли, переключатель «разрешить вход»: доступ можно закрыть, не удаляя запись.</span></div></li>
+              <li><b>02</b><div><strong>Вакансии</strong><span>Публикация переключателем, порядок кнопками «Выше» и «Ниже», редактор со списками и шаблон «Заполнить из вакансии».</span></div></li>
+              <li><b>03</b><div><strong>Корзина</strong><span>Снятую вакансию можно восстановить, удалить навсегда или очистить корзину целиком.</span></div></li>
+              <li><b>04</b><div><strong>Контакты и карта</strong><span>Несколько телефонов, почта, соцсети и метка на карте, которую двигают кликом.</span></div></li>
+              <li><b>05</b><div><strong>Метрики</strong><span>Просмотры вакансий, график по дням, последние просмотры и посещения главной страницы.</span></div></li>
+            </ul>
+          </article>
+
+          <p class="hr-done__how reveal"><strong>Как сделано.</strong> Сайт и админка это одно приложение на Go (Fiber). Вакансии и контакты хранятся на сервере, а не в вёрстке, поэтому отдел кадров меняет их сам, и изменения сразу видны на сайте.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Публичный сайт -->
+    <section class="hr-sec" id="site">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">04</span>
+          <h2 class="hr-h2 reveal">Публичный сайт: шесть блоков</h2>
+        </div>
+
+        <div class="hr-bento">
+          <figure class="hr-tile hr-tile--hero reveal">
+            <img src="images/hr-automotive/site-desktop-first.webp" alt="Первый экран сайта" width="1425" height="900" loading="lazy">
+            <figcaption><span>Первый экран</span><strong>Завод, название и два действия</strong><p>Фотография производства, год основания и кнопки «Вакансии» и «О компании».</p></figcaption>
+          </figure>
+          <figure class="hr-tile hr-tile--about reveal">
+            <img src="images/hr-automotive/site-about-desktop.webp" alt="Блок «Почему нас выбирают»" width="1425" height="821" loading="lazy">
+            <figcaption><span>О компании</span><strong>Цифры, которые считаются на глазах</strong></figcaption>
+          </figure>
+          <figure class="hr-tile hr-tile--social reveal">
+            <img src="images/hr-automotive/site-social-desktop.webp" alt="Социальный пакет: восемь пунктов с иконками" width="1425" height="644" loading="lazy">
+            <figcaption><span>Социальный пакет</span><strong>Восемь пунктов с иконками</strong></figcaption>
+          </figure>
+          <figure class="hr-tile hr-tile--values reveal">
+            <img src="images/hr-automotive/site-values-desktop.webp" alt="Ключевые ценности с крупными номерами" width="1425" height="2118" loading="lazy">
+            <figcaption><span>Ценности</span><strong>Шесть ценностей с крупными номерами</strong><p>Красный квадрат у номера повторяет фирменный знак завода.</p></figcaption>
+          </figure>
+          <figure class="hr-tile hr-tile--vac reveal">
+            <img src="images/hr-automotive/site-vacancies-desktop.webp" alt="Выбор вакансии и карточка с условиями" width="1425" height="1485" loading="lazy">
+            <figcaption><span>Вакансии</span><strong>Выбор профессии и карточка вакансии</strong><p>Профессии кнопками, под ними зарплата, график и три колонки условий.</p></figcaption>
+          </figure>
+          <figure class="hr-tile hr-tile--contacts reveal">
+            <img src="images/hr-automotive/site-contacts-desktop.webp" alt="Контакты: карта, телефон и почта" width="1425" height="836" loading="lazy">
+            <figcaption><span>Контакты</span><strong>Телефон, почта и карта</strong><p>Контакты и метку на карте меняют в админке.</p></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Устройства -->
+    <section class="hr-sec hr-sec--tint" id="devices">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">05</span>
+          <h2 class="hr-h2 reveal">Один сайт на любом экране</h2>
+        </div>
+        <p class="hr-sub reveal">Это вся страница целиком, снятая на трёх размерах. Прокрутите её прямо в рамке.</p>
+
+        <div class="hr-dev" data-device-root data-scroll-demo>
+          <div class="hr-dev__bar reveal">
+            <div class="hr-seg" role="tablist" aria-label="Размер экрана">
+              <span class="hr-seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-device="desktop"><svg class="icon"><use href="#i-monitor"/></svg>ПК · 1440</button>
+              <button type="button" role="tab" aria-selected="false" data-device="tablet"><svg class="icon"><use href="#i-tablet"/></svg>Планшет · 820</button>
+              <button type="button" role="tab" aria-selected="false" data-device="mobile"><svg class="icon"><use href="#i-phone"/></svg>Телефон · 390</button>
+            </div>
+            <button type="button" class="hr-play" data-play aria-pressed="false"><svg class="icon"><use href="#i-play"/></svg><span>Пролистать автоматически</span></button>
+          </div>
+
+          <div class="hr-dev__stage">
+            <figure class="hr-frame hr-frame--desktop is-active" data-device-pane="desktop">
+              <div class="hr-browser__bar"><span class="hr-browser__dots"><i></i><i></i><i></i></span><span class="hr-browser__url">hr-automotive.aigrus.ru</span></div>
+              <div class="hr-frame__view" data-view tabindex="0" aria-label="Страница сайта на ПК, можно прокручивать"><img src="images/hr-automotive/site-desktop-full.webp" alt="Страница сайта целиком на ПК" width="1425" height="6759" loading="lazy"></div>
+            </figure>
+            <figure class="hr-frame hr-frame--tablet" data-device-pane="tablet">
+              <div class="hr-frame__view" data-view tabindex="0" aria-label="Страница сайта на планшете, можно прокручивать"><img src="images/hr-automotive/site-tablet-full.webp" alt="Страница сайта целиком на планшете" width="820" height="7781" loading="lazy"></div>
+            </figure>
+            <figure class="hr-frame hr-frame--mobile" data-device-pane="mobile">
+              <div class="hr-frame__view" data-view tabindex="0" aria-label="Страница сайта на телефоне, можно прокручивать"><img src="images/hr-automotive/site-mobile-full.webp" alt="Страница сайта целиком на телефоне" width="780" height="13450" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Админка -->
+    <section class="hr-sec" id="admin">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">06</span>
+          <h2 class="hr-h2 reveal">Админка: то, чего не видно с улицы</h2>
+        </div>
+        <p class="hr-sub reveal">Закрытая часть сайта по адресу <code>/admin</code>. Вход по логину и паролю, четыре раздела. Показываю по экранам, на тех же трёх размерах.</p>
+
+        <div class="hr-adm" data-device-root data-admin>
+          <div class="hr-adm__tabs reveal" role="tablist" aria-label="Разделы админки">
+            <button type="button" role="tab" aria-selected="true" data-tab="vacancies"><b>01</b>Вакансии</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="editor"><b>02</b>Редактор</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="trash"><b>03</b>Корзина</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="contacts"><b>04</b>Контакты</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="users"><b>05</b>Роли</button>
+            <button type="button" role="tab" aria-selected="false" data-tab="metrics"><b>06</b>Метрики</button>
+          </div>
+
+          <div class="hr-adm__main">
+            <div class="hr-adm__window">
+              <div class="hr-adm__devices">
+                <div class="hr-seg hr-seg--sm" role="tablist" aria-label="Размер экрана админки">
+                  <span class="hr-seg__pill" aria-hidden="true"></span>
+                  <button type="button" role="tab" aria-selected="true" data-device="desktop"><svg class="icon"><use href="#i-monitor"/></svg>ПК</button>
+                  <button type="button" role="tab" aria-selected="false" data-device="tablet"><svg class="icon"><use href="#i-tablet"/></svg>Планшет</button>
+                  <button type="button" role="tab" aria-selected="false" data-device="mobile"><svg class="icon"><use href="#i-phone"/></svg>Телефон</button>
+                </div>
+              </div>
+
+              <div class="hr-adm__stage" data-adm-stage>
+                <figure class="hr-frame hr-frame--desktop is-active" data-device-pane="desktop">
+                  <div class="hr-browser__bar"><span class="hr-browser__dots"><i></i><i></i><i></i></span><span class="hr-browser__url" data-adm-url>…/admin/vacancies</span></div>
+                  <div class="hr-frame__view hr-frame__view--adm" data-view tabindex="0" aria-label="Экран админки на ПК, можно прокручивать"></div>
+                </figure>
+                <figure class="hr-frame hr-frame--tablet" data-device-pane="tablet">
+                  <div class="hr-frame__view hr-frame__view--adm" data-view tabindex="0" aria-label="Экран админки на планшете, можно прокручивать"></div>
+                </figure>
+                <figure class="hr-frame hr-frame--mobile" data-device-pane="mobile">
+                  <div class="hr-frame__view hr-frame__view--adm" data-view tabindex="0" aria-label="Экран админки на телефоне, можно прокручивать"></div>
+                </figure>
+              </div>
+            </div>
+
+            <aside class="hr-adm__note" aria-live="polite">
+              <span class="hr-adm__num" data-note-num>01</span>
+              <h3 data-note-title>Вакансии</h3>
+              <p data-note-text></p>
+              <ul data-note-list></ul>
+              <div class="hr-adm__subtabs" data-subtabs hidden role="tablist" aria-label="Вкладка метрик"></div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 Карта -->
+    <section class="hr-sec hr-sec--tint" id="map">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">07</span>
+          <h2 class="hr-h2 reveal">Метка на карте двигается кликом</h2>
+        </div>
+        <p class="hr-sub reveal">В разделе «Контакты» заказчик не вставляет координаты руками: достаточно кликнуть по карте или перетащить метку, и ссылка на Яндекс.Карты в поле обновляется сама. Потяните ползунок, чтобы сравнить.</p>
+
+        <div class="hr-cmp" data-device-root data-compare-root>
+          <div class="hr-cmp__bar reveal">
+            <div class="hr-seg hr-seg--sm" role="tablist" aria-label="Размер экрана">
+              <span class="hr-seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-device="desktop"><svg class="icon"><use href="#i-monitor"/></svg>ПК</button>
+              <button type="button" role="tab" aria-selected="false" data-device="tablet"><svg class="icon"><use href="#i-tablet"/></svg>Планшет</button>
+              <button type="button" role="tab" aria-selected="false" data-device="mobile"><svg class="icon"><use href="#i-phone"/></svg>Телефон</button>
+            </div>
+          </div>
+          <div class="hr-cmp__stage">
+            <div class="hr-compare is-active reveal" data-device-pane="desktop" data-compare style="--pos:50%">
+              <img src="images/hr-automotive/admin-map-before-desktop.webp" alt="Карта: исходная метка" width="1440" height="900" loading="lazy">
+              <img class="hr-compare__top" src="images/hr-automotive/admin-map-after-desktop.webp" alt="Карта: метка после клика" width="1440" height="900" loading="lazy">
+              <span class="hr-compare__handle" aria-hidden="true"><svg class="icon"><use href="#i-drag"/></svg></span>
+              <input class="hr-compare__range" type="range" min="0" max="100" value="50" aria-label="Сравнение: метка до и после клика, ПК">
+              <span class="hr-compare__label hr-compare__label--l">Было</span><span class="hr-compare__label hr-compare__label--r">После клика</span>
+            </div>
+            <div class="hr-compare hr-compare--tablet" data-device-pane="tablet" data-compare style="--pos:50%">
+              <img src="images/hr-automotive/admin-map-before-tablet.webp" alt="Карта: исходная метка" width="820" height="1180" loading="lazy">
+              <img class="hr-compare__top" src="images/hr-automotive/admin-map-after-tablet.webp" alt="Карта: метка после клика" width="820" height="1180" loading="lazy">
+              <span class="hr-compare__handle" aria-hidden="true"><svg class="icon"><use href="#i-drag"/></svg></span>
+              <input class="hr-compare__range" type="range" min="0" max="100" value="50" aria-label="Сравнение: метка до и после клика, планшет">
+              <span class="hr-compare__label hr-compare__label--l">Было</span><span class="hr-compare__label hr-compare__label--r">После клика</span>
+            </div>
+            <div class="hr-compare hr-compare--mobile" data-device-pane="mobile" data-compare style="--pos:50%">
+              <img src="images/hr-automotive/admin-map-before-mobile.webp" alt="Карта: исходная метка" width="780" height="1688" loading="lazy">
+              <img class="hr-compare__top" src="images/hr-automotive/admin-map-after-mobile.webp" alt="Карта: метка после клика" width="780" height="1688" loading="lazy">
+              <span class="hr-compare__handle" aria-hidden="true"><svg class="icon"><use href="#i-drag"/></svg></span>
+              <input class="hr-compare__range" type="range" min="0" max="100" value="50" aria-label="Сравнение: метка до и после клика, телефон">
+              <span class="hr-compare__label hr-compare__label--l">Было</span><span class="hr-compare__label hr-compare__label--r">После клика</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 Решения -->
+    <section class="hr-sec" id="stack">
+      <div class="container hr-split">
+        <div class="hr-sec__head">
+          <span class="hr-num reveal">08</span>
+          <h2 class="hr-h2 reveal">Как это устроено</h2>
+          <p class="hr-sub reveal">Только то, что я могу показать и защитить. Всё остальное оставляю за скобками.</p>
+        </div>
+        <dl class="hr-spec reveal">
+          <div><dt>Сервер</dt><dd>Go, веб-фреймворк Fiber. Сайт и админка в одном приложении.</dd></div>
+          <div><dt>Сайт</dt><dd>HTML, CSS, JavaScript. Первая версия 2024 года собиралась Gulp.</dd></div>
+          <div><dt>Вакансии</dt><dd>Список с порядком, публикацией и мягким удалением: корзина, восстановление, удаление навсегда.</dd></div>
+          <div><dt>Контакты</dt><dd>Несколько телефонов, почта, VK, Telegram, WhatsApp, метка на Яндекс.Карте.</dd></div>
+          <div><dt>Доступ</dt><dd>Вход по логину и паролю, роли, переключатель «разрешить вход», главный и системный пользователь.</dd></div>
+          <div><dt>Метрики</dt><dd>Просмотры вакансий и посещения главной страницы, уникальные посетители, учёт от 30 секунд видимого времени.</dd></div>
+          <div><dt>Карта</dt><dd>Яндекс.Карты и на сайте, и в админке.</dd></div>
+          <div><dt>Адаптив</dt><dd>ПК, планшет и телефон; на телефоне бургер-меню и выбор вакансии списком.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 08 История -->
+    <section class="hr-sec hr-sec--tint" id="history">
+      <div class="container">
+        <div class="hr-sec__head hr-sec__head--wide">
+          <span class="hr-num reveal">09</span>
+          <h2 class="hr-h2 reveal">Две версии одного сайта</h2>
+        </div>
+        <ol class="hr-time">
+          <li class="reveal"><span class="hr-time__when">2024</span><h3>Сайт вакансий</h3><p>По просьбе отдела кадров завода: Gulp, HTML, CSS и JavaScript. Страницы, выбор вакансии, адаптив.</p></li>
+          <li class="reveal"><span class="hr-time__when">Затем</span><h3>Админка и переезд на Go</h3><p>HR попросил управлять вакансиями самому. Сайт переписан на Go (Fiber) вместе с админкой: вход, роли, корзина, контакты, метрики.</p></li>
+          <li class="reveal"><span class="hr-time__when">Сейчас</span><h3>В работе у заказчика</h3><p>Сайт открыт, вакансиями управляют через админку. Вакансии, которые заказчик убрал, лежат в корзине и могут вернуться.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Призыв -->
+    <section class="hr-cta">
+      <div class="container hr-cta__inner">
+        <h2 class="reveal">Нужен сайт, которым управляете сами?</h2>
+        <p class="reveal">Напишите, что должно меняться без разработчика, и я отвечу, как это собрать и за какое время.</p>
+        <div class="hr-actions reveal">
+          <a class="hr-btn hr-btn--red" href="index.html#contacts">Обсудить задачу <svg class="icon"><use href="#i-send"/></svg></a>
+          <a class="hr-btn" href="index.html#projects">Другие проекты <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="hr-foot">
+    <div class="container hr-foot__inner">
+      <a class="hr-brand" href="index.html" aria-label="Роман Жураковский, на главную">
+        <span class="hr-brand__mark">RZ</span>
+        <span class="hr-brand__name">Роман Жураковский</span>
+      </a>
+      <div class="hr-foot__links">
+        <a href="mailto:roman@zhurakovsky.dev">roman@zhurakovsky.dev</a>
+        <a href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener">Telegram</a>
+        <a href="index.html#projects">Другие проекты</a>
+      </div>
+      <span class="hr-foot__meta">© <span data-year>2026</span> Роман Жураковский · Кейс · Web</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/hr.js" defer></script>
+</body>
+</html>
