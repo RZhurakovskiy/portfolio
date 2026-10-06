@@ -1,0 +1,19 @@
+{
+  "base": "http://localhost:3100",
+  "pages": [
+    { "key": "home", "path": "/", "wait": 7000 },
+    {
+      "key": "uvolnenie",
+      "path": "/vyplaty-pri-sokraschenii?reason=sokraschenie&hireDate=2023-01-15&terminationDate=2026-08-27&monthlySalary=80000&usedDays=0&month2Paid=1",
+      "wait": 9000,
+      "click": ["Показать расчёт по шагам"],
+      "focus": "Итого на руки при увольнении"
+    },
+    {
+      "key": "ipoteka",
+      "path": "/ipoteka-dosrochnoe-pogashenie?remainingBalance=5000000&annualRatePercent=18&remainingMonths=180",
+      "wait": 9000,
+      "click": ["Показать расчёт по шагам"]
+    }
+  ]
+}

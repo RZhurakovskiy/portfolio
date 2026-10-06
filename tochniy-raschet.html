@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ТочныйРасчёт · кейс · Роман Жураковский</title>
+  <meta name="description" content="ТочныйРасчёт: 17 калькуляторов выплат и налогов по нормам 2026 года. Расчёт на лету, разбор каждой цифры по шагам со ссылкой на статью закона. Next.js, React, TypeScript.">
+  <meta name="theme-color" content="#0D0C12">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="canonical" href="https://romanzhurakovskiy.ru/tochniy-raschet.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="ТочныйРасчёт · кейс · Роман Жураковский">
+  <meta property="og:description" content="17 калькуляторов выплат и налогов с живым пересчётом и разбором каждой цифры по шагам. Попробуйте расчёт выплат при увольнении прямо на странице.">
+  <meta property="og:url" content="https://romanzhurakovskiy.ru/tochniy-raschet.html">
+  <meta property="og:image" content="https://romanzhurakovskiy.ru/images/tochniy-raschet/home-desktop-first.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add('js')</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tr.css">
+</head>
+<body class="tr">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+      <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+      <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+      <symbol id="i-tablet" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect width="12" height="20" x="6" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20 7 4"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><rect width="4" height="16" x="6" y="4"/><rect width="4" height="16" x="14" y="4"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Верхняя строка -->
+  <header class="tr-bar">
+    <div class="container tr-bar__inner">
+      <a class="tr-brand" href="index.html" aria-label="Роман Жураковский, на главную">
+        <span class="tr-brand__mark">RZ</span>
+        <span class="tr-brand__name">Роман Жураковский</span>
+      </a>
+      <span class="tr-bar__tag">Кейс · Web</span>
+      <a class="tr-back" href="index.html#projects"><svg class="icon"><use href="#i-arrow-left"/></svg>Все проекты</a>
+    </div>
+  </header>
+
+  <!-- Нижний док с разделами кейса -->
+  <nav class="tr-dock" aria-label="Разделы кейса" data-dock>
+    <a class="tr-dock__round" href="index.html#projects" aria-label="Все проекты">
+      <svg class="icon"><use href="#i-arrow-left"/></svg>
+    </a>
+
+    <button class="tr-dock__current" type="button" aria-expanded="false" aria-controls="tr-dock-links" data-dock-toggle>
+      <span data-dock-label>Проект</span>
+      <svg class="icon"><use href="#i-chevron-up"/></svg>
+    </button>
+
+    <div class="tr-dock__links" id="tr-dock-links">
+      <span class="tr-dock__pill" aria-hidden="true"></span>
+      <a href="#about">Проект</a>
+      <a href="#demo">Расчёт</a>
+      <a href="#steps">Шаги</a>
+      <a href="#map">Карта</a>
+      <a href="#screens">Экраны</a>
+      <a href="#stack">Стек</a>
+      <a href="#path">Путь</a>
+    </div>
+
+    <a class="tr-dock__round" href="#top" aria-label="Наверх">
+      <svg class="tr-dock__ring" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="21"/>
+        <circle cx="24" cy="24" r="21" pathLength="100" data-dock-ring/>
+      </svg>
+      <svg class="icon tr-dock__arrow"><use href="#i-arrow-up"/></svg>
+    </a>
+  </nav>
+
+  <main id="top">
+
+    <!-- Первый экран -->
+    <section class="tr-hero" id="about">
+      <div class="container">
+        <span class="tr-tag reveal">Собственный проект · 2026</span>
+        <h1 class="tr-title reveal" aria-label="ТочныйРасчёт"><span>Точный</span><span class="tr-title__b">Расчёт</span></h1>
+        <div class="tr-hero__row">
+          <p class="tr-lead reveal">Калькуляторы выплат и налогов по нормам 2026 года. Всё считается на странице сразу, без кнопки «Рассчитать», а каждая цифра разбирается по шагам со ссылкой на статью закона.</p>
+          <div class="tr-actions reveal">
+            <a class="tr-btn tr-btn--main" href="#demo">Попробовать расчёт <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            <a class="tr-btn" href="#screens">Посмотреть экраны</a>
+          </div>
+        </div>
+        <dl class="tr-meta reveal">
+          <div><dt>Роль</dt><dd>Продукт и разработка. Код пишу с ИИ-ассистентом, решения принимаю сам</dd></div>
+          <div><dt>Когда</dt><dd>С июля по сентябрь 2026</dd></div>
+          <div><dt>Стек</dt><dd>Next.js 16 · React 19 · TypeScript · Tailwind 4</dd></div>
+          <div><dt>Статус</dt><dd>Работает локально, не опубликован</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Факты -->
+    <section class="tr-facts" aria-label="Коротко о проекте">
+      <div class="container tr-facts__row">
+        <div class="reveal"><strong data-count="17">17</strong><span>калькуляторов, у каждого своя страница</span></div>
+        <div class="reveal"><strong data-count="6">6</strong><span>категорий: от НДФЛ до ипотеки</span></div>
+        <div class="reveal"><strong data-count="9">9</strong><span>ползунков «а если...» с пересчётом на лету</span></div>
+        <div class="reveal"><strong data-count="3">3</strong><span>статьи в блоге про сокращение, декрет и самозанятость</span></div>
+      </div>
+    </section>
+
+    <!-- 01 Живой расчёт -->
+    <section class="tr-sec" id="demo">
+      <div class="container">
+        <div class="tr-head">
+          <span class="tr-num reveal">01</span>
+          <h2 class="tr-h2 reveal">От приёма на работу до увольнения</h2>
+          <p class="tr-sub reveal">Так работает сценарий «Выплаты при увольнении». Это настоящие формулы проекта: двигайте даты и ползунки, листок пересчитывается сразу.</p>
+        </div>
+
+        <div class="tr-demo reveal" data-demo>
+          <div class="tr-demo__controls">
+            <div class="tr-mini" aria-hidden="true"><span>Итого на руки</span><b data-mini-total>398 334 ₽</b></div>
+            <div class="tr-seg" role="tablist" aria-label="Причина увольнения">
+              <span class="tr-seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-reason="cut">Сокращение штата</button>
+              <button type="button" role="tab" aria-selected="false" data-reason="own">По своему желанию</button>
+            </div>
+
+            <label class="tr-field">
+              <span class="tr-field__label">Принят на работу</span>
+              <input type="date" value="2023-01-15" min="2000-01-01" max="2026-10-01" data-hire>
+            </label>
+
+            <div class="tr-tl" data-tl>
+              <div class="tr-tl__head">
+                <span class="tr-field__label">Уволен</span>
+                <strong data-term-label>27 августа 2026</strong>
+              </div>
+              <div class="tr-tl__track">
+                <span class="tr-tl__ticks" data-ticks aria-hidden="true"></span>
+                <span class="tr-tl__fill" data-fill aria-hidden="true"></span>
+                <span class="tr-tl__start" aria-hidden="true"></span>
+                <span class="tr-tl__handle" data-handle aria-hidden="true"><i data-span>3 г. 7 мес.</i></span>
+                <input class="tr-tl__range" type="range" min="30" max="3650" step="1" value="1320" aria-label="Дата увольнения: сколько дней после приёма" data-term>
+              </div>
+            </div>
+
+            <label class="tr-field">
+              <span class="tr-field__label">Зарплата в месяц <b data-salary-out>80 000 ₽</b></span>
+              <input class="tr-range" type="range" min="30000" max="300000" step="1000" value="80000" data-salary>
+            </label>
+
+            <label class="tr-field">
+              <span class="tr-field__label">Отпуска уже использовано <b data-used-out>0 дн.</b></span>
+              <input class="tr-range" type="range" min="0" max="120" step="1" value="0" data-used>
+            </label>
+
+            <div class="tr-checks" data-checks>
+              <label class="tr-check"><input type="checkbox" data-m2><span>Не нашёл работу 2 месяца после увольнения</span></label>
+              <label class="tr-check"><input type="checkbox" data-m3><span>Служба занятости решила платить и за 3-й месяц</span></label>
+            </div>
+          </div>
+
+          <article class="tr-slip" aria-live="polite" data-slip>
+            <header class="tr-slip__head">
+              <span>Расчётный листок</span>
+              <em class="tr-slip__stamp">формулы проекта</em>
+              <small data-slip-period>15.01.2023 → 27.08.2026</small>
+            </header>
+            <dl class="tr-slip__rows" data-rows></dl>
+            <div class="tr-slip__total">
+              <span>Итого на руки</span>
+              <strong data-total>398 334 ₽</strong>
+            </div>
+            <footer class="tr-slip__foot">
+              <button type="button" class="tr-link" data-steps-toggle aria-pressed="false">Показать расчёт по шагам</button>
+              <p>Упрощённый расчёт для демонстрации: он не заменяет юридическую консультацию. Все условия и ограничения описаны на странице калькулятора.</p>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Шаги -->
+    <section class="tr-sec tr-sec--tint" id="steps">
+      <div class="container">
+        <div class="tr-head">
+          <span class="tr-num reveal">02</span>
+          <h2 class="tr-h2 reveal">Каждая цифра с объяснением</h2>
+          <p class="tr-sub reveal">Под любым расчётом на сайте раскрывается разбор: формула с подставленными числами и ссылка на статью закона. Так видно, откуда взялась сумма, и можно проверить её самому.</p>
+        </div>
+
+        <div class="tr-steps">
+          <ul class="tr-steps__list">
+            <li class="reveal"><b>1</b><div><strong>Формула с вашими числами</strong><span>Не «получилось столько-то», а «273 948 ₽ × 13% = 35 613 ₽».</span></div></li>
+            <li class="reveal"><b>2</b><div><strong>Ссылка на статью</strong><span>Рядом с шагом стоит норма ТК или НК РФ, на которой он держится.</span></div></li>
+            <li class="reveal"><b>3</b><div><strong>Результат можно унести с собой</strong><span>Скопировать ссылку на расчёт, скопировать итог текстом, скачать картинку или сохранить в PDF.</span></div></li>
+            <li class="reveal"><b>4</b><div><strong>История и общий профиль</strong><span>Расчёты и зарплата запоминаются в самом браузере, аккаунт не нужен.</span></div></li>
+          </ul>
+
+          <div class="tr-steps__shots reveal">
+            <figure class="tr-win">
+              <div class="tr-win__bar"><span class="tr-win__dots"><i></i><i></i><i></i></span><span class="tr-win__url">Выплаты при увольнении · разбор по шагам</span></div>
+              <img src="images/tochniy-raschet/uvolnenie-desktop-detail.webp" alt="Разбор расчёта по шагам на ПК: восемь шагов с формулами и ссылками на статьи" width="1440" height="900" loading="lazy">
+            </figure>
+            <figure class="tr-phone">
+              <img src="images/tochniy-raschet/uvolnenie-mobile-detail.webp" alt="Тот же разбор на телефоне" width="780" height="1688" loading="lazy">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Карта калькуляторов -->
+    <section class="tr-sec" id="map">
+      <div class="container">
+        <div class="tr-head">
+          <span class="tr-num reveal">03</span>
+          <h2 class="tr-h2 reveal">Семнадцать калькуляторов в шести категориях</h2>
+          <p class="tr-sub reveal">Отдельные страницы под отдельные запросы, а рядом сценарии, которые тянут расчёт через несколько шагов.</p>
+        </div>
+
+        <div class="tr-filter reveal" role="group" aria-label="Подсветка калькуляторов" data-filter>
+          <button type="button" aria-pressed="true" data-f="all">Все</button>
+          <button type="button" aria-pressed="false" data-f="chain">Сценарии</button>
+          <button type="button" aria-pressed="false" data-f="whatif">С ползунком «а если»</button>
+        </div>
+
+        <div class="tr-map reveal" data-map>
+          <section class="tr-cat">
+            <h3><span>Зарплата и налоги</span><b>3</b></h3>
+            <ul>
+              <li data-t="whatif">НДФЛ</li>
+              <li data-t="whatif">Оклад по зарплате на руки</li>
+              <li>Трудовой договор или самозанятость</li>
+            </ul>
+          </section>
+          <section class="tr-cat">
+            <h3><span>Отпуска и увольнение</span><b>4</b></h3>
+            <ul>
+              <li>Отпускные</li>
+              <li>Компенсация за отпуск</li>
+              <li data-t="whatif">Выходное пособие</li>
+              <li data-t="chain">Выплаты при увольнении<em>сценарий</em></li>
+            </ul>
+          </section>
+          <section class="tr-cat">
+            <h3><span>Больничные и пособия</span><b>2</b></h3>
+            <ul>
+              <li data-t="whatif">Больничный</li>
+              <li>Больничный по уходу за ребёнком</li>
+            </ul>
+          </section>
+          <section class="tr-cat">
+            <h3><span>Семья и дети</span><b>4</b></h3>
+            <ul>
+              <li data-t="whatif">Алименты</li>
+              <li data-t="whatif">Декретные</li>
+              <li data-t="chain">Выплаты в декрете<em>сценарий</em></li>
+              <li data-t="whatif">Детские вычеты</li>
+            </ul>
+          </section>
+          <section class="tr-cat">
+            <h3><span>Долги и штрафы</span><b>3</b></h3>
+            <ul>
+              <li>Пени</li>
+              <li data-t="whatif">Исполнительский сбор</li>
+              <li>Штраф ГИБДД со скидкой</li>
+            </ul>
+          </section>
+          <section class="tr-cat">
+            <h3><span>Ипотека</span><b>1</b></h3>
+            <ul>
+              <li data-t="whatif">Досрочное погашение и вычет по процентам</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Экраны -->
+    <section class="tr-sec tr-sec--tint" id="screens">
+      <div class="container">
+        <div class="tr-head">
+          <span class="tr-num reveal">04</span>
+          <h2 class="tr-h2 reveal">Те же страницы на ПК, планшете и телефоне</h2>
+          <p class="tr-sub reveal">Страницы целиком, как их видит посетитель. Выберите страницу и размер экрана, листайте прямо в рамке.</p>
+        </div>
+
+        <div class="tr-scr" data-screens>
+          <div class="tr-scr__bar reveal">
+            <div class="tr-seg" role="tablist" aria-label="Страница сайта" data-seg-page>
+              <span class="tr-seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-page="home">Главная</button>
+              <button type="button" role="tab" aria-selected="false" data-page="uvolnenie">Увольнение</button>
+              <button type="button" role="tab" aria-selected="false" data-page="ipoteka">Ипотека</button>
+            </div>
+            <div class="tr-seg" role="tablist" aria-label="Размер экрана" data-seg-device>
+              <span class="tr-seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-device="desktop"><svg class="icon"><use href="#i-monitor"/></svg>ПК</button>
+              <button type="button" role="tab" aria-selected="false" data-device="tablet"><svg class="icon"><use href="#i-tablet"/></svg>Планшет</button>
+              <button type="button" role="tab" aria-selected="false" data-device="mobile"><svg class="icon"><use href="#i-phone"/></svg>Телефон</button>
+            </div>
+            <button type="button" class="tr-play" data-play aria-pressed="false"><svg class="icon"><use href="#i-play"/></svg><span>Пролистать</span></button>
+          </div>
+
+          <div class="tr-scr__stage">
+            <figure class="tr-frame is-desktop" data-frame>
+              <div class="tr-win__bar"><span class="tr-win__dots"><i></i><i></i><i></i></span><span class="tr-win__url" data-frame-url>ТочныйРасчёт · Главная</span></div>
+              <div class="tr-frame__view" data-view tabindex="0" aria-label="Страница сайта, можно прокручивать">
+                <img data-frame-img src="images/tochniy-raschet/home-desktop-full.webp" alt="Главная страница сайта на ПК" width="1440" height="2716" loading="lazy">
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Стек -->
+    <section class="tr-sec" id="stack">
+      <div class="container tr-split">
+        <div class="tr-head">
+          <span class="tr-num reveal">05</span>
+          <h2 class="tr-h2 reveal">Как это сделано</h2>
+          <p class="tr-sub reveal">Только то, что есть в коде проекта.</p>
+        </div>
+        <dl class="tr-spec reveal">
+          <div><dt>Каркас</dt><dd>Next.js 16 (App Router), React 19, TypeScript. Страницы собираются заранее, поэтому открываются мгновенно.</dd></div>
+          <div><dt>Стили</dt><dd>Tailwind CSS 4, тёмная и светлая темы, шрифт Inter.</dd></div>
+          <div><dt>Расчёты</dt><dd>Чистые функции без привязки к экрану. Одни и те же формулы работают в форме, в примере на странице и в проверочных скриптах.</dd></div>
+          <div><dt>Формы</dt><dd>Один общий компонент для всех калькуляторов: поля, проверка, пересчёт на лету, разбор по шагам, история, ссылка на расчёт, картинка и PDF.</dd></div>
+          <div><dt>Данные</dt><dd>История расчётов и профиль хранятся только в браузере. Аккаунта и базы данных нет.</dd></div>
+          <div><dt>Поиск</dt><dd>У каждого калькулятора свой адрес, описание, картинка для превью и запись в карте сайта.</dd></div>
+          <div><dt>Обратная связь</dt><dd>Кнопка «Сообщить об ошибке» в углу каждой страницы. Это единственный серверный маршрут: письмо уходит через nodemailer.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 06 Путь -->
+    <section class="tr-sec tr-sec--tint" id="path">
+      <div class="container">
+        <div class="tr-head">
+          <span class="tr-num reveal">06</span>
+          <h2 class="tr-h2 reveal">Как дорабатывалось</h2>
+          <p class="tr-sub reveal">Сценарий увольнения переписывался несколько раз. Каждый раз причиной было замечание при проверке вручную.</p>
+        </div>
+
+        <ol class="tr-eps">
+          <li class="reveal">
+            <span class="tr-eps__n">1</span>
+            <p class="tr-eps__q">Где сценарий, где я ставлю дату трудоустройства, дату увольнения и зарплату?</p>
+            <p class="tr-eps__a">Первая версия принимала суммы руками. Добавил в общий компонент поле «дата», и полные месяцы стали считаться по датам.</p>
+          </li>
+          <li class="reveal">
+            <span class="tr-eps__n">2</span>
+            <p class="tr-eps__q">А как же увольнение по собственному желанию?</p>
+            <p class="tr-eps__a">Пособие при таком увольнении не гарантировано, а форма считала его всегда. Появился переключатель причины, во второй вкладке считается только компенсация за отпуск.</p>
+          </li>
+          <li class="reveal">
+            <span class="tr-eps__n">3</span>
+            <p class="tr-eps__q">А если я три года не брал отпуск?</p>
+            <p class="tr-eps__a">Это оказалась реальная ошибка: расчёт копил не больше 12 месяцев, хотя неиспользованные дни не сгорают. Исправил формулу и нашёл тот же предел в соседнем калькуляторе.</p>
+          </li>
+          <li class="reveal">
+            <span class="tr-eps__n">4</span>
+            <p class="tr-eps__q">Проверить весь сайт на ошибки.</p>
+            <p class="tr-eps__a">Нашлось шесть багов, среди них меню на телефоне, уезжавшее за край экрана, и неверное число в примере на странице. Формулы старых калькуляторов прогнал скриптом против их собственных примеров: цифры сошлись.</p>
+          </li>
+          <li class="reveal">
+            <span class="tr-eps__n">5</span>
+            <p class="tr-eps__q">Три новые функции получились не такими.</p>
+            <p class="tr-eps__a">Печать, общий дашборд и генератор заявлений я убрал целиком и сделал заново по-другому. Сегодняшние «Мои расчёты» и сохранение в PDF появились уже после этого.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Призыв -->
+    <section class="tr-cta">
+      <div class="container tr-cta__inner">
+        <h2 class="reveal">Нужен сервис, где цифры можно проверить?</h2>
+        <p class="reveal">Напишите, что нужно считать и по каким правилам. Отвечу, как это собрать и за какое время.</p>
+        <div class="tr-actions reveal">
+          <a class="tr-btn tr-btn--main" href="index.html#contacts">Обсудить задачу <svg class="icon"><use href="#i-send"/></svg></a>
+          <a class="tr-btn" href="index.html#projects">Другие проекты <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="tr-foot">
+    <div class="container tr-foot__inner">
+      <a class="tr-brand" href="index.html" aria-label="Роман Жураковский, на главную">
+        <span class="tr-brand__mark">RZ</span>
+        <span class="tr-brand__name">Роман Жураковский</span>
+      </a>
+      <div class="tr-foot__links">
+        <a href="mailto:roman@zhurakovsky.dev">roman@zhurakovsky.dev</a>
+        <a href="https://t.me/r_zhurakovsky" target="_blank" rel="noopener">Telegram</a>
+        <a href="index.html#projects">Другие проекты</a>
+      </div>
+      <span class="tr-foot__meta">© <span data-year>2026</span> Роман Жураковский · Кейс · Web</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/tr.js" defer></script>
+</body>
+</html>
