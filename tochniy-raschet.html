@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="ТочныйРасчёт · кейс · Роман Жураковский">
-  <meta property="og:description" content="17 калькуляторов выплат и налогов с живым пересчётом и разбором каждой цифры по шагам. Попробуйте расчёт выплат при увольнении прямо на странице.">
+  <meta property="og:description" content="17 калькуляторов выплат и налогов с живым пересчётом и разбором каждой цифры по шагам. Посчитайте выплаты при увольнении и доплату по ипотеке прямо на странице.">
   <meta property="og:url" content="https://romanzhurakovskiy.ru/tochniy-raschet.html">
   <meta property="og:image" content="https://romanzhurakovskiy.ru/images/tochniy-raschet/home-desktop-first.webp">
   <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +30,7 @@
     <defs>
       <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
       <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
       <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
       <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
       <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
@@ -38,6 +39,10 @@
       <symbol id="i-phone" viewBox="0 0 24 24"><rect width="12" height="20" x="6" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
       <symbol id="i-play" viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20 7 4"/></symbol>
       <symbol id="i-pause" viewBox="0 0 24 24"><rect width="4" height="16" x="6" y="4"/><rect width="4" height="16" x="14" y="4"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+      <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></symbol>
     </defs>
   </svg>
 
@@ -58,23 +63,21 @@
     <a class="tr-dock__round" href="index.html#projects" aria-label="Все проекты">
       <svg class="icon"><use href="#i-arrow-left"/></svg>
     </a>
-
     <button class="tr-dock__current" type="button" aria-expanded="false" aria-controls="tr-dock-links" data-dock-toggle>
       <span data-dock-label>Проект</span>
       <svg class="icon"><use href="#i-chevron-up"/></svg>
     </button>
-
     <div class="tr-dock__links" id="tr-dock-links">
       <span class="tr-dock__pill" aria-hidden="true"></span>
       <a href="#about">Проект</a>
       <a href="#demo">Расчёт</a>
+      <a href="#whatif">Ипотека</a>
+      <a href="#catalog">Каталог</a>
       <a href="#steps">Шаги</a>
-      <a href="#map">Карта</a>
       <a href="#screens">Экраны</a>
       <a href="#stack">Стек</a>
       <a href="#path">Путь</a>
     </div>
-
     <a class="tr-dock__round" href="#top" aria-label="Наверх">
       <svg class="tr-dock__ring" viewBox="0 0 48 48" aria-hidden="true">
         <circle cx="24" cy="24" r="21"/>
@@ -86,19 +89,66 @@
 
   <main id="top">
 
-    <!-- Первый экран -->
-    <section class="tr-hero" id="about">
-      <div class="container">
-        <span class="tr-tag reveal">Собственный проект · 2026</span>
-        <h1 class="tr-title reveal" aria-label="ТочныйРасчёт"><span>Точный</span><span class="tr-title__b">Расчёт</span></h1>
-        <div class="tr-hero__row">
-          <p class="tr-lead reveal">Калькуляторы выплат и налогов по нормам 2026 года. Всё считается на странице сразу, без кнопки «Рассчитать», а каждая цифра разбирается по шагам со ссылкой на статью закона.</p>
-          <div class="tr-actions reveal">
-            <a class="tr-btn tr-btn--main" href="#demo">Попробовать расчёт <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
-            <a class="tr-btn" href="#screens">Посмотреть экраны</a>
+    <!-- Первый экран: стена из настоящих экранов -->
+    <section class="tr-hero" id="about" data-hero>
+      <div class="tr-wall" aria-hidden="true">
+        <div class="tr-wall__plane" data-wall>
+          <div class="tr-wall__col">
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/ndfl-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/alimenty-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/vyplaty-pri-sokraschenii-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/peni-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+          </div>
+          <div class="tr-wall__col">
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/ipoteka-dosrochnoe-pogashenie-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/otpusknye-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/dekretnye-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/shtraf-gibdd-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+          </div>
+          <div class="tr-wall__col">
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/oklad-iz-zarplaty-na-ruki-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/bolnichnyy-po-uhodu-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/vyplaty-v-dekrete-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/kompensaciya-otpuska-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+          </div>
+          <div class="tr-wall__col">
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/trudovoy-dogovor-vs-samozanyatost-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/detskie-vychety-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/ispolnitelskiy-sbor-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/vykhodnoe-posobie-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+          </div>
+          <div class="tr-wall__col">
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/bolnichnyy-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/vyplaty-pri-sokraschenii-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/ndfl-s.webp" alt="" width="560" height="350" decoding="async"></figure>
+            <figure class="tr-wall__tile"><img src="images/tochniy-raschet/calc/ipoteka-dosrochnoe-pogashenie-s.webp" alt="" width="560" height="350" decoding="async"></figure>
           </div>
         </div>
-        <dl class="tr-meta reveal">
+      </div>
+      <div class="tr-hero__shade" aria-hidden="true"></div>
+
+      <div class="container tr-hero__inner">
+        <div class="tr-hero__copy">
+          <span class="tr-tag">Собственный проект · 2026</span>
+          <h1 class="tr-title" aria-label="ТочныйРасчёт" data-title><span class="tr-title__a">Точный</span><span class="tr-title__b">Расчёт</span></h1>
+          <p class="tr-lead">17 калькуляторов выплат и налогов по нормам 2026 года. Считают на лету, без кнопки «Рассчитать», и показывают, откуда взялась каждая цифра: формула и статья закона.</p>
+          <div class="tr-actions">
+            <a class="tr-btn tr-btn--main" href="#demo">Посчитать прямо здесь <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+            <a class="tr-btn tr-btn--glass" href="#catalog">Все 17 калькуляторов</a>
+          </div>
+        </div>
+
+        <aside class="tr-ticker" data-ticker>
+          <span class="tr-ticker__head"><i></i>Настоящие результаты сайта</span>
+          <span class="tr-ticker__label" data-t-label>Выплаты при увольнении</span>
+          <strong class="tr-ticker__val" data-t-val>398 334 ₽</strong>
+          <span class="tr-ticker__sub" data-t-sub>стаж 3 г. 7 мес., зарплата 80 000 ₽, сокращение</span>
+          <span class="tr-ticker__dots" data-t-dots><i class="is-on"></i><i></i><i></i></span>
+        </aside>
+      </div>
+
+      <div class="container">
+        <dl class="tr-meta">
           <div><dt>Роль</dt><dd>Продукт и разработка. Код пишу с ИИ-ассистентом, решения принимаю сам</dd></div>
           <div><dt>Когда</dt><dd>С июля по сентябрь 2026</dd></div>
           <div><dt>Стек</dt><dd>Next.js 16 · React 19 · TypeScript · Tailwind 4</dd></div>
@@ -107,193 +157,317 @@
       </div>
     </section>
 
+    <!-- Бегущая строка: статьи закона из расчётов -->
+    <div class="tr-marquee" aria-label="Статьи закона, на которые ссылаются расчёты" data-pausable>
+      <div class="tr-marquee__track"><span>ст. 224 НК РФ</span><i></i><span>ст. 127 ТК РФ</span><i></i><span>ст. 14 закона № 255-ФЗ</span><i></i><span>ст. 178 ТК РФ</span><i></i><span>ст. 218 НК РФ</span><i></i><span>ст. 217 НК РФ</span><i></i><span>ст. 112 закона № 229-ФЗ</span><i></i><span>ст. 81 СК РФ</span><i></i><span>п. 4 ст. 220 НК РФ</span><i></i><span>ст. 75 НК РФ</span><i></i><span>ст. 32.2 КоАП РФ</span><i></i><span>закон № 422-ФЗ</span><i></i><span>ст. 140 ТК РФ</span><i></i><span>ст. 810 ГК РФ</span><i></i><span>ст. 224 НК РФ</span><i></i><span>ст. 127 ТК РФ</span><i></i><span>ст. 14 закона № 255-ФЗ</span><i></i><span>ст. 178 ТК РФ</span><i></i><span>ст. 218 НК РФ</span><i></i><span>ст. 217 НК РФ</span><i></i><span>ст. 112 закона № 229-ФЗ</span><i></i><span>ст. 81 СК РФ</span><i></i><span>п. 4 ст. 220 НК РФ</span><i></i><span>ст. 75 НК РФ</span><i></i><span>ст. 32.2 КоАП РФ</span><i></i><span>закон № 422-ФЗ</span><i></i><span>ст. 140 ТК РФ</span><i></i><span>ст. 810 ГК РФ</span><i></i></div>
+    </div>
+
     <!-- Факты -->
     <section class="tr-facts" aria-label="Коротко о проекте">
       <div class="container tr-facts__row">
         <div class="reveal"><strong data-count="17">17</strong><span>калькуляторов, у каждого своя страница</span></div>
         <div class="reveal"><strong data-count="6">6</strong><span>категорий: от НДФЛ до ипотеки</span></div>
-        <div class="reveal"><strong data-count="9">9</strong><span>ползунков «а если...» с пересчётом на лету</span></div>
-        <div class="reveal"><strong data-count="3">3</strong><span>статьи в блоге про сокращение, декрет и самозанятость</span></div>
+        <div class="reveal"><strong data-count="9">9</strong><span>ползунков «а если» с пересчётом на лету</span></div>
+        <div class="reveal"><strong><span data-count="40">40</span>+</strong><span>статей законов, на которые ссылаются расчёты</span></div>
       </div>
     </section>
 
-    <!-- 01 Живой расчёт -->
+    <!-- 01 Расчёт печатается -->
     <section class="tr-sec" id="demo">
       <div class="container">
         <div class="tr-head">
           <span class="tr-num reveal">01</span>
-          <h2 class="tr-h2 reveal">От приёма на работу до увольнения</h2>
-          <p class="tr-sub reveal">Так работает сценарий «Выплаты при увольнении». Это настоящие формулы проекта: двигайте даты и ползунки, листок пересчитывается сразу.</p>
+          <h2 class="tr-h2 reveal">Расчётный листок <em>печатается</em> по ходу чтения</h2>
+          <p class="tr-sub reveal">Сценарий «Выплаты при увольнении» шаг за шагом, на настоящих формулах проекта. Листайте: каждая строка появляется в момент, когда о ней речь. В конце цифры ваши.</p>
         </div>
 
-        <div class="tr-demo reveal" data-demo>
-          <div class="tr-demo__controls">
-            <div class="tr-mini" aria-hidden="true"><span>Итого на руки</span><b data-mini-total>398 334 ₽</b></div>
-            <div class="tr-seg" role="tablist" aria-label="Причина увольнения">
-              <span class="tr-seg__pill" aria-hidden="true"></span>
-              <button type="button" role="tab" aria-selected="true" data-reason="cut">Сокращение штата</button>
-              <button type="button" role="tab" aria-selected="false" data-reason="own">По своему желанию</button>
-            </div>
+        <div class="tr-print" data-demo>
+          <div class="tr-print__left">
+            <ol class="tr-story" data-story>
+              <li class="tr-story__step" data-reveal="1"><b>1</b><h3>Даты вместо догадок</h3><p>Принят 15 января 2023, уволен 27 августа 2026. Полные месяцы считаются по датам, остаток от 15 дней идёт за месяц: выходит 43.</p></li>
+              <li class="tr-story__step" data-reveal="2"><b>2</b><h3>Отпуск, который не сгорает</h3><p>За каждый месяц копится 2,33 дня. Неиспользованные дни за прошлые годы не пропадают, поэтому считаем за весь стаж.</p></li>
+              <li class="tr-story__step" data-reveal="3"><b>3</b><h3>Средний дневной заработок</h3><p>Зарплата делится на 29,3: столько в среднем дней в месяце по правилам расчёта отпускных.</p></li>
+              <li class="tr-story__step" data-reveal="6"><b>4</b><h3>Компенсация и налог</h3><p>Дни умножаются на дневной заработок, с суммы удерживается НДФЛ 13%. Остаток приходит на руки.</p></li>
+              <li class="tr-story__step" data-reveal="7"><b>5</b><h3>Выходное пособие</h3><p>При сокращении положен средний месячный заработок, а если работу не нашли за два месяца, то и за второй. НДФЛ с пособия не берут.</p></li>
+              <li class="tr-story__step" data-reveal="8"><b>6</b><h3>Итог на руки</h3><p>Компенсация плюс пособие. Ровно то же число показывает настоящий калькулятор на сайте.</p></li>
+            </ol>
 
-            <label class="tr-field">
-              <span class="tr-field__label">Принят на работу</span>
-              <input type="date" value="2023-01-15" min="2000-01-01" max="2026-10-01" data-hire>
-            </label>
-
-            <div class="tr-tl" data-tl>
-              <div class="tr-tl__head">
-                <span class="tr-field__label">Уволен</span>
-                <strong data-term-label>27 августа 2026</strong>
+            <div class="tr-play" data-play-zone>
+              <div class="tr-play__head">
+                <span class="tr-num">Ваша очередь</span>
+                <h3>Подставьте свои цифры</h3>
               </div>
-              <div class="tr-tl__track">
-                <span class="tr-tl__ticks" data-ticks aria-hidden="true"></span>
-                <span class="tr-tl__fill" data-fill aria-hidden="true"></span>
-                <span class="tr-tl__start" aria-hidden="true"></span>
-                <span class="tr-tl__handle" data-handle aria-hidden="true"><i data-span>3 г. 7 мес.</i></span>
-                <input class="tr-tl__range" type="range" min="30" max="3650" step="1" value="1320" aria-label="Дата увольнения: сколько дней после приёма" data-term>
+              <div class="tr-mini" aria-hidden="true"><span>Итого на руки</span><b data-mini-total>398 334 ₽</b></div>
+              <div class="tr-seg" role="tablist" aria-label="Причина увольнения">
+                <span class="tr-seg__pill" aria-hidden="true"></span>
+                <button type="button" role="tab" aria-selected="true" data-reason="cut">Сокращение штата</button>
+                <button type="button" role="tab" aria-selected="false" data-reason="own">По своему желанию</button>
               </div>
-            </div>
-
-            <label class="tr-field">
-              <span class="tr-field__label">Зарплата в месяц <b data-salary-out>80 000 ₽</b></span>
-              <input class="tr-range" type="range" min="30000" max="300000" step="1000" value="80000" data-salary>
-            </label>
-
-            <label class="tr-field">
-              <span class="tr-field__label">Отпуска уже использовано <b data-used-out>0 дн.</b></span>
-              <input class="tr-range" type="range" min="0" max="120" step="1" value="0" data-used>
-            </label>
-
-            <div class="tr-checks" data-checks>
-              <label class="tr-check"><input type="checkbox" data-m2><span>Не нашёл работу 2 месяца после увольнения</span></label>
-              <label class="tr-check"><input type="checkbox" data-m3><span>Служба занятости решила платить и за 3-й месяц</span></label>
+              <label class="tr-field">
+                <span class="tr-field__label">Принят на работу</span>
+                <input type="date" value="2023-01-15" min="2000-01-01" max="2026-10-01" data-hire>
+              </label>
+              <div class="tr-tl" data-tl>
+                <div class="tr-tl__head"><span class="tr-field__label">Уволен</span><strong data-term-label>27 августа 2026</strong></div>
+                <div class="tr-tl__track">
+                  <span class="tr-tl__ticks" data-ticks aria-hidden="true"></span>
+                  <span class="tr-tl__fill" aria-hidden="true"></span>
+                  <span class="tr-tl__start" aria-hidden="true"></span>
+                  <span class="tr-tl__handle" aria-hidden="true"><i data-span>3 г. 7 мес.</i></span>
+                  <input class="tr-tl__range" type="range" min="30" max="3650" step="1" value="1320" aria-label="Дата увольнения: сколько дней после приёма" data-term>
+                </div>
+              </div>
+              <label class="tr-field">
+                <span class="tr-field__label">Зарплата в месяц <b data-salary-out>80 000 ₽</b></span>
+                <input class="tr-range" type="range" min="30000" max="300000" step="1000" value="80000" data-salary>
+              </label>
+              <label class="tr-field">
+                <span class="tr-field__label">Отпуска уже использовано <b data-used-out>0 дн.</b></span>
+                <input class="tr-range" type="range" min="0" max="100" step="1" value="0" data-used>
+              </label>
+              <div class="tr-checks" data-checks>
+                <label class="tr-check"><input type="checkbox" checked data-m2><span>Не нашёл работу 2 месяца после увольнения</span></label>
+                <label class="tr-check"><input type="checkbox" data-m3><span>Служба занятости решила платить и за 3-й месяц</span></label>
+              </div>
             </div>
           </div>
 
-          <article class="tr-slip" aria-live="polite" data-slip>
-            <header class="tr-slip__head">
-              <span>Расчётный листок</span>
-              <em class="tr-slip__stamp">формулы проекта</em>
-              <small data-slip-period>15.01.2023 → 27.08.2026</small>
-            </header>
-            <dl class="tr-slip__rows" data-rows></dl>
-            <div class="tr-slip__total">
-              <span>Итого на руки</span>
-              <strong data-total>398 334 ₽</strong>
-            </div>
-            <footer class="tr-slip__foot">
-              <button type="button" class="tr-link" data-steps-toggle aria-pressed="false">Показать расчёт по шагам</button>
-              <p>Упрощённый расчёт для демонстрации: он не заменяет юридическую консультацию. Все условия и ограничения описаны на странице калькулятора.</p>
-            </footer>
-          </article>
+          <div class="tr-print__right">
+            <div class="tr-printer" aria-hidden="true"><span></span></div>
+            <article class="tr-slip" aria-live="polite" data-slip data-reveal="all">
+              <header class="tr-slip__head">
+                <span>Расчётный листок</span>
+                <em class="tr-slip__stamp">формулы проекта</em>
+                <small data-slip-period>15.01.2023 → 27.08.2026</small>
+              </header>
+              <div class="tr-slip__rows" data-rows></div>
+              <div class="tr-slip__total" data-total-row>
+                <span>Итого на руки</span>
+                <strong data-total>398 334 ₽</strong>
+                <i class="tr-slip__seal" aria-hidden="true">выплачено</i>
+              </div>
+              <footer class="tr-slip__foot">
+                <button type="button" class="tr-link" data-steps-toggle aria-pressed="false">Показать формулы по шагам</button>
+                <p>Упрощённый расчёт для демонстрации, не юридическая консультация. Все условия описаны на странице калькулятора.</p>
+              </footer>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 02 Шаги -->
-    <section class="tr-sec tr-sec--tint" id="steps">
+    <!-- 02 А если доплатить ипотеку -->
+    <section class="tr-sec tr-wi-sec" id="whatif">
       <div class="container">
         <div class="tr-head">
           <span class="tr-num reveal">02</span>
-          <h2 class="tr-h2 reveal">Каждая цифра с объяснением</h2>
-          <p class="tr-sub reveal">Под любым расчётом на сайте раскрывается разбор: формула с подставленными числами и ссылка на статью закона. Так видно, откуда взялась сумма, и можно проверить её самому.</p>
+          <h2 class="tr-h2 reveal">А если доплатить ипотеку <em>сейчас?</em></h2>
+          <p class="tr-sub reveal">Ползунок «а если» с главной страницы продукта. Та же формула аннуитета, тот же ответ: при 5 млн под 18% доплата 500 000 ₽ экономит 4 089 700 ₽.</p>
         </div>
 
-        <div class="tr-steps">
-          <ul class="tr-steps__list">
-            <li class="reveal"><b>1</b><div><strong>Формула с вашими числами</strong><span>Не «получилось столько-то», а «273 948 ₽ × 13% = 35 613 ₽».</span></div></li>
-            <li class="reveal"><b>2</b><div><strong>Ссылка на статью</strong><span>Рядом с шагом стоит норма ТК или НК РФ, на которой он держится.</span></div></li>
-            <li class="reveal"><b>3</b><div><strong>Результат можно унести с собой</strong><span>Скопировать ссылку на расчёт, скопировать итог текстом, скачать картинку или сохранить в PDF.</span></div></li>
-            <li class="reveal"><b>4</b><div><strong>История и общий профиль</strong><span>Расчёты и зарплата запоминаются в самом браузере, аккаунт не нужен.</span></div></li>
-          </ul>
+        <div class="tr-wi reveal" data-whatif>
+          <div class="tr-wi__controls">
+            <div class="tr-seg" role="tablist" aria-label="Что сделать с доплатой">
+              <span class="tr-seg__pill" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" data-strategy="term">Сократить срок</button>
+              <button type="button" role="tab" aria-selected="false" data-strategy="pay">Уменьшить платёж</button>
+            </div>
+            <label class="tr-field">
+              <span class="tr-field__label">Доплата сейчас <b data-wi-out="extra">500 000 ₽</b></span>
+              <input class="tr-range tr-range--big" type="range" min="0" max="5000000" step="50000" value="500000" data-wi="extra">
+            </label>
+            <label class="tr-field">
+              <span class="tr-field__label">Остаток долга <b data-wi-out="balance">5 000 000 ₽</b></span>
+              <input class="tr-range" type="range" min="1000000" max="15000000" step="100000" value="5000000" data-wi="balance">
+            </label>
+            <label class="tr-field">
+              <span class="tr-field__label">Ставка <b data-wi-out="rate">18 %</b></span>
+              <input class="tr-range" type="range" min="4" max="25" step="0.5" value="18" data-wi="rate">
+            </label>
+            <label class="tr-field">
+              <span class="tr-field__label">Осталось платить <b data-wi-out="years">15 лет</b></span>
+              <input class="tr-range" type="range" min="3" max="30" step="1" value="15" data-wi="years">
+            </label>
+          </div>
 
-          <div class="tr-steps__shots reveal">
-            <figure class="tr-win">
-              <div class="tr-win__bar"><span class="tr-win__dots"><i></i><i></i><i></i></span><span class="tr-win__url">Выплаты при увольнении · разбор по шагам</span></div>
-              <img src="images/tochniy-raschet/uvolnenie-desktop-detail.webp" alt="Разбор расчёта по шагам на ПК: восемь шагов с формулами и ссылками на статьи" width="1440" height="900" loading="lazy">
-            </figure>
-            <figure class="tr-phone">
-              <img src="images/tochniy-raschet/uvolnenie-mobile-detail.webp" alt="Тот же разбор на телефоне" width="780" height="1688" loading="lazy">
-            </figure>
+          <div class="tr-wi__result">
+            <span class="tr-wi__label">Экономия на процентах</span>
+            <strong class="tr-wi__big" data-wi-saved>4 089 700 ₽</strong>
+            <div class="tr-meter" aria-hidden="true"><i data-wi-meter></i></div>
+            <p class="tr-wi__note" data-wi-note>Срок сократится на 57 мес.</p>
+            <div class="tr-bars">
+              <div class="tr-bars__row"><span>Переплата без доплаты</span><b data-wi-before>9 493 789 ₽</b><i class="tr-bars__bar tr-bars__bar--before" style="--w:1"></i></div>
+              <div class="tr-bars__row"><span>Переплата с доплатой</span><b data-wi-after>5 404 089 ₽</b><i class="tr-bars__bar" data-wi-bar></i></div>
+            </div>
+            <dl class="tr-wi__facts">
+              <div><dt>Платёж в месяц</dt><dd data-wi-pay>80 521 ₽</dd></div>
+              <div><dt>Срок</dt><dd data-wi-term>180 → 123 мес.</dd></div>
+            </dl>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 03 Карта калькуляторов -->
-    <section class="tr-sec" id="map">
+    <!-- 03 Каталог -->
+    <section class="tr-sec" id="catalog">
       <div class="container">
         <div class="tr-head">
           <span class="tr-num reveal">03</span>
-          <h2 class="tr-h2 reveal">Семнадцать калькуляторов в шести категориях</h2>
-          <p class="tr-sub reveal">Отдельные страницы под отдельные запросы, а рядом сценарии, которые тянут расчёт через несколько шагов.</p>
+          <h2 class="tr-h2 reveal">Семнадцать калькуляторов. <em>Настоящие экраны</em></h2>
+          <p class="tr-sub reveal">Первые экраны всех калькуляторов сайта, как их видит вернувшийся посетитель: зарплата уже подставлена из профиля, результат готов. Нажмите, чтобы рассмотреть.</p>
         </div>
 
-        <div class="tr-filter reveal" role="group" aria-label="Подсветка калькуляторов" data-filter>
-          <button type="button" aria-pressed="true" data-f="all">Все</button>
-          <button type="button" aria-pressed="false" data-f="chain">Сценарии</button>
-          <button type="button" aria-pressed="false" data-f="whatif">С ползунком «а если»</button>
+        <div class="tr-cats reveal" role="tablist" aria-label="Категории" data-cats>
+          <button type="button" role="tab" aria-selected="true" data-c="all">Все <b>17</b></button>
+          <button type="button" role="tab" aria-selected="false" data-c="pay">Зарплата и налоги <b>3</b></button>
+          <button type="button" role="tab" aria-selected="false" data-c="leave">Отпуска и увольнение <b>4</b></button>
+          <button type="button" role="tab" aria-selected="false" data-c="sick">Больничные <b>2</b></button>
+          <button type="button" role="tab" aria-selected="false" data-c="family">Семья и дети <b>4</b></button>
+          <button type="button" role="tab" aria-selected="false" data-c="debt">Долги и штрафы <b>3</b></button>
+          <button type="button" role="tab" aria-selected="false" data-c="mortgage">Ипотека <b>1</b></button>
         </div>
 
-        <div class="tr-map reveal" data-map>
-          <section class="tr-cat">
-            <h3><span>Зарплата и налоги</span><b>3</b></h3>
-            <ul>
-              <li data-t="whatif">НДФЛ</li>
-              <li data-t="whatif">Оклад по зарплате на руки</li>
-              <li>Трудовой договор или самозанятость</li>
-            </ul>
-          </section>
-          <section class="tr-cat">
-            <h3><span>Отпуска и увольнение</span><b>4</b></h3>
-            <ul>
-              <li>Отпускные</li>
-              <li>Компенсация за отпуск</li>
-              <li data-t="whatif">Выходное пособие</li>
-              <li data-t="chain">Выплаты при увольнении<em>сценарий</em></li>
-            </ul>
-          </section>
-          <section class="tr-cat">
-            <h3><span>Больничные и пособия</span><b>2</b></h3>
-            <ul>
-              <li data-t="whatif">Больничный</li>
-              <li>Больничный по уходу за ребёнком</li>
-            </ul>
-          </section>
-          <section class="tr-cat">
-            <h3><span>Семья и дети</span><b>4</b></h3>
-            <ul>
-              <li data-t="whatif">Алименты</li>
-              <li data-t="whatif">Декретные</li>
-              <li data-t="chain">Выплаты в декрете<em>сценарий</em></li>
-              <li data-t="whatif">Детские вычеты</li>
-            </ul>
-          </section>
-          <section class="tr-cat">
-            <h3><span>Долги и штрафы</span><b>3</b></h3>
-            <ul>
-              <li>Пени</li>
-              <li data-t="whatif">Исполнительский сбор</li>
-              <li>Штраф ГИБДД со скидкой</li>
-            </ul>
-          </section>
-          <section class="tr-cat">
-            <h3><span>Ипотека</span><b>1</b></h3>
-            <ul>
-              <li data-t="whatif">Досрочное погашение и вычет по процентам</li>
-            </ul>
-          </section>
+        <div class="tr-grid" data-grid>
+          <button type="button" class="tr-card reveal" data-cat="pay" data-full="images/tochniy-raschet/calc/ndfl.webp" data-title="НДФЛ и зарплата на руки" data-cat-title="Зарплата и налоги">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/ndfl.webp" alt="Калькулятор «НДФЛ и зарплата на руки»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Зарплата и налоги</span><strong>НДФЛ и зарплата на руки</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="pay" data-full="images/tochniy-raschet/calc/oklad-iz-zarplaty-na-ruki.webp" data-title="Оклад по зарплате на руки" data-cat-title="Зарплата и налоги">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/oklad-iz-zarplaty-na-ruki.webp" alt="Калькулятор «Оклад по зарплате на руки»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Зарплата и налоги</span><strong>Оклад по зарплате на руки</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="pay" data-full="images/tochniy-raschet/calc/trudovoy-dogovor-vs-samozanyatost.webp" data-title="Трудовой договор или самозанятость" data-cat-title="Зарплата и налоги">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/trudovoy-dogovor-vs-samozanyatost.webp" alt="Калькулятор «Трудовой договор или самозанятость»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Зарплата и налоги</span><strong>Трудовой договор или самозанятость</strong><span class="tr-card__tags"></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="leave" data-full="images/tochniy-raschet/calc/otpusknye.webp" data-title="Отпускные" data-cat-title="Отпуска и увольнение">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/otpusknye.webp" alt="Калькулятор «Отпускные»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Отпуска и увольнение</span><strong>Отпускные</strong><span class="tr-card__tags"></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="leave" data-full="images/tochniy-raschet/calc/kompensaciya-otpuska.webp" data-title="Компенсация за отпуск" data-cat-title="Отпуска и увольнение">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/kompensaciya-otpuska.webp" alt="Калькулятор «Компенсация за отпуск»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Отпуска и увольнение</span><strong>Компенсация за отпуск</strong><span class="tr-card__tags"></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="leave" data-full="images/tochniy-raschet/calc/vykhodnoe-posobie.webp" data-title="Выходное пособие" data-cat-title="Отпуска и увольнение">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/vykhodnoe-posobie.webp" alt="Калькулятор «Выходное пособие»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Отпуска и увольнение</span><strong>Выходное пособие</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="leave" data-full="images/tochniy-raschet/calc/vyplaty-pri-sokraschenii.webp" data-title="Выплаты при увольнении" data-cat-title="Отпуска и увольнение">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/vyplaty-pri-sokraschenii.webp" alt="Калькулятор «Выплаты при увольнении»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Отпуска и увольнение</span><strong>Выплаты при увольнении</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--chain">сценарий</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="sick" data-full="images/tochniy-raschet/calc/bolnichnyy.webp" data-title="Больничный" data-cat-title="Больничные и пособия">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/bolnichnyy.webp" alt="Калькулятор «Больничный»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Больничные и пособия</span><strong>Больничный</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="sick" data-full="images/tochniy-raschet/calc/bolnichnyy-po-uhodu.webp" data-title="Больничный по уходу за ребёнком" data-cat-title="Больничные и пособия">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/bolnichnyy-po-uhodu.webp" alt="Калькулятор «Больничный по уходу за ребёнком»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Больничные и пособия</span><strong>Больничный по уходу за ребёнком</strong><span class="tr-card__tags"></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="family" data-full="images/tochniy-raschet/calc/alimenty.webp" data-title="Алименты" data-cat-title="Семья и дети">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/alimenty.webp" alt="Калькулятор «Алименты»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Семья и дети</span><strong>Алименты</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="family" data-full="images/tochniy-raschet/calc/dekretnye.webp" data-title="Декретные" data-cat-title="Семья и дети">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/dekretnye.webp" alt="Калькулятор «Декретные»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Семья и дети</span><strong>Декретные</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="family" data-full="images/tochniy-raschet/calc/vyplaty-v-dekrete.webp" data-title="Выплаты в декрете" data-cat-title="Семья и дети">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/vyplaty-v-dekrete.webp" alt="Калькулятор «Выплаты в декрете»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Семья и дети</span><strong>Выплаты в декрете</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--chain">сценарий</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="family" data-full="images/tochniy-raschet/calc/detskie-vychety.webp" data-title="Детские вычеты" data-cat-title="Семья и дети">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/detskie-vychety.webp" alt="Калькулятор «Детские вычеты»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Семья и дети</span><strong>Детские вычеты</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="debt" data-full="images/tochniy-raschet/calc/peni.webp" data-title="Пени по налогам и ЖКХ" data-cat-title="Долги и штрафы">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/peni.webp" alt="Калькулятор «Пени по налогам и ЖКХ»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Долги и штрафы</span><strong>Пени по налогам и ЖКХ</strong><span class="tr-card__tags"></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="debt" data-full="images/tochniy-raschet/calc/ispolnitelskiy-sbor.webp" data-title="Исполнительский сбор" data-cat-title="Долги и штрафы">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/ispolnitelskiy-sbor.webp" alt="Калькулятор «Исполнительский сбор»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Долги и штрафы</span><strong>Исполнительский сбор</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="debt" data-full="images/tochniy-raschet/calc/shtraf-gibdd.webp" data-title="Штраф ГИБДД со скидкой" data-cat-title="Долги и штрафы">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/shtraf-gibdd.webp" alt="Калькулятор «Штраф ГИБДД со скидкой»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Долги и штрафы</span><strong>Штраф ГИБДД со скидкой</strong><span class="tr-card__tags"></span></span>
+          </button>
+          <button type="button" class="tr-card reveal" data-cat="mortgage" data-full="images/tochniy-raschet/calc/ipoteka-dosrochnoe-pogashenie.webp" data-title="Досрочное погашение ипотеки" data-cat-title="Ипотека">
+            <span class="tr-card__shot"><span class="tr-card__bar"><i></i><i></i><i></i></span><img src="images/tochniy-raschet/calc/ipoteka-dosrochnoe-pogashenie.webp" alt="Калькулятор «Досрочное погашение ипотеки»: первый экран" width="1200" height="750" loading="lazy" decoding="async"></span>
+            <span class="tr-card__meta"><span class="tr-card__cat">Ипотека</span><strong>Досрочное погашение ипотеки</strong><span class="tr-card__tags"><em class="tr-card__tag tr-card__tag--whatif">а если</em></span></span>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- 04 Экраны -->
-    <section class="tr-sec tr-sec--tint" id="screens">
+    <!-- 04 По шагам -->
+    <section class="tr-sec tr-sec--tint" id="steps">
       <div class="container">
         <div class="tr-head">
           <span class="tr-num reveal">04</span>
-          <h2 class="tr-h2 reveal">Те же страницы на ПК, планшете и телефоне</h2>
-          <p class="tr-sub reveal">Страницы целиком, как их видит посетитель. Выберите страницу и размер экрана, листайте прямо в рамке.</p>
+          <h2 class="tr-h2 reveal">Каждая цифра <em>с объяснением</em></h2>
+          <p class="tr-sub reveal">Под любым расчётом раскрывается разбор: формула с вашими числами и ссылка на статью. Номера на снимке совпадают с пунктами списка.</p>
+        </div>
+
+        <div class="tr-anno" data-anno>
+          <figure class="tr-win tr-anno__win reveal">
+            <div class="tr-win__bar"><span class="tr-win__dots"><i></i><i></i><i></i></span><span class="tr-win__url">ТочныйРасчёт · Выплаты при увольнении</span></div>
+            <div class="tr-anno__shot">
+              <img src="images/tochniy-raschet/uvolnenie-steps.webp" alt="Разбор расчёта по шагам: восемь шагов с формулами и ссылками на статьи, кнопки «поделиться» и история расчётов" width="1440" height="1380" loading="lazy">
+              <button type="button" class="tr-pin" style="--x:6.5%;--y:14.5%" data-pin="1" aria-label="Шаги">1</button>
+              <button type="button" class="tr-pin" style="--x:46.5%;--y:34.9%" data-pin="2" aria-label="Формула">2</button>
+              <button type="button" class="tr-pin" style="--x:53.3%;--y:4.9%" data-pin="3" aria-label="Статья закона">3</button>
+              <button type="button" class="tr-pin" style="--x:36.3%;--y:77.9%" data-pin="4" aria-label="Поделиться">4</button>
+              <button type="button" class="tr-pin" style="--x:28.4%;--y:86.7%" data-pin="5" aria-label="История">5</button>
+            </div>
+          </figure>
+          <ol class="tr-anno__legend">
+            <li class="reveal" data-pin="1"><b>1</b><div><strong>Восемь шагов от дат до итога</strong><span>Каждый промежуточный результат виден отдельно, ничего не спрятано в «итого».</span></div></li>
+            <li class="reveal" data-pin="2"><b>2</b><div><strong>Формула с вашими числами</strong><span>Не «получилось столько-то», а 273 948 ₽ × 13% = 35 613 ₽.</span></div></li>
+            <li class="reveal" data-pin="3"><b>3</b><div><strong>Статья закона рядом с шагом</strong><span>Ссылка ведёт на текст нормы, на которой держится шаг.</span></div></li>
+            <li class="reveal" data-pin="4"><b>4</b><div><strong>Результат можно унести</strong><span>Ссылка на расчёт, итог текстом, картинка или PDF.</span></div></li>
+            <li class="reveal" data-pin="5"><b>5</b><div><strong>История и профиль в браузере</strong><span>Прошлые расчёты и зарплата запоминаются без аккаунта.</span></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Тёмная и светлая -->
+    <section class="tr-sec" id="themes">
+      <div class="container">
+        <div class="tr-head tr-head--row">
+          <div>
+            <span class="tr-num reveal">05</span>
+            <h2 class="tr-h2 reveal">Тёмная и светлая тема</h2>
+          </div>
+          <div class="tr-theme-btns reveal" data-theme-btns>
+            <button type="button" data-to="100" aria-pressed="true"><svg class="icon"><use href="#i-moon"/></svg>Тёмная</button>
+            <button type="button" data-to="0" aria-pressed="false"><svg class="icon"><use href="#i-sun"/></svg>Светлая</button>
+          </div>
+        </div>
+        <div class="tr-cmp reveal" data-cmp style="--pos:42%">
+          <img src="images/tochniy-raschet/home-light.webp" alt="Главная страница в светлой теме" width="1440" height="900" loading="lazy">
+          <img class="tr-cmp__top" src="images/tochniy-raschet/home-desktop-first.webp" alt="Главная страница в тёмной теме" width="1440" height="900" loading="lazy">
+          <span class="tr-cmp__line" aria-hidden="true"></span>
+          <span class="tr-cmp__handle" aria-hidden="true"><svg class="icon"><use href="#i-moon"/></svg><svg class="icon"><use href="#i-sun"/></svg></span>
+          <input class="tr-cmp__range" type="range" min="0" max="100" value="42" aria-label="Граница между тёмной и светлой темой">
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 Экраны -->
+    <section class="tr-sec tr-sec--tint" id="screens">
+      <div class="container">
+        <div class="tr-head">
+          <span class="tr-num reveal">06</span>
+          <h2 class="tr-h2 reveal">На ноутбуке, планшете <em>и в телефоне</em></h2>
+          <p class="tr-sub reveal">Одна вёрстка под все размеры: на телефоне меню прячется в бургер, поля встают в столбик, ползунки остаются удобными для пальца.</p>
+        </div>
+
+        <div class="tr-stage" data-stage aria-hidden="true">
+          <div class="tr-laptop"><div class="tr-laptop__screen"><img src="images/tochniy-raschet/uvolnenie-desktop-first.webp" alt="" width="1440" height="900" loading="lazy"></div><div class="tr-laptop__base"></div></div>
+          <div class="tr-tab"><img src="images/tochniy-raschet/uvolnenie-tablet-first.webp" alt="" width="820" height="1180" loading="lazy"></div>
+          <div class="tr-ph"><img src="images/tochniy-raschet/uvolnenie-mobile-first.webp" alt="" width="780" height="1688" loading="lazy"></div>
         </div>
 
         <div class="tr-scr" data-screens>
@@ -310,13 +484,12 @@
               <button type="button" role="tab" aria-selected="false" data-device="tablet"><svg class="icon"><use href="#i-tablet"/></svg>Планшет</button>
               <button type="button" role="tab" aria-selected="false" data-device="mobile"><svg class="icon"><use href="#i-phone"/></svg>Телефон</button>
             </div>
-            <button type="button" class="tr-play" data-play aria-pressed="false"><svg class="icon"><use href="#i-play"/></svg><span>Пролистать</span></button>
+            <button type="button" class="tr-autoplay" data-play aria-pressed="false"><svg class="icon"><use href="#i-play"/></svg><span>Пролистать</span></button>
           </div>
-
           <div class="tr-scr__stage">
             <figure class="tr-frame is-desktop" data-frame>
               <div class="tr-win__bar"><span class="tr-win__dots"><i></i><i></i><i></i></span><span class="tr-win__url" data-frame-url>ТочныйРасчёт · Главная</span></div>
-              <div class="tr-frame__view" data-view tabindex="0" aria-label="Страница сайта, можно прокручивать">
+              <div class="tr-frame__view" data-view tabindex="0" aria-label="Страница сайта целиком, можно прокручивать">
                 <img data-frame-img src="images/tochniy-raschet/home-desktop-full.webp" alt="Главная страница сайта на ПК" width="1440" height="2716" loading="lazy">
               </div>
             </figure>
@@ -325,60 +498,84 @@
       </div>
     </section>
 
-    <!-- 05 Стек -->
+    <!-- Карточки для соцсетей -->
+    <section class="tr-og" aria-label="Карточки для соцсетей" data-pausable>
+      <div class="container tr-og__head">
+        <p class="reveal"><b>Каждая ссылка с картинкой.</b> Сайт сам рисует карточку для мессенджеров и соцсетей под каждую страницу. Ниже настоящие, все восемнадцать.</p>
+      </div>
+      <div class="tr-og__rail"><div class="tr-og__track"><img src="images/tochniy-raschet/og/home.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/ndfl.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/oklad-iz-zarplaty-na-ruki.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/trudovoy-dogovor-vs-samozanyatost.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/otpusknye.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/kompensaciya-otpuska.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/vykhodnoe-posobie.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/vyplaty-pri-sokraschenii.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/bolnichnyy.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/bolnichnyy-po-uhodu.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/alimenty.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/dekretnye.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/vyplaty-v-dekrete.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/detskie-vychety.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/peni.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/ispolnitelskiy-sbor.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/shtraf-gibdd.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/ipoteka-dosrochnoe-pogashenie.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/home.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/ndfl.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/oklad-iz-zarplaty-na-ruki.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/trudovoy-dogovor-vs-samozanyatost.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/otpusknye.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/kompensaciya-otpuska.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/vykhodnoe-posobie.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/vyplaty-pri-sokraschenii.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/bolnichnyy.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/bolnichnyy-po-uhodu.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/alimenty.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/dekretnye.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/vyplaty-v-dekrete.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/detskie-vychety.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/peni.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/ispolnitelskiy-sbor.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/shtraf-gibdd.webp" alt="" width="600" height="315" loading="lazy" decoding="async"><img src="images/tochniy-raschet/og/ipoteka-dosrochnoe-pogashenie.webp" alt="" width="600" height="315" loading="lazy" decoding="async"></div></div>
+    </section>
+
+    <!-- 07 Стек -->
     <section class="tr-sec" id="stack">
-      <div class="container tr-split">
+      <div class="container">
         <div class="tr-head">
-          <span class="tr-num reveal">05</span>
-          <h2 class="tr-h2 reveal">Как это сделано</h2>
-          <p class="tr-sub reveal">Только то, что есть в коде проекта.</p>
+          <span class="tr-num reveal">07</span>
+          <h2 class="tr-h2 reveal">Как это <em>устроено</em></h2>
+          <p class="tr-sub reveal">Только то, что есть в коде. Формулы живут отдельно от экрана, поэтому одна и та же функция считает в форме, в примере на странице и в проверочном скрипте.</p>
         </div>
-        <dl class="tr-spec reveal">
-          <div><dt>Каркас</dt><dd>Next.js 16 (App Router), React 19, TypeScript. Страницы собираются заранее, поэтому открываются мгновенно.</dd></div>
-          <div><dt>Стили</dt><dd>Tailwind CSS 4, тёмная и светлая темы, шрифт Inter.</dd></div>
-          <div><dt>Расчёты</dt><dd>Чистые функции без привязки к экрану. Одни и те же формулы работают в форме, в примере на странице и в проверочных скриптах.</dd></div>
-          <div><dt>Формы</dt><dd>Один общий компонент для всех калькуляторов: поля, проверка, пересчёт на лету, разбор по шагам, история, ссылка на расчёт, картинка и PDF.</dd></div>
-          <div><dt>Данные</dt><dd>История расчётов и профиль хранятся только в браузере. Аккаунта и базы данных нет.</dd></div>
-          <div><dt>Поиск</dt><dd>У каждого калькулятора свой адрес, описание, картинка для превью и запись в карте сайта.</dd></div>
-          <div><dt>Обратная связь</dt><dd>Кнопка «Сообщить об ошибке» в углу каждой страницы. Это единственный серверный маршрут: письмо уходит через nodemailer.</dd></div>
-        </dl>
+
+        <div class="tr-arch reveal">
+          <div class="tr-arch__core">
+            <span>lib/calculators</span>
+            <strong>Формулы: чистые функции</strong>
+            <small>по одному набору на калькулятор, без привязки к React</small>
+          </div>
+          <div class="tr-arch__cols">
+            <div class="tr-arch__col">
+              <h3>Форма калькулятора</h3>
+              <p>Один общий компонент на все 17</p>
+              <ul><li>пересчёт на лету</li><li>разбор по шагам</li><li>ссылка с введёнными данными</li><li>картинка и PDF</li><li>история и профиль в браузере</li></ul>
+            </div>
+            <div class="tr-arch__col">
+              <h3>Страница</h3>
+              <p>Собирается заранее, Next.js 16</p>
+              <ul><li>пример расчёта и вопросы</li><li>своя карточка для соцсетей</li><li>запись в карте сайта</li><li>тёмная и светлая тема</li></ul>
+            </div>
+            <div class="tr-arch__col">
+              <h3>Проверка</h3>
+              <p>Скрипт против опубликованных примеров</p>
+              <ul><li>формулы старых калькуляторов сверены с их же примерами</li><li>расхождения правятся до публикации</li></ul>
+            </div>
+          </div>
+          <div class="tr-arch__side"><span>API</span>Единственный серверный маршрут: кнопка «Сообщить об ошибке» отправляет письмо через nodemailer</div>
+        </div>
+
+        <ul class="tr-chips reveal">
+          <li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS 4</li><li>Inter</li><li>nodemailer</li><li>ESLint</li><li>Prettier</li>
+        </ul>
       </div>
     </section>
 
-    <!-- 06 Путь -->
+    <!-- 08 Путь -->
     <section class="tr-sec tr-sec--tint" id="path">
       <div class="container">
         <div class="tr-head">
-          <span class="tr-num reveal">06</span>
-          <h2 class="tr-h2 reveal">Как дорабатывалось</h2>
+          <span class="tr-num reveal">08</span>
+          <h2 class="tr-h2 reveal">Как <em>дорабатывалось</em></h2>
           <p class="tr-sub reveal">Сценарий увольнения переписывался несколько раз. Каждый раз причиной было замечание при проверке вручную.</p>
         </div>
 
-        <ol class="tr-eps">
-          <li class="reveal">
-            <span class="tr-eps__n">1</span>
-            <p class="tr-eps__q">Где сценарий, где я ставлю дату трудоустройства, дату увольнения и зарплату?</p>
-            <p class="tr-eps__a">Первая версия принимала суммы руками. Добавил в общий компонент поле «дата», и полные месяцы стали считаться по датам.</p>
+        <ol class="tr-chat">
+          <li class="tr-chat__pair">
+            <div class="tr-msg tr-msg--q reveal"><span class="tr-msg__who">Проверка</span><p>Где сценарий, где я ставлю дату трудоустройства, дату увольнения и зарплату?</p></div>
+            <div class="tr-msg tr-msg--a reveal"><span class="tr-msg__who">Исправление</span><p>Первая версия принимала суммы руками. В общий компонент форм добавлено поле «дата», полные месяцы теперь считаются по датам.</p></div>
           </li>
-          <li class="reveal">
-            <span class="tr-eps__n">2</span>
-            <p class="tr-eps__q">А как же увольнение по собственному желанию?</p>
-            <p class="tr-eps__a">Пособие при таком увольнении не гарантировано, а форма считала его всегда. Появился переключатель причины, во второй вкладке считается только компенсация за отпуск.</p>
+          <li class="tr-chat__pair">
+            <div class="tr-msg tr-msg--q reveal"><span class="tr-msg__who">Проверка</span><p>А как же увольнение по собственному желанию?</p></div>
+            <div class="tr-msg tr-msg--a reveal"><span class="tr-msg__who">Исправление</span><p>Пособие в этом случае не гарантировано, а форма считала его всегда. Появился переключатель причины: во второй вкладке только компенсация за отпуск.</p></div>
           </li>
-          <li class="reveal">
-            <span class="tr-eps__n">3</span>
-            <p class="tr-eps__q">А если я три года не брал отпуск?</p>
-            <p class="tr-eps__a">Это оказалась реальная ошибка: расчёт копил не больше 12 месяцев, хотя неиспользованные дни не сгорают. Исправил формулу и нашёл тот же предел в соседнем калькуляторе.</p>
+          <li class="tr-chat__pair">
+            <div class="tr-msg tr-msg--q reveal"><span class="tr-msg__who">Проверка</span><p>А если я три года не брал отпуск?</p></div>
+            <div class="tr-msg tr-msg--a reveal"><span class="tr-msg__who">Исправление</span><p>Реальная ошибка: расчёт копил не больше 12 месяцев, хотя неиспользованные дни не сгорают. Формула исправлена, тот же предел найден и убран в соседнем калькуляторе.</p></div>
           </li>
-          <li class="reveal">
-            <span class="tr-eps__n">4</span>
-            <p class="tr-eps__q">Проверить весь сайт на ошибки.</p>
-            <p class="tr-eps__a">Нашлось шесть багов, среди них меню на телефоне, уезжавшее за край экрана, и неверное число в примере на странице. Формулы старых калькуляторов прогнал скриптом против их собственных примеров: цифры сошлись.</p>
+          <li class="tr-chat__pair">
+            <div class="tr-msg tr-msg--q reveal"><span class="tr-msg__who">Проверка</span><p>Пройтись по всему сайту и найти ошибки.</p></div>
+            <div class="tr-msg tr-msg--a reveal"><span class="tr-msg__who">Исправление</span><p>Шесть багов, среди них меню на телефоне, уезжавшее за край экрана, и неверное число в примере. Формулы прогнаны скриптом против примеров на страницах: цифры сошлись.</p></div>
           </li>
-          <li class="reveal">
-            <span class="tr-eps__n">5</span>
-            <p class="tr-eps__q">Три новые функции получились не такими.</p>
-            <p class="tr-eps__a">Печать, общий дашборд и генератор заявлений я убрал целиком и сделал заново по-другому. Сегодняшние «Мои расчёты» и сохранение в PDF появились уже после этого.</p>
+          <li class="tr-chat__pair">
+            <div class="tr-msg tr-msg--q reveal"><span class="tr-msg__who">Проверка</span><p>Три новые функции получились не такими.</p></div>
+            <div class="tr-msg tr-msg--a reveal"><span class="tr-msg__who">Исправление</span><p>Печать, дашборд и генератор заявлений убраны целиком и сделаны заново по-другому. Сегодняшние «Мои расчёты» и PDF появились уже после этого.</p></div>
           </li>
         </ol>
       </div>
@@ -387,7 +584,7 @@
     <!-- Призыв -->
     <section class="tr-cta">
       <div class="container tr-cta__inner">
-        <h2 class="reveal">Нужен сервис, где цифры можно проверить?</h2>
+        <h2 class="reveal">Нужен сервис, где цифры <em>можно проверить?</em></h2>
         <p class="reveal">Напишите, что нужно считать и по каким правилам. Отвечу, как это собрать и за какое время.</p>
         <div class="tr-actions reveal">
           <a class="tr-btn tr-btn--main" href="index.html#contacts">Обсудить задачу <svg class="icon"><use href="#i-send"/></svg></a>
@@ -411,6 +608,18 @@
       <span class="tr-foot__meta">© <span data-year>2026</span> Роман Жураковский · Кейс · Web</span>
     </div>
   </footer>
+
+  <!-- Просмотр экрана калькулятора -->
+  <div class="tr-lb" data-lb hidden role="dialog" aria-modal="true" aria-label="Просмотр экрана">
+    <button type="button" class="tr-lb__backdrop" data-lb-close aria-label="Закрыть"></button>
+    <figure class="tr-lb__fig">
+      <img data-lb-img src="" alt="" width="1200" height="750">
+      <figcaption><span data-lb-cat></span><strong data-lb-title></strong><em data-lb-count></em></figcaption>
+    </figure>
+    <button type="button" class="tr-lb__nav tr-lb__nav--prev" data-lb-prev aria-label="Предыдущий"><svg class="icon"><use href="#i-arrow-left"/></svg></button>
+    <button type="button" class="tr-lb__nav tr-lb__nav--next" data-lb-next aria-label="Следующий"><svg class="icon"><use href="#i-arrow-right"/></svg></button>
+    <button type="button" class="tr-lb__close" data-lb-close aria-label="Закрыть"><svg class="icon"><use href="#i-x"/></svg></button>
+  </div>
 
   <script src="js/main.js" defer></script>
   <script src="js/tr.js" defer></script>
